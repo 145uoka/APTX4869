@@ -1,0 +1,26 @@
+.demo01 {
+	width: 222px;
+	height: 64px;
+	background: url("../../img/btn_login_base.png") no-repeat;
+	/* ロールオーバー時のチラつき防止 */
+}
+
+.demo01 a {
+	width: 222px;
+	height: 64px;
+	background: url("../../img/btn_login_base.png") no-repeat;
+	display: block;
+	text-indent: -9999px;
+}
+
+.demo01 a:hover {
+	width: 222px;
+	height: 64px;
+	background-image: url("../../img/btn_login_hover.png");
+}
+
+.demo01 a:active {
+	width: 222px;
+	height: 64px;
+	background-image: url("../../img/btn_login_press.png");
+}
