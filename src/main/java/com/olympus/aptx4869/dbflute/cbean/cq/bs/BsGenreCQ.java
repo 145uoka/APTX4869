@@ -81,14 +81,14 @@ public class BsGenreCQ extends AbstractBsGenreCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * genre_id: {PK, NotNull, int4(10)}
+     * genre_id: {PK, ID, NotNull, serial(10)}
      * @return this. (NotNull)
      */
     public BsGenreCQ addOrderBy_GenreId_Asc() { regOBA("genre_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * genre_id: {PK, NotNull, int4(10)}
+     * genre_id: {PK, ID, NotNull, serial(10)}
      * @return this. (NotNull)
      */
     public BsGenreCQ addOrderBy_GenreId_Desc() { regOBD("genre_id"); return this; }

@@ -20,7 +20,7 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     money_reception_id, user_id, genre_id, money_reception_flag, amount, money_reception_date, supplement, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
- *     
+ *     money_reception_money_reception_id_seq
  *
  * [identity]
  *     
@@ -42,7 +42,7 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer moneyReceptionId = entity.getMoneyReceptionId();
+ * Long moneyReceptionId = entity.getMoneyReceptionId();
  * Integer userId = entity.getUserId();
  * Integer genreId = entity.getGenreId();
  * Boolean moneyReceptionFlag = entity.getMoneyReceptionFlag();
@@ -77,8 +77,8 @@ public abstract class BsMoneyReception extends AbstractEntity implements DomainE
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** money_reception_id: {PK, NotNull, int4(10)} */
-    protected Integer _moneyReceptionId;
+    /** money_reception_id: {PK, ID, NotNull, bigserial(19)} */
+    protected Long _moneyReceptionId;
 
     /** (ユーザーID)user_id: {NotNull, int4(10)} */
     protected Integer _userId;
@@ -200,19 +200,19 @@ public abstract class BsMoneyReception extends AbstractEntity implements DomainE
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] money_reception_id: {PK, NotNull, int4(10)} <br>
+     * [get] money_reception_id: {PK, ID, NotNull, bigserial(19)} <br>
      * @return The value of the column 'money_reception_id'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getMoneyReceptionId() {
+    public Long getMoneyReceptionId() {
         checkSpecifiedProperty("moneyReceptionId");
         return _moneyReceptionId;
     }
 
     /**
-     * [set] money_reception_id: {PK, NotNull, int4(10)} <br>
+     * [set] money_reception_id: {PK, ID, NotNull, bigserial(19)} <br>
      * @param moneyReceptionId The value of the column 'money_reception_id'. (basically NotNull if update: for the constraint)
      */
-    public void setMoneyReceptionId(Integer moneyReceptionId) {
+    public void setMoneyReceptionId(Long moneyReceptionId) {
         registerModifiedProperty("moneyReceptionId");
         _moneyReceptionId = moneyReceptionId;
     }

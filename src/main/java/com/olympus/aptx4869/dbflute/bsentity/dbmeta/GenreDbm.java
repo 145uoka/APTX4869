@@ -67,14 +67,14 @@ public class GenreDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnGenreId = cci("genre_id", "genre_id", null, null, Integer.class, "genreId", null, true, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnGenreId = cci("genre_id", "genre_id", null, null, Integer.class, "genreId", null, true, true, true, "serial", 10, 0, null, "nextval('genre_genre_id_seq'::regclass)", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnGenreName = cci("genre_name", "genre_name", null, null, String.class, "genreName", null, false, false, true, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnDeleteFlag = cci("delete_flag", "delete_flag", null, "削除フラグ", Boolean.class, "deleteFlag", null, false, false, true, "bool", 1, 0, null, "false", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, "登録日時", java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "timestamp", 26, 3, null, "now()", true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, "更新日時", java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 26, 3, null, null, true, null, null, null, null, null, false);
 
     /**
-     * genre_id: {PK, NotNull, int4(10)}
+     * genre_id: {PK, ID, NotNull, serial(10)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnGenreId() { return _columnGenreId; }
@@ -137,6 +137,10 @@ public class GenreDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                        Various Info
     //                                                                        ============
+    public boolean hasSequence() { return true; }
+    public String getSequenceName() { return "genre_genre_id_seq"; }
+    public Integer getSequenceIncrementSize() { return 1; }
+    public Integer getSequenceCacheSize() { return null; }
     public boolean hasCommonColumn() { return true; }
     public List<ColumnInfo> getCommonColumnInfoList()
     { return newArrayList(columnRegisterDatetime(), columnUpdateDatetime()); }

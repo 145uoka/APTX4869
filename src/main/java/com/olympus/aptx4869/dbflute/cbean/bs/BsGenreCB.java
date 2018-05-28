@@ -80,7 +80,7 @@ public class BsGenreCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param genreId : PK, NotNull, int4(10). (NotNull)
+     * @param genreId : PK, ID, NotNull, serial(10). (NotNull)
      * @return this. (NotNull)
      */
     public GenreCB acceptPK(Integer genreId) {
@@ -283,7 +283,7 @@ public class BsGenreCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * genre_id: {PK, NotNull, int4(10)}
+         * genre_id: {PK, ID, NotNull, serial(10)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnGenreId() { return doColumn("genre_id"); }

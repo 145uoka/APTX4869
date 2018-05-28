@@ -80,10 +80,10 @@ public class BsMoneyReceptionCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param moneyReceptionId : PK, NotNull, int4(10). (NotNull)
+     * @param moneyReceptionId : PK, ID, NotNull, bigserial(19). (NotNull)
      * @return this. (NotNull)
      */
-    public MoneyReceptionCB acceptPK(Integer moneyReceptionId) {
+    public MoneyReceptionCB acceptPK(Long moneyReceptionId) {
         assertObjectNotNull("moneyReceptionId", moneyReceptionId);
         BsMoneyReceptionCB cb = this;
         cb.query().setMoneyReceptionId_Equal(moneyReceptionId);
@@ -283,7 +283,7 @@ public class BsMoneyReceptionCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * money_reception_id: {PK, NotNull, int4(10)}
+         * money_reception_id: {PK, ID, NotNull, bigserial(19)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnMoneyReceptionId() { return doColumn("money_reception_id"); }

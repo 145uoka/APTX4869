@@ -29,7 +29,7 @@ import com.olympus.aptx4869.dbflute.cbean.*;
  *     money_reception_id, user_id, genre_id, money_reception_flag, amount, money_reception_date, supplement, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
- *     
+ *     money_reception_money_reception_id_seq
  *
  * [identity]
  *     
@@ -157,29 +157,29 @@ public abstract class BsMoneyReceptionBhv extends AbstractBehaviorWritable<Money
 
     /**
      * Select the entity by the primary-key value.
-     * @param moneyReceptionId : PK, NotNull, int4(10). (NotNull)
+     * @param moneyReceptionId : PK, ID, NotNull, bigserial(19). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<MoneyReception> selectByPK(Integer moneyReceptionId) {
+    public OptionalEntity<MoneyReception> selectByPK(Long moneyReceptionId) {
         return facadeSelectByPK(moneyReceptionId);
     }
 
-    protected OptionalEntity<MoneyReception> facadeSelectByPK(Integer moneyReceptionId) {
+    protected OptionalEntity<MoneyReception> facadeSelectByPK(Long moneyReceptionId) {
         return doSelectOptionalByPK(moneyReceptionId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MoneyReception> ENTITY doSelectByPK(Integer moneyReceptionId, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends MoneyReception> ENTITY doSelectByPK(Long moneyReceptionId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(moneyReceptionId), tp);
     }
 
-    protected <ENTITY extends MoneyReception> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer moneyReceptionId, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends MoneyReception> OptionalEntity<ENTITY> doSelectOptionalByPK(Long moneyReceptionId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(moneyReceptionId, tp), moneyReceptionId);
     }
 
-    protected MoneyReceptionCB xprepareCBAsPK(Integer moneyReceptionId) {
+    protected MoneyReceptionCB xprepareCBAsPK(Long moneyReceptionId) {
         assertObjectNotNull("moneyReceptionId", moneyReceptionId);
         return newConditionBean().acceptPK(moneyReceptionId);
     }
@@ -280,10 +280,27 @@ public abstract class BsMoneyReceptionBhv extends AbstractBehaviorWritable<Money
     // ===================================================================================
     //                                                                            Sequence
     //                                                                            ========
+    /**
+     * Select the next value as sequence. <br>
+     * This method is called when insert() and set to primary-key automatically.
+     * So you don't need to call this as long as you need to get next value before insert().
+     * @return The next value. (NotNull)
+     */
+    public Long selectNextVal() {
+        return facadeSelectNextVal();
+    }
+
+    protected Long facadeSelectNextVal() {
+        return doSelectNextVal(Long.class);
+    }
+
+    protected <RESULT> RESULT doSelectNextVal(Class<RESULT> tp) {
+        return delegateSelectNextVal(tp);
+    }
+
     @Override
     protected Number doReadNextVal() {
-        String msg = "This table is NOT related to sequence: " + asTableDbName();
-        throw new UnsupportedOperationException(msg);
+        return facadeSelectNextVal();
     }
 
     // ===================================================================================
@@ -370,7 +387,7 @@ public abstract class BsMoneyReceptionBhv extends AbstractBehaviorWritable<Money
      * @param moneyReceptionList The list of moneyReception. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractMoneyReceptionIdList(List<MoneyReception> moneyReceptionList)
+    public List<Long> extractMoneyReceptionIdList(List<MoneyReception> moneyReceptionList)
     { return helpExtractListInternally(moneyReceptionList, "moneyReceptionId"); }
 
     // ===================================================================================

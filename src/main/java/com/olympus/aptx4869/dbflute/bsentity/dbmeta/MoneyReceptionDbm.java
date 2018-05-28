@@ -42,7 +42,7 @@ public class MoneyReceptionDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((MoneyReception)et).getMoneyReceptionId(), (et, vl) -> ((MoneyReception)et).setMoneyReceptionId(cti(vl)), "moneyReceptionId");
+        setupEpg(_epgMap, et -> ((MoneyReception)et).getMoneyReceptionId(), (et, vl) -> ((MoneyReception)et).setMoneyReceptionId(ctl(vl)), "moneyReceptionId");
         setupEpg(_epgMap, et -> ((MoneyReception)et).getUserId(), (et, vl) -> ((MoneyReception)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((MoneyReception)et).getGenreId(), (et, vl) -> ((MoneyReception)et).setGenreId(cti(vl)), "genreId");
         setupEpg(_epgMap, et -> ((MoneyReception)et).getMoneyReceptionFlag(), (et, vl) -> ((MoneyReception)et).setMoneyReceptionFlag((Boolean)vl), "moneyReceptionFlag");
@@ -72,7 +72,7 @@ public class MoneyReceptionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMoneyReceptionId = cci("money_reception_id", "money_reception_id", null, null, Integer.class, "moneyReceptionId", null, true, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMoneyReceptionId = cci("money_reception_id", "money_reception_id", null, null, Long.class, "moneyReceptionId", null, true, true, true, "bigserial", 19, 0, null, "nextval('money_reception_money_reception_id_seq'::regclass)", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnGenreId = cci("genre_id", "genre_id", null, null, Integer.class, "genreId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMoneyReceptionFlag = cci("money_reception_flag", "money_reception_flag", null, null, Boolean.class, "moneyReceptionFlag", null, false, false, true, "bool", 1, 0, null, null, false, null, null, null, null, null, false);
@@ -84,7 +84,7 @@ public class MoneyReceptionDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, "更新日時", java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 26, 3, null, null, true, null, null, null, null, null, false);
 
     /**
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnMoneyReceptionId() { return _columnMoneyReceptionId; }
@@ -177,6 +177,10 @@ public class MoneyReceptionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                        Various Info
     //                                                                        ============
+    public boolean hasSequence() { return true; }
+    public String getSequenceName() { return "money_reception_money_reception_id_seq"; }
+    public Integer getSequenceIncrementSize() { return 1; }
+    public Integer getSequenceCacheSize() { return null; }
     public boolean hasCommonColumn() { return true; }
     public List<ColumnInfo> getCommonColumnInfoList()
     { return newArrayList(columnRegisterDatetime(), columnUpdateDatetime()); }

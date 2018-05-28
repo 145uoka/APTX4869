@@ -20,7 +20,7 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     genre_id, genre_name, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
- *     
+ *     genre_genre_id_seq
  *
  * [identity]
  *     
@@ -67,7 +67,7 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** genre_id: {PK, NotNull, int4(10)} */
+    /** genre_id: {PK, ID, NotNull, serial(10)} */
     protected Integer _genreId;
 
     /** genre_name: {NotNull, text(2147483647)} */
@@ -170,7 +170,7 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] genre_id: {PK, NotNull, int4(10)} <br>
+     * [get] genre_id: {PK, ID, NotNull, serial(10)} <br>
      * @return The value of the column 'genre_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getGenreId() {
@@ -179,7 +179,7 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
     }
 
     /**
-     * [set] genre_id: {PK, NotNull, int4(10)} <br>
+     * [set] genre_id: {PK, ID, NotNull, serial(10)} <br>
      * @param genreId The value of the column 'genre_id'. (basically NotNull if update: for the constraint)
      */
     public void setGenreId(Integer genreId) {

@@ -457,14 +457,14 @@ genre
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="genre_pkey">o</td>
-		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell" title="genre_pkey :: sequence=genre_genre_id_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">*</td>
 		<td class="aliascell"></td>
 		<td class=" columnnamecell" id="genre_genre_id">genre_id</td>
-		<td class="typecell">int4</td>
+		<td class="typecell">serial</td>
 		<td class="sizecell"> 10 </td>
 		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
@@ -581,22 +581,22 @@ money_reception
 	</thead>
 	<tr>
 		<td class="rownumcell">1</td>
-		<td class="flgcell" title="money_reception_pkey">o</td>
-		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell" title="money_reception_pkey :: sequence=money_reception_money_reception_id_seq:minimum(1),maximum(9223372036854775807),increment(1)">o</td>
+		<td class="flgcell">o</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">*</td>
 		<td class="aliascell"></td>
 		<td class=" columnnamecell" id="money_reception_money_reception_id">money_reception_id</td>
-		<td class="typecell">int4</td>
-		<td class="sizecell"> 10 </td>
+		<td class="typecell">bigserial</td>
+		<td class="sizecell"> 19 </td>
 		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">moneyReceptionId</td>
-		<td class="subcell">Integer</td>
+		<td class="subcell">Long</td>
 	</tr>
 	<tr>
 		<td class="rownumcell">2</td>
