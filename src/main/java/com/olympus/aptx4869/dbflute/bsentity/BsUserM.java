@@ -17,7 +17,7 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, line_id, line_name, line_email, first_name, last_name, handle_name, last_login_datetime, delete_flag, register_datetime, update_datetime
+ *     user_id, line_id, line_email, line_name, first_name, last_name, handle_name, last_login_datetime, settlement_date, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
  *     user_m_user_id_seq
@@ -44,23 +44,25 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer userId = entity.getUserId();
  * String lineId = entity.getLineId();
- * String lineName = entity.getLineName();
  * String lineEmail = entity.getLineEmail();
+ * String lineName = entity.getLineName();
  * String firstName = entity.getFirstName();
  * String lastName = entity.getLastName();
  * String handleName = entity.getHandleName();
  * java.time.LocalDateTime lastLoginDatetime = entity.getLastLoginDatetime();
+ * Integer settlementDate = entity.getSettlementDate();
  * Boolean deleteFlag = entity.getDeleteFlag();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * entity.setUserId(userId);
  * entity.setLineId(lineId);
- * entity.setLineName(lineName);
  * entity.setLineEmail(lineEmail);
+ * entity.setLineName(lineName);
  * entity.setFirstName(firstName);
  * entity.setLastName(lastName);
  * entity.setHandleName(handleName);
  * entity.setLastLoginDatetime(lastLoginDatetime);
+ * entity.setSettlementDate(settlementDate);
  * entity.setDeleteFlag(deleteFlag);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setUpdateDatetime(updateDatetime);
@@ -85,11 +87,11 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
     /** (LINE_ID)line_id: {text(2147483647)} */
     protected String _lineId;
 
-    /** (LINE表示名)line_name: {text(2147483647)} */
-    protected String _lineName;
-
     /** (LINEのEmail)line_email: {text(2147483647)} */
     protected String _lineEmail;
+
+    /** (LINE表示名)line_name: {text(2147483647)} */
+    protected String _lineName;
 
     /** (名)first_name: {text(2147483647)} */
     protected String _firstName;
@@ -102,6 +104,9 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
 
     /** (最終ログイン日時)last_login_datetime: {timestamp(26, 3), default=[now()]} */
     protected java.time.LocalDateTime _lastLoginDatetime;
+
+    /** settlement_date: {int4(10)} */
+    protected Integer _settlementDate;
 
     /** (削除フラグ)delete_flag: {NotNull, bool(1), default=[false]} */
     protected Boolean _deleteFlag;
@@ -176,12 +181,13 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_lineId));
-        sb.append(dm).append(xfND(_lineName));
         sb.append(dm).append(xfND(_lineEmail));
+        sb.append(dm).append(xfND(_lineName));
         sb.append(dm).append(xfND(_firstName));
         sb.append(dm).append(xfND(_lastName));
         sb.append(dm).append(xfND(_handleName));
         sb.append(dm).append(xfND(_lastLoginDatetime));
+        sb.append(dm).append(xfND(_settlementDate));
         sb.append(dm).append(xfND(_deleteFlag));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -242,24 +248,6 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
     }
 
     /**
-     * [get] (LINE表示名)line_name: {text(2147483647)} <br>
-     * @return The value of the column 'line_name'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getLineName() {
-        checkSpecifiedProperty("lineName");
-        return _lineName;
-    }
-
-    /**
-     * [set] (LINE表示名)line_name: {text(2147483647)} <br>
-     * @param lineName The value of the column 'line_name'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setLineName(String lineName) {
-        registerModifiedProperty("lineName");
-        _lineName = lineName;
-    }
-
-    /**
      * [get] (LINEのEmail)line_email: {text(2147483647)} <br>
      * @return The value of the column 'line_email'. (NullAllowed even if selected: for no constraint)
      */
@@ -275,6 +263,24 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
     public void setLineEmail(String lineEmail) {
         registerModifiedProperty("lineEmail");
         _lineEmail = lineEmail;
+    }
+
+    /**
+     * [get] (LINE表示名)line_name: {text(2147483647)} <br>
+     * @return The value of the column 'line_name'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getLineName() {
+        checkSpecifiedProperty("lineName");
+        return _lineName;
+    }
+
+    /**
+     * [set] (LINE表示名)line_name: {text(2147483647)} <br>
+     * @param lineName The value of the column 'line_name'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setLineName(String lineName) {
+        registerModifiedProperty("lineName");
+        _lineName = lineName;
     }
 
     /**
@@ -347,6 +353,24 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
     public void setLastLoginDatetime(java.time.LocalDateTime lastLoginDatetime) {
         registerModifiedProperty("lastLoginDatetime");
         _lastLoginDatetime = lastLoginDatetime;
+    }
+
+    /**
+     * [get] settlement_date: {int4(10)} <br>
+     * @return The value of the column 'settlement_date'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getSettlementDate() {
+        checkSpecifiedProperty("settlementDate");
+        return _settlementDate;
+    }
+
+    /**
+     * [set] settlement_date: {int4(10)} <br>
+     * @param settlementDate The value of the column 'settlement_date'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setSettlementDate(Integer settlementDate) {
+        registerModifiedProperty("settlementDate");
+        _settlementDate = settlementDate;
     }
 
     /**

@@ -113,26 +113,6 @@ public class BsUserMCQ extends AbstractBsUserMCQ {
      */
     public BsUserMCQ addOrderBy_LineId_Desc() { regOBD("line_id"); return this; }
 
-    protected ConditionValue _lineName;
-    public ConditionValue xdfgetLineName()
-    { if (_lineName == null) { _lineName = nCV(); }
-      return _lineName; }
-    protected ConditionValue xgetCValueLineName() { return xdfgetLineName(); }
-
-    /**
-     * Add order-by as ascend. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsUserMCQ addOrderBy_LineName_Asc() { regOBA("line_name"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsUserMCQ addOrderBy_LineName_Desc() { regOBD("line_name"); return this; }
-
     protected ConditionValue _lineEmail;
     public ConditionValue xdfgetLineEmail()
     { if (_lineEmail == null) { _lineEmail = nCV(); }
@@ -152,6 +132,26 @@ public class BsUserMCQ extends AbstractBsUserMCQ {
      * @return this. (NotNull)
      */
     public BsUserMCQ addOrderBy_LineEmail_Desc() { regOBD("line_email"); return this; }
+
+    protected ConditionValue _lineName;
+    public ConditionValue xdfgetLineName()
+    { if (_lineName == null) { _lineName = nCV(); }
+      return _lineName; }
+    protected ConditionValue xgetCValueLineName() { return xdfgetLineName(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserMCQ addOrderBy_LineName_Asc() { regOBA("line_name"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @return this. (NotNull)
+     */
+    public BsUserMCQ addOrderBy_LineName_Desc() { regOBD("line_name"); return this; }
 
     protected ConditionValue _firstName;
     public ConditionValue xdfgetFirstName()
@@ -232,6 +232,26 @@ public class BsUserMCQ extends AbstractBsUserMCQ {
      * @return this. (NotNull)
      */
     public BsUserMCQ addOrderBy_LastLoginDatetime_Desc() { regOBD("last_login_datetime"); return this; }
+
+    protected ConditionValue _settlementDate;
+    public ConditionValue xdfgetSettlementDate()
+    { if (_settlementDate == null) { _settlementDate = nCV(); }
+      return _settlementDate; }
+    protected ConditionValue xgetCValueSettlementDate() { return xdfgetSettlementDate(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * settlement_date: {int4(10)}
+     * @return this. (NotNull)
+     */
+    public BsUserMCQ addOrderBy_SettlementDate_Asc() { regOBA("settlement_date"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * settlement_date: {int4(10)}
+     * @return this. (NotNull)
+     */
+    public BsUserMCQ addOrderBy_SettlementDate_Desc() { regOBD("settlement_date"); return this; }
 
     protected ConditionValue _deleteFlag;
     public ConditionValue xdfgetDeleteFlag()

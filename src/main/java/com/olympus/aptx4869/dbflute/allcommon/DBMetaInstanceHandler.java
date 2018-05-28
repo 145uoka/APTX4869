@@ -31,9 +31,13 @@ public class DBMetaInstanceHandler implements DBMetaProvider {
     protected static final Map<String, String> _tableDbNameClassNameMap;
     static {
         final Map<String, String> tmpMap = newHashMap();
+        tmpMap.put("genre", "com.olympus.aptx4869.dbflute.bsentity.dbmeta.GenreDbm");
+        tmpMap.put("money_reception", "com.olympus.aptx4869.dbflute.bsentity.dbmeta.MoneyReceptionDbm");
         tmpMap.put("oauth_property_m", "com.olympus.aptx4869.dbflute.bsentity.dbmeta.OauthPropertyMDbm");
         tmpMap.put("property_m", "com.olympus.aptx4869.dbflute.bsentity.dbmeta.PropertyMDbm");
+        tmpMap.put("regularly_data", "com.olympus.aptx4869.dbflute.bsentity.dbmeta.RegularlyDataDbm");
         tmpMap.put("user_m", "com.olympus.aptx4869.dbflute.bsentity.dbmeta.UserMDbm");
+        tmpMap.put("user_property", "com.olympus.aptx4869.dbflute.bsentity.dbmeta.UserPropertyDbm");
         _tableDbNameClassNameMap = Collections.unmodifiableMap(tmpMap);
     }
 

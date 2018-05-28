@@ -13,7 +13,7 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, line_id, line_name, line_email, first_name, last_name, handle_name, last_login_datetime, delete_flag, register_datetime, update_datetime
+ *     user_id, line_id, line_email, line_name, first_name, last_name, handle_name, last_login_datetime, settlement_date, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
  *     user_m_user_id_seq

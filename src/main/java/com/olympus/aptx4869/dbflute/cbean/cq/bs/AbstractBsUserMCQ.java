@@ -327,159 +327,6 @@ public abstract class AbstractBsUserMCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineName The value of lineName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setLineName_Equal(String lineName) {
-        doSetLineName_Equal(fRES(lineName));
-    }
-
-    protected void doSetLineName_Equal(String lineName) {
-        regLineName(CK_EQ, lineName);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineName The value of lineName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setLineName_NotEqual(String lineName) {
-        doSetLineName_NotEqual(fRES(lineName));
-    }
-
-    protected void doSetLineName_NotEqual(String lineName) {
-        regLineName(CK_NES, lineName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineName The value of lineName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setLineName_GreaterThan(String lineName) {
-        regLineName(CK_GT, fRES(lineName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineName The value of lineName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setLineName_LessThan(String lineName) {
-        regLineName(CK_LT, fRES(lineName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineName The value of lineName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setLineName_GreaterEqual(String lineName) {
-        regLineName(CK_GE, fRES(lineName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineName The value of lineName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setLineName_LessEqual(String lineName) {
-        regLineName(CK_LE, fRES(lineName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineNameList The collection of lineName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setLineName_InScope(Collection<String> lineNameList) {
-        doSetLineName_InScope(lineNameList);
-    }
-
-    protected void doSetLineName_InScope(Collection<String> lineNameList) {
-        regINS(CK_INS, cTL(lineNameList), xgetCValueLineName(), "line_name");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineNameList The collection of lineName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setLineName_NotInScope(Collection<String> lineNameList) {
-        doSetLineName_NotInScope(lineNameList);
-    }
-
-    protected void doSetLineName_NotInScope(Collection<String> lineNameList) {
-        regINS(CK_NINS, cTL(lineNameList), xgetCValueLineName(), "line_name");
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)} <br>
-     * <pre>e.g. setLineName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param lineName The value of lineName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param opLambda The callback for option of like-search. (NotNull)
-     */
-    public void setLineName_LikeSearch(String lineName, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setLineName_LikeSearch(lineName, xcLSOP(opLambda));
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)} <br>
-     * <pre>e.g. setLineName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param lineName The value of lineName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param likeSearchOption The option of like-search. (NotNull)
-     */
-    protected void setLineName_LikeSearch(String lineName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(lineName), xgetCValueLineName(), "line_name", likeSearchOption);
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineName The value of lineName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param opLambda The callback for option of like-search. (NotNull)
-     */
-    public void setLineName_NotLikeSearch(String lineName, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setLineName_NotLikeSearch(lineName, xcLSOP(opLambda));
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @param lineName The value of lineName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
-     */
-    protected void setLineName_NotLikeSearch(String lineName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(lineName), xgetCValueLineName(), "line_name", likeSearchOption);
-    }
-
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     */
-    public void setLineName_IsNull() { regLineName(CK_ISN, DOBJ); }
-
-    /**
-     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     */
-    public void setLineName_IsNullOrEmpty() { regLineName(CK_ISNOE, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * (LINE表示名)line_name: {text(2147483647)}
-     */
-    public void setLineName_IsNotNull() { regLineName(CK_ISNN, DOBJ); }
-
-    protected void regLineName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueLineName(), "line_name"); }
-    protected abstract ConditionValue xgetCValueLineName();
-
-    /**
-     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * (LINEのEmail)line_email: {text(2147483647)}
      * @param lineEmail The value of lineEmail as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
@@ -630,6 +477,159 @@ public abstract class AbstractBsUserMCQ extends AbstractConditionQuery {
 
     protected void regLineEmail(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueLineEmail(), "line_email"); }
     protected abstract ConditionValue xgetCValueLineEmail();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineName The value of lineName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setLineName_Equal(String lineName) {
+        doSetLineName_Equal(fRES(lineName));
+    }
+
+    protected void doSetLineName_Equal(String lineName) {
+        regLineName(CK_EQ, lineName);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineName The value of lineName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setLineName_NotEqual(String lineName) {
+        doSetLineName_NotEqual(fRES(lineName));
+    }
+
+    protected void doSetLineName_NotEqual(String lineName) {
+        regLineName(CK_NES, lineName);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineName The value of lineName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setLineName_GreaterThan(String lineName) {
+        regLineName(CK_GT, fRES(lineName));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineName The value of lineName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setLineName_LessThan(String lineName) {
+        regLineName(CK_LT, fRES(lineName));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineName The value of lineName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setLineName_GreaterEqual(String lineName) {
+        regLineName(CK_GE, fRES(lineName));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineName The value of lineName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setLineName_LessEqual(String lineName) {
+        regLineName(CK_LE, fRES(lineName));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineNameList The collection of lineName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setLineName_InScope(Collection<String> lineNameList) {
+        doSetLineName_InScope(lineNameList);
+    }
+
+    protected void doSetLineName_InScope(Collection<String> lineNameList) {
+        regINS(CK_INS, cTL(lineNameList), xgetCValueLineName(), "line_name");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineNameList The collection of lineName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setLineName_NotInScope(Collection<String> lineNameList) {
+        doSetLineName_NotInScope(lineNameList);
+    }
+
+    protected void doSetLineName_NotInScope(Collection<String> lineNameList) {
+        regINS(CK_NINS, cTL(lineNameList), xgetCValueLineName(), "line_name");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)} <br>
+     * <pre>e.g. setLineName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param lineName The value of lineName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setLineName_LikeSearch(String lineName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setLineName_LikeSearch(lineName, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)} <br>
+     * <pre>e.g. setLineName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param lineName The value of lineName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setLineName_LikeSearch(String lineName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(lineName), xgetCValueLineName(), "line_name", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineName The value of lineName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setLineName_NotLikeSearch(String lineName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setLineName_NotLikeSearch(lineName, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @param lineName The value of lineName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setLineName_NotLikeSearch(String lineName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(lineName), xgetCValueLineName(), "line_name", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     */
+    public void setLineName_IsNull() { regLineName(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     */
+    public void setLineName_IsNullOrEmpty() { regLineName(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * (LINE表示名)line_name: {text(2147483647)}
+     */
+    public void setLineName_IsNotNull() { regLineName(CK_ISNN, DOBJ); }
+
+    protected void regLineName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueLineName(), "line_name"); }
+    protected abstract ConditionValue xgetCValueLineName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
@@ -1176,6 +1176,135 @@ public abstract class AbstractBsUserMCQ extends AbstractConditionQuery {
 
     protected void regLastLoginDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueLastLoginDatetime(), "last_login_datetime"); }
     protected abstract ConditionValue xgetCValueLastLoginDatetime();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param settlementDate The value of settlementDate as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setSettlementDate_Equal(Integer settlementDate) {
+        doSetSettlementDate_Equal(settlementDate);
+    }
+
+    protected void doSetSettlementDate_Equal(Integer settlementDate) {
+        regSettlementDate(CK_EQ, settlementDate);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param settlementDate The value of settlementDate as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setSettlementDate_NotEqual(Integer settlementDate) {
+        doSetSettlementDate_NotEqual(settlementDate);
+    }
+
+    protected void doSetSettlementDate_NotEqual(Integer settlementDate) {
+        regSettlementDate(CK_NES, settlementDate);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param settlementDate The value of settlementDate as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setSettlementDate_GreaterThan(Integer settlementDate) {
+        regSettlementDate(CK_GT, settlementDate);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param settlementDate The value of settlementDate as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setSettlementDate_LessThan(Integer settlementDate) {
+        regSettlementDate(CK_LT, settlementDate);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param settlementDate The value of settlementDate as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setSettlementDate_GreaterEqual(Integer settlementDate) {
+        regSettlementDate(CK_GE, settlementDate);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param settlementDate The value of settlementDate as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setSettlementDate_LessEqual(Integer settlementDate) {
+        regSettlementDate(CK_LE, settlementDate);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param minNumber The min number of settlementDate. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of settlementDate. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setSettlementDate_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setSettlementDate_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param minNumber The min number of settlementDate. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of settlementDate. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setSettlementDate_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueSettlementDate(), "settlement_date", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param settlementDateList The collection of settlementDate as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setSettlementDate_InScope(Collection<Integer> settlementDateList) {
+        doSetSettlementDate_InScope(settlementDateList);
+    }
+
+    protected void doSetSettlementDate_InScope(Collection<Integer> settlementDateList) {
+        regINS(CK_INS, cTL(settlementDateList), xgetCValueSettlementDate(), "settlement_date");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * settlement_date: {int4(10)}
+     * @param settlementDateList The collection of settlementDate as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setSettlementDate_NotInScope(Collection<Integer> settlementDateList) {
+        doSetSettlementDate_NotInScope(settlementDateList);
+    }
+
+    protected void doSetSettlementDate_NotInScope(Collection<Integer> settlementDateList) {
+        regINS(CK_NINS, cTL(settlementDateList), xgetCValueSettlementDate(), "settlement_date");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     */
+    public void setSettlementDate_IsNull() { regSettlementDate(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * settlement_date: {int4(10)}
+     */
+    public void setSettlementDate_IsNotNull() { regSettlementDate(CK_ISNN, DOBJ); }
+
+    protected void regSettlementDate(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueSettlementDate(), "settlement_date"); }
+    protected abstract ConditionValue xgetCValueSettlementDate();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>

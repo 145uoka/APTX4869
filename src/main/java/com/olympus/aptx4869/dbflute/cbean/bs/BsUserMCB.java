@@ -293,15 +293,15 @@ public class BsUserMCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnLineId() { return doColumn("line_id"); }
         /**
-         * (LINE表示名)line_name: {text(2147483647)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnLineName() { return doColumn("line_name"); }
-        /**
          * (LINEのEmail)line_email: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnLineEmail() { return doColumn("line_email"); }
+        /**
+         * (LINE表示名)line_name: {text(2147483647)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnLineName() { return doColumn("line_name"); }
         /**
          * (名)first_name: {text(2147483647)}
          * @return The information object of specified column. (NotNull)
@@ -322,6 +322,11 @@ public class BsUserMCB extends AbstractConditionBean {
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnLastLoginDatetime() { return doColumn("last_login_datetime"); }
+        /**
+         * settlement_date: {int4(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnSettlementDate() { return doColumn("settlement_date"); }
         /**
          * (削除フラグ)delete_flag: {NotNull, bool(1), default=[false]}
          * @return The information object of specified column. (NotNull)

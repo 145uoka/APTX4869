@@ -63,12 +63,13 @@ public class UserMCIQ extends AbstractBsUserMCQ {
     //                                                                ====================
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     protected ConditionValue xgetCValueLineId() { return _myCQ.xdfgetLineId(); }
-    protected ConditionValue xgetCValueLineName() { return _myCQ.xdfgetLineName(); }
     protected ConditionValue xgetCValueLineEmail() { return _myCQ.xdfgetLineEmail(); }
+    protected ConditionValue xgetCValueLineName() { return _myCQ.xdfgetLineName(); }
     protected ConditionValue xgetCValueFirstName() { return _myCQ.xdfgetFirstName(); }
     protected ConditionValue xgetCValueLastName() { return _myCQ.xdfgetLastName(); }
     protected ConditionValue xgetCValueHandleName() { return _myCQ.xdfgetHandleName(); }
     protected ConditionValue xgetCValueLastLoginDatetime() { return _myCQ.xdfgetLastLoginDatetime(); }
+    protected ConditionValue xgetCValueSettlementDate() { return _myCQ.xdfgetSettlementDate(); }
     protected ConditionValue xgetCValueDeleteFlag() { return _myCQ.xdfgetDeleteFlag(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

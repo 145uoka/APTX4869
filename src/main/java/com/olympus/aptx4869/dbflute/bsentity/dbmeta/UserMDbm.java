@@ -44,12 +44,13 @@ public class UserMDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((UserM)et).getUserId(), (et, vl) -> ((UserM)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((UserM)et).getLineId(), (et, vl) -> ((UserM)et).setLineId((String)vl), "lineId");
-        setupEpg(_epgMap, et -> ((UserM)et).getLineName(), (et, vl) -> ((UserM)et).setLineName((String)vl), "lineName");
         setupEpg(_epgMap, et -> ((UserM)et).getLineEmail(), (et, vl) -> ((UserM)et).setLineEmail((String)vl), "lineEmail");
+        setupEpg(_epgMap, et -> ((UserM)et).getLineName(), (et, vl) -> ((UserM)et).setLineName((String)vl), "lineName");
         setupEpg(_epgMap, et -> ((UserM)et).getFirstName(), (et, vl) -> ((UserM)et).setFirstName((String)vl), "firstName");
         setupEpg(_epgMap, et -> ((UserM)et).getLastName(), (et, vl) -> ((UserM)et).setLastName((String)vl), "lastName");
         setupEpg(_epgMap, et -> ((UserM)et).getHandleName(), (et, vl) -> ((UserM)et).setHandleName((String)vl), "handleName");
         setupEpg(_epgMap, et -> ((UserM)et).getLastLoginDatetime(), (et, vl) -> ((UserM)et).setLastLoginDatetime(ctldt(vl)), "lastLoginDatetime");
+        setupEpg(_epgMap, et -> ((UserM)et).getSettlementDate(), (et, vl) -> ((UserM)et).setSettlementDate(cti(vl)), "settlementDate");
         setupEpg(_epgMap, et -> ((UserM)et).getDeleteFlag(), (et, vl) -> ((UserM)et).setDeleteFlag((Boolean)vl), "deleteFlag");
         setupEpg(_epgMap, et -> ((UserM)et).getRegisterDatetime(), (et, vl) -> ((UserM)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((UserM)et).getUpdateDatetime(), (et, vl) -> ((UserM)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
@@ -77,12 +78,13 @@ public class UserMDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, true, true, true, "serial", 10, 0, null, "nextval('user_m_user_id_seq'::regclass)", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineId = cci("line_id", "line_id", null, "LINE_ID", String.class, "lineId", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnLineName = cci("line_name", "line_name", null, "LINE表示名", String.class, "lineName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineEmail = cci("line_email", "line_email", null, "LINEのEmail", String.class, "lineEmail", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnLineName = cci("line_name", "line_name", null, "LINE表示名", String.class, "lineName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnFirstName = cci("first_name", "first_name", null, "名", String.class, "firstName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLastName = cci("last_name", "last_name", null, "姓", String.class, "lastName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnHandleName = cci("handle_name", "handle_name", null, "ハンドル名", String.class, "handleName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLastLoginDatetime = cci("last_login_datetime", "last_login_datetime", null, "最終ログイン日時", java.time.LocalDateTime.class, "lastLoginDatetime", null, false, false, false, "timestamp", 26, 3, null, "now()", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnSettlementDate = cci("settlement_date", "settlement_date", null, null, Integer.class, "settlementDate", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnDeleteFlag = cci("delete_flag", "delete_flag", null, "削除フラグ", Boolean.class, "deleteFlag", null, false, false, true, "bool", 1, 0, null, "false", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, "登録日時", java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "timestamp", 26, 3, null, "now()", true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, "更新日時", java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 26, 3, null, null, true, null, null, null, null, null, false);
@@ -98,15 +100,15 @@ public class UserMDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnLineId() { return _columnLineId; }
     /**
-     * (LINE表示名)line_name: {text(2147483647)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnLineName() { return _columnLineName; }
-    /**
      * (LINEのEmail)line_email: {text(2147483647)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnLineEmail() { return _columnLineEmail; }
+    /**
+     * (LINE表示名)line_name: {text(2147483647)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnLineName() { return _columnLineName; }
     /**
      * (名)first_name: {text(2147483647)}
      * @return The information object of specified column. (NotNull)
@@ -128,6 +130,11 @@ public class UserMDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnLastLoginDatetime() { return _columnLastLoginDatetime; }
     /**
+     * settlement_date: {int4(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnSettlementDate() { return _columnSettlementDate; }
+    /**
      * (削除フラグ)delete_flag: {NotNull, bool(1), default=[false]}
      * @return The information object of specified column. (NotNull)
      */
@@ -147,12 +154,13 @@ public class UserMDbm extends AbstractDBMeta {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnUserId());
         ls.add(columnLineId());
-        ls.add(columnLineName());
         ls.add(columnLineEmail());
+        ls.add(columnLineName());
         ls.add(columnFirstName());
         ls.add(columnLastName());
         ls.add(columnHandleName());
         ls.add(columnLastLoginDatetime());
+        ls.add(columnSettlementDate());
         ls.add(columnDeleteFlag());
         ls.add(columnRegisterDatetime());
         ls.add(columnUpdateDatetime());

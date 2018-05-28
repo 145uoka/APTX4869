@@ -1,4 +1,49 @@
 map:{
+    ; 2018/05/28 16:08:57 = map:{
+        ; diffDate = 2018/05/28 16:08:57
+        ; tableCount = map:{
+            ; next = 7
+            ; previous = 3
+        }
+        ; tableDiff = map:{
+            ; genre = map:{
+                ; tableName = genre
+                ; diffType = ADD
+            }
+            ; money_reception = map:{
+                ; tableName = money_reception
+                ; diffType = ADD
+            }
+            ; regularly_data = map:{
+                ; tableName = regularly_data
+                ; diffType = ADD
+            }
+            ; user_property = map:{
+                ; tableName = user_property
+                ; diffType = ADD
+            }
+            ; user_m = map:{
+                ; tableName = user_m
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; settlement_date = map:{
+                        ; columnName = settlement_date
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.aptx4869.regularly_data_property_id_seq = map:{
+                ; sequenceName = postgres.aptx4869.regularly_data_property_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.aptx4869.user_property_property_id_seq = map:{
+                ; sequenceName = postgres.aptx4869.user_property_property_id_seq
+                ; diffType = ADD
+            }
+        }
+    }
     ; 2018/05/15 23:16:23 = map:{
         ; diffDate = 2018/05/15 23:16:23
         ; tableDiff = map:{

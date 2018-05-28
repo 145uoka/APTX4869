@@ -18,6 +18,12 @@ CREATE TABLE aptx4869.genre
 (
 	genre_id int NOT NULL,
 	genre_name text NOT NULL,
+	-- 削除フラグ
+	delete_flag boolean DEFAULT 'false' NOT NULL,
+	-- 登録日時
+	register_datetime timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	-- 更新日時
+	update_datetime timestamp(3),
 	PRIMARY KEY (genre_id)
 ) WITHOUT OIDS;
 
@@ -32,6 +38,12 @@ CREATE TABLE aptx4869.money_reception
 	amount int NOT NULL,
 	money_reception_date date NOT NULL,
 	supplement text,
+	-- 削除フラグ
+	delete_flag boolean DEFAULT 'false' NOT NULL,
+	-- 登録日時
+	register_datetime timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	-- 更新日時
+	update_datetime timestamp(3),
 	PRIMARY KEY (money_reception_id)
 ) WITHOUT OIDS;
 
@@ -86,8 +98,13 @@ CREATE TABLE aptx4869.regularly_data
 	user_id int NOT NULL,
 	regularly_flag boolean NOT NULL,
 	amount int NOT NULL,
-	delete_flag boolean NOT NULL,
 	accountingDate int NOT NULL,
+	-- 削除フラグ
+	delete_flag boolean DEFAULT 'false' NOT NULL,
+	-- 登録日時
+	register_datetime timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	-- 更新日時
+	update_datetime timestamp(3),
 	PRIMARY KEY (property_id)
 ) WITHOUT OIDS;
 
@@ -129,6 +146,12 @@ CREATE TABLE aptx4869.user_property
 	user_id int NOT NULL,
 	settlement_date int,
 	budget int,
+	-- 削除フラグ
+	delete_flag boolean DEFAULT 'false' NOT NULL,
+	-- 登録日時
+	register_datetime timestamp(3) DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	-- 更新日時
+	update_datetime timestamp(3),
 	PRIMARY KEY (property_id)
 ) WITHOUT OIDS;
 
@@ -136,7 +159,13 @@ CREATE TABLE aptx4869.user_property
 
 /* Comments */
 
+COMMENT ON COLUMN aptx4869.genre.delete_flag IS '削除フラグ';
+COMMENT ON COLUMN aptx4869.genre.register_datetime IS '登録日時';
+COMMENT ON COLUMN aptx4869.genre.update_datetime IS '更新日時';
 COMMENT ON COLUMN aptx4869.money_reception.user_id IS 'ユーザーID';
+COMMENT ON COLUMN aptx4869.money_reception.delete_flag IS '削除フラグ';
+COMMENT ON COLUMN aptx4869.money_reception.register_datetime IS '登録日時';
+COMMENT ON COLUMN aptx4869.money_reception.update_datetime IS '更新日時';
 COMMENT ON TABLE aptx4869.OAUTH_PROPERTY_M IS 'OAuthプロパティ_M';
 COMMENT ON COLUMN aptx4869.OAUTH_PROPERTY_M.oauth_property_id IS 'OAuthプロパティID';
 COMMENT ON COLUMN aptx4869.OAUTH_PROPERTY_M.app_key IS 'アプリケーションKEY';
@@ -154,6 +183,9 @@ COMMENT ON COLUMN aptx4869.property_m.delete_flag IS '削除フラグ';
 COMMENT ON COLUMN aptx4869.property_m.register_datetime IS '登録日時';
 COMMENT ON COLUMN aptx4869.property_m.update_datetime IS '更新日時';
 COMMENT ON COLUMN aptx4869.regularly_data.user_id IS 'ユーザーID';
+COMMENT ON COLUMN aptx4869.regularly_data.delete_flag IS '削除フラグ';
+COMMENT ON COLUMN aptx4869.regularly_data.register_datetime IS '登録日時';
+COMMENT ON COLUMN aptx4869.regularly_data.update_datetime IS '更新日時';
 COMMENT ON TABLE aptx4869.user_m IS 'ユーザー_M';
 COMMENT ON COLUMN aptx4869.user_m.user_id IS 'ユーザーID';
 COMMENT ON COLUMN aptx4869.user_m.line_id IS 'LINE_ID';
@@ -167,6 +199,9 @@ COMMENT ON COLUMN aptx4869.user_m.delete_flag IS '削除フラグ';
 COMMENT ON COLUMN aptx4869.user_m.register_datetime IS '登録日時';
 COMMENT ON COLUMN aptx4869.user_m.update_datetime IS '更新日時';
 COMMENT ON COLUMN aptx4869.user_property.user_id IS 'ユーザーID';
+COMMENT ON COLUMN aptx4869.user_property.delete_flag IS '削除フラグ';
+COMMENT ON COLUMN aptx4869.user_property.register_datetime IS '登録日時';
+COMMENT ON COLUMN aptx4869.user_property.update_datetime IS '更新日時';
 
 
 
