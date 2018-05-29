@@ -16,7 +16,7 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     genre_id, genre_name, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
- *     
+ *     genre_genre_id_seq
  *
  * [identity]
  *     

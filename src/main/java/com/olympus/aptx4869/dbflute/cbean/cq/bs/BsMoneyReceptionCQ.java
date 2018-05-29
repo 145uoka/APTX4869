@@ -81,14 +81,14 @@ public class BsMoneyReceptionCQ extends AbstractBsMoneyReceptionCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @return this. (NotNull)
      */
     public BsMoneyReceptionCQ addOrderBy_MoneyReceptionId_Asc() { regOBA("money_reception_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @return this. (NotNull)
      */
     public BsMoneyReceptionCQ addOrderBy_MoneyReceptionId_Desc() { regOBD("money_reception_id"); return this; }

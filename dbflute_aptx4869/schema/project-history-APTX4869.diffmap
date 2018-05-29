@@ -1,4 +1,67 @@
 map:{
+    ; 2018/05/28 17:29:35 = map:{
+        ; diffDate = 2018/05/28 17:29:35
+        ; tableDiff = map:{
+            ; genre = map:{
+                ; tableName = genre
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; genre_id = map:{
+                        ; columnName = genre_id
+                        ; diffType = CHANGE
+                        ; dbTypeDiff = map:{
+                            ; next = serial
+                            ; previous = int4
+                        }
+                        ; defaultValueDiff = map:{
+                            ; next = "nextval('genre_genre_id_seq'::regclass)"
+                            ; previous = null
+                        }
+                        ; autoIncrementDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                }
+            }
+            ; money_reception = map:{
+                ; tableName = money_reception
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; money_reception_id = map:{
+                        ; columnName = money_reception_id
+                        ; diffType = CHANGE
+                        ; dbTypeDiff = map:{
+                            ; next = bigserial
+                            ; previous = int4
+                        }
+                        ; columnSizeDiff = map:{
+                            ; next = 19
+                            ; previous = 10
+                        }
+                        ; defaultValueDiff = map:{
+                            ; next = "nextval('money_reception_money_reception_id_seq'::regclass)"
+                            ; previous = null
+                        }
+                        ; autoIncrementDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                }
+            }
+        }
+        ; sequenceDiff = map:{
+            ; postgres.aptx4869.genre_genre_id_seq = map:{
+                ; sequenceName = postgres.aptx4869.genre_genre_id_seq
+                ; diffType = ADD
+            }
+            ; postgres.aptx4869.money_reception_money_reception_id_seq = map:{
+                ; sequenceName = postgres.aptx4869.money_reception_money_reception_id_seq
+                ; diffType = ADD
+            }
+        }
+    }
     ; 2018/05/28 16:08:57 = map:{
         ; diffDate = 2018/05/28 16:08:57
         ; tableCount = map:{

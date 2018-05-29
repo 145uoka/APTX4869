@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS aptx4869.user_m;
 
 CREATE TABLE aptx4869.genre
 (
-	genre_id int NOT NULL,
+	genre_id serial NOT NULL,
 	genre_name text NOT NULL,
 	-- 削除フラグ
 	delete_flag boolean DEFAULT 'false' NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE aptx4869.genre
 
 CREATE TABLE aptx4869.money_reception
 (
-	money_reception_id int NOT NULL,
+	money_reception_id bigserial NOT NULL,
 	-- ユーザーID
 	user_id int NOT NULL,
 	genre_id int NOT NULL,

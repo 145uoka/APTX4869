@@ -45,63 +45,63 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param moneyReceptionId The value of moneyReceptionId as equal. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyReceptionId_Equal(Integer moneyReceptionId) {
+    public void setMoneyReceptionId_Equal(Long moneyReceptionId) {
         doSetMoneyReceptionId_Equal(moneyReceptionId);
     }
 
-    protected void doSetMoneyReceptionId_Equal(Integer moneyReceptionId) {
+    protected void doSetMoneyReceptionId_Equal(Long moneyReceptionId) {
         regMoneyReceptionId(CK_EQ, moneyReceptionId);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param moneyReceptionId The value of moneyReceptionId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyReceptionId_NotEqual(Integer moneyReceptionId) {
+    public void setMoneyReceptionId_NotEqual(Long moneyReceptionId) {
         doSetMoneyReceptionId_NotEqual(moneyReceptionId);
     }
 
-    protected void doSetMoneyReceptionId_NotEqual(Integer moneyReceptionId) {
+    protected void doSetMoneyReceptionId_NotEqual(Long moneyReceptionId) {
         regMoneyReceptionId(CK_NES, moneyReceptionId);
     }
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param moneyReceptionId The value of moneyReceptionId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyReceptionId_GreaterThan(Integer moneyReceptionId) {
+    public void setMoneyReceptionId_GreaterThan(Long moneyReceptionId) {
         regMoneyReceptionId(CK_GT, moneyReceptionId);
     }
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param moneyReceptionId The value of moneyReceptionId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyReceptionId_LessThan(Integer moneyReceptionId) {
+    public void setMoneyReceptionId_LessThan(Long moneyReceptionId) {
         regMoneyReceptionId(CK_LT, moneyReceptionId);
     }
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param moneyReceptionId The value of moneyReceptionId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyReceptionId_GreaterEqual(Integer moneyReceptionId) {
+    public void setMoneyReceptionId_GreaterEqual(Long moneyReceptionId) {
         regMoneyReceptionId(CK_GE, moneyReceptionId);
     }
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param moneyReceptionId The value of moneyReceptionId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setMoneyReceptionId_LessEqual(Integer moneyReceptionId) {
+    public void setMoneyReceptionId_LessEqual(Long moneyReceptionId) {
         regMoneyReceptionId(CK_LE, moneyReceptionId);
     }
 
@@ -109,12 +109,12 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param minNumber The min number of moneyReceptionId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of moneyReceptionId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setMoneyReceptionId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+    public void setMoneyReceptionId_RangeOf(Long minNumber, Long maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
         setMoneyReceptionId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
@@ -122,50 +122,50 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param minNumber The min number of moneyReceptionId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of moneyReceptionId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    protected void setMoneyReceptionId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+    protected void setMoneyReceptionId_RangeOf(Long minNumber, Long maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, xgetCValueMoneyReceptionId(), "money_reception_id", rangeOfOption);
     }
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param moneyReceptionIdList The collection of moneyReceptionId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setMoneyReceptionId_InScope(Collection<Integer> moneyReceptionIdList) {
+    public void setMoneyReceptionId_InScope(Collection<Long> moneyReceptionIdList) {
         doSetMoneyReceptionId_InScope(moneyReceptionIdList);
     }
 
-    protected void doSetMoneyReceptionId_InScope(Collection<Integer> moneyReceptionIdList) {
+    protected void doSetMoneyReceptionId_InScope(Collection<Long> moneyReceptionIdList) {
         regINS(CK_INS, cTL(moneyReceptionIdList), xgetCValueMoneyReceptionId(), "money_reception_id");
     }
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      * @param moneyReceptionIdList The collection of moneyReceptionId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setMoneyReceptionId_NotInScope(Collection<Integer> moneyReceptionIdList) {
+    public void setMoneyReceptionId_NotInScope(Collection<Long> moneyReceptionIdList) {
         doSetMoneyReceptionId_NotInScope(moneyReceptionIdList);
     }
 
-    protected void doSetMoneyReceptionId_NotInScope(Collection<Integer> moneyReceptionIdList) {
+    protected void doSetMoneyReceptionId_NotInScope(Collection<Long> moneyReceptionIdList) {
         regINS(CK_NINS, cTL(moneyReceptionIdList), xgetCValueMoneyReceptionId(), "money_reception_id");
     }
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      */
     public void setMoneyReceptionId_IsNull() { regMoneyReceptionId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * money_reception_id: {PK, NotNull, int4(10)}
+     * money_reception_id: {PK, ID, NotNull, bigserial(19)}
      */
     public void setMoneyReceptionId_IsNotNull() { regMoneyReceptionId(CK_ISNN, DOBJ); }
 

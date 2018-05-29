@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,20 +13,26 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.olympus.aptx4869.common.util.DateUtil;
 import com.olympus.aptx4869.common.util.MessageKeyUtil;
+import com.olympus.aptx4869.constants.LogMessageKeyConstants;
 import com.olympus.aptx4869.constants.MessageKeyConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants.MessageType;
+import com.olympus.aptx4869.dbflute.exentity.MoneyReception;
+import com.olympus.aptx4869.dbflute.exentity.UserM;
 import com.olympus.aptx4869.dto.LabelValueDto;
 import com.olympus.aptx4869.dto.MoneyReceptionCreateDto;
+import com.olympus.aptx4869.exception.NotFoundRecordException;
 import com.olympus.aptx4869.form.MoneyReceptionCreateForm;
 import com.olympus.aptx4869.service.GenreService;
 import com.olympus.aptx4869.service.LoggerService;
+import com.olympus.aptx4869.service.MoneyReceptionService;
 
 /**
  * 支出・収入登録画面のコントローラー．
@@ -36,12 +43,15 @@ import com.olympus.aptx4869.service.LoggerService;
 @Controller
 public class CreateController extends BaseController{
 
-	/** ログを扱う */
-	@Autowired
-	LoggerService loggerService;
+    /** ログを扱う */
+    @Autowired
+    LoggerService loggerService;
 
-	@Autowired
-	GenreService genreService;
+    @Autowired
+    GenreService genreService;
+
+    @Autowired
+    MoneyReceptionService moneyReceptionService;
 
 
 
@@ -50,11 +60,22 @@ public class CreateController extends BaseController{
 	 * @param locale locale
 	 * @param model model
 	 * @return 登録画面
+	 * @throws NotFoundRecordException
 	 */
-	@RequestMapping(value = "/moneyReception/create", method = {RequestMethod.GET, RequestMethod.POST})
-	public String detail(Locale locale, Model model){
+	@RequestMapping(value = "/moneyReception/create/{paramUserId}", method = {RequestMethod.GET, RequestMethod.POST})
+	public String detail(@PathVariable String paramUserId, Locale locale, Model model) throws NotFoundRecordException{
+
+        Integer userId = Integer.parseInt(paramUserId);
+        OptionalEntity<UserM> userMEntity = moneyReceptionService.findUserMEntity(userId);
+
+        if(!userMEntity.isPresent()){
+            // 該当するテーブル情報がなければ、レコード取得エラー。
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"ユーザーマスタ", userId});
+            throw new NotFoundRecordException();
+        }
 
 	    MoneyReceptionCreateForm form = new MoneyReceptionCreateForm();
+	    form.setUserId(paramUserId);
 
         // プルダウンを表示する。
         List<LabelValueDto> selectGenreList = genreService.createSelectGenreList(true, SystemCodeConstants.PLEASE_SELECT_MSG);
@@ -63,7 +84,7 @@ public class CreateController extends BaseController{
         // form情報をModelへ格納。
         model.addAttribute("form", form);
 
-		return "/challenge/create";
+		return "/create";
 	}
 
 	/**
@@ -76,7 +97,7 @@ public class CreateController extends BaseController{
      * @param redirectAttributes リダイレクト先に送るオブジェクト情報
      * @return 正常終了:検索画面, エラー有:登録画面
      */
-    @RequestMapping(value = "/event/store", method = RequestMethod.POST)
+    @RequestMapping(value = "/moneyReception/store", method = RequestMethod.POST)
     public String storeEvent(@Validated @ModelAttribute("form") MoneyReceptionCreateForm form, BindingResult bindingResult,
             Locale locale, Model model, RedirectAttributes redirectAttributes) {
 
@@ -110,17 +131,22 @@ public class CreateController extends BaseController{
         BeanUtils.copyProperties(form, dto);
 
         if(form.getMoneyReceptionFlag().equals("spending")){
-            dto.setMoneyReceptionFlag(true);
-        }else if(form.getMoneyReceptionFlag().equals("income")){
             dto.setMoneyReceptionFlag(false);
+
+        }else if(form.getMoneyReceptionFlag().equals("income")){
+            dto.setMoneyReceptionFlag(true);
         }
 
+        dto.setUserId(Integer.parseInt(form.getUserId()));
+        dto.setGenreId(Integer.parseInt(form.getGenreId()));
+        dto.setAmount(Integer.parseInt(form.getAmount()));
         dto.setMoneyReceptionDate(DateUtil.convertToLocalDate(form.getMoneyReceptionDate()));
 
-        //Event eventEntity = eventService.insert(dto);
+        MoneyReception moneyReceptionEntity = moneyReceptionService.store(dto);
 
         // 登録処理ログ出力
-        //loggerService.outLog("I_99_0001", new Object[]{"イベント", eventEntity.getEventId(), eventEntity.getEventName()});
+        loggerService.outLog(LogMessageKeyConstants.Info.I_99_0004,
+                new Object[]{"金銭授受", moneyReceptionEntity.getMoneyReceptionId()});
 
         // 登録完了メッセージを表示。
         String message = messageSource.getMessage(

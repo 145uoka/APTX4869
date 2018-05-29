@@ -16,7 +16,7 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     money_reception_id, user_id, genre_id, money_reception_flag, amount, money_reception_date, supplement, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
- *     
+ *     money_reception_money_reception_id_seq
  *
  * [identity]
  *     

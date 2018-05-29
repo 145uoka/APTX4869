@@ -29,7 +29,7 @@ import com.olympus.aptx4869.dbflute.cbean.*;
  *     genre_id, genre_name, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
- *     
+ *     genre_genre_id_seq
  *
  * [identity]
  *     
@@ -157,7 +157,7 @@ public abstract class BsGenreBhv extends AbstractBehaviorWritable<Genre, GenreCB
 
     /**
      * Select the entity by the primary-key value.
-     * @param genreId : PK, NotNull, int4(10). (NotNull)
+     * @param genreId : PK, ID, NotNull, serial(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
@@ -280,10 +280,27 @@ public abstract class BsGenreBhv extends AbstractBehaviorWritable<Genre, GenreCB
     // ===================================================================================
     //                                                                            Sequence
     //                                                                            ========
+    /**
+     * Select the next value as sequence. <br>
+     * This method is called when insert() and set to primary-key automatically.
+     * So you don't need to call this as long as you need to get next value before insert().
+     * @return The next value. (NotNull)
+     */
+    public Integer selectNextVal() {
+        return facadeSelectNextVal();
+    }
+
+    protected Integer facadeSelectNextVal() {
+        return doSelectNextVal(Integer.class);
+    }
+
+    protected <RESULT> RESULT doSelectNextVal(Class<RESULT> tp) {
+        return delegateSelectNextVal(tp);
+    }
+
     @Override
     protected Number doReadNextVal() {
-        String msg = "This table is NOT related to sequence: " + asTableDbName();
-        throw new UnsupportedOperationException(msg);
+        return facadeSelectNextVal();
     }
 
     // ===================================================================================
