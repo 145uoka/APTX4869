@@ -1,11 +1,10 @@
 package com.olympus.aptx4869.dto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-public class MoneyReceptionCreateDto {
+public class MoneyReceptionDto {
 
-    private Integer moneyReceptionId;
+    private Long moneyReceptionId;
 
     private Integer userId;
 
@@ -19,17 +18,11 @@ public class MoneyReceptionCreateDto {
 
     private String supplement;
 
-    private Boolean deleteFlag;
-
-    private LocalDateTime registerDatetime;
-
-    private LocalDateTime updateDatetime;
-
-    public Integer getMoneyReceptionId() {
+    public Long getMoneyReceptionId() {
         return moneyReceptionId;
     }
 
-    public void setMoneyReceptionId(Integer moneyReceptionId) {
+    public void setMoneyReceptionId(Long moneyReceptionId) {
         this.moneyReceptionId = moneyReceptionId;
     }
 
@@ -80,30 +73,5 @@ public class MoneyReceptionCreateDto {
     public void setSupplement(String supplement) {
         this.supplement = supplement;
     }
-
-    public Boolean getDeleteFlag() {
-        return deleteFlag;
-    }
-
-    public void setDeleteFlag(Boolean deleteFlag) {
-        this.deleteFlag = deleteFlag;
-    }
-
-    public LocalDateTime getRegisterDatetime() {
-        return registerDatetime;
-    }
-
-    public void setRegisterDatetime(LocalDateTime registerDatetime) {
-        this.registerDatetime = registerDatetime;
-    }
-
-    public LocalDateTime getUpdateDatetime() {
-        return updateDatetime;
-    }
-
-    public void setUpdateDatetime(LocalDateTime updateDatetime) {
-        this.updateDatetime = updateDatetime;
-    }
-
 
 }

@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class MoneyReceptionCreateForm {
+public class MoneyReceptionForm {
 
     private String moneyReceptionId;
 
@@ -13,20 +13,19 @@ public class MoneyReceptionCreateForm {
     private String userId;
 
     @NotEmpty
-    private String genreId;
+    private String[] genreId;
 
     @NotEmpty
     private String moneyReceptionFlag;
 
-    @Pattern(regexp = "^[0-9]{9}$")
-    private String amount;
-
     @NotEmpty
+    @Pattern(regexp = "^[0-9]{9}$")
+    private String[] amount;
+
     private String moneyReceptionDate;
 
     @Size(max=20)
-    private String supplement;
-
+    private String[] supplement;
 
     public String getMoneyReceptionId() {
         return moneyReceptionId;
@@ -44,11 +43,11 @@ public class MoneyReceptionCreateForm {
         this.userId = userId;
     }
 
-    public String getGenreId() {
+    public String[] getGenreId() {
         return genreId;
     }
 
-    public void setGenreId(String genreId) {
+    public void setGenreId(String[] genreId) {
         this.genreId = genreId;
     }
 
@@ -60,11 +59,11 @@ public class MoneyReceptionCreateForm {
         this.moneyReceptionFlag = moneyReceptionFlag;
     }
 
-    public String getAmount() {
+    public String[] getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(String[] amount) {
         this.amount = amount;
     }
 
@@ -76,11 +75,11 @@ public class MoneyReceptionCreateForm {
         this.moneyReceptionDate = moneyReceptionDate;
     }
 
-    public String getSupplement() {
+    public String[] getSupplement() {
         return supplement;
     }
 
-    public void setSupplement(String supplement) {
+    public void setSupplement(String[] supplement) {
         this.supplement = supplement;
     }
 
