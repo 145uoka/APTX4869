@@ -1,5 +1,9 @@
 package com.olympus.aptx4869.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +44,9 @@ public class MoneyReceptionService {
      * @param userId ユーザーID
      * @return userMEntity
      */
-    public OptionalEntity<UserM> findUserMEntity(Integer userId) {
+    public OptionalEntity<UserM> findUserMEntity(String lineId) {
         OptionalEntity<UserM> userMEntity = userMBhv.selectEntity(cb ->{
-            cb.query().setUserId_Equal(userId);
+            cb.query().setLineId_Equal(lineId);
             cb.query().setDeleteFlag_Equal(false);
         });
         return userMEntity;
@@ -63,7 +67,7 @@ public class MoneyReceptionService {
     }
 
 	/**
-	 * 金銭授受_Tの登録処理を行う。
+	 * 金銭授受_Tの登録処理を行う。(API用：１件のみ)
 	 *
 	 * @param dto 登録情報
 	 * @return MoneyReceptionEntity
@@ -78,10 +82,44 @@ public class MoneyReceptionService {
 		BeanUtils.copyProperties(dto, MoneyReceptionEntity);
 		MoneyReceptionEntity.setMoneyReceptionId(moneyReceptionId);
 
+		if(MoneyReceptionEntity.getMoneyReceptionDate() == null){
+		    MoneyReceptionEntity.setMoneyReceptionDate(LocalDate.now());
+		}
+
 		moneyReceptionBhv.insert(MoneyReceptionEntity);
 
 		return MoneyReceptionEntity;
 	}
+
+	/**
+     * 金銭授受_Tの登録処理を行う。（アプリ用：複数件）
+     *
+     * @param dto 登録情報
+     * @return MoneyReceptionEntityのリスト
+     */
+    public List<MoneyReception> storeList( List<MoneyReceptionDto> dtoList) {
+
+        List<MoneyReception> moneyReceptionEntityList = new ArrayList<MoneyReception>();
+
+        for(MoneyReceptionDto dto : dtoList){
+
+        MoneyReception MoneyReceptionEntity = new MoneyReception();
+        // 次の金銭授受IDを取得する。
+        Long moneyReceptionId = moneyReceptionBhv.selectNextVal();
+
+        // entityにdtoの値をセット。
+        BeanUtils.copyProperties(dto, MoneyReceptionEntity);
+        MoneyReceptionEntity.setMoneyReceptionId(moneyReceptionId);
+
+        moneyReceptionEntityList.add(MoneyReceptionEntity);
+
+        }
+
+        moneyReceptionBhv.batchInsert(moneyReceptionEntityList);
+
+        return moneyReceptionEntityList;
+    }
+
 
 	/**
 	 * 金銭授受_Tの更新処理を行う。

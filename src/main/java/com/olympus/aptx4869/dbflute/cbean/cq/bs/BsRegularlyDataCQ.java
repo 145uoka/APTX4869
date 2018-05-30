@@ -101,14 +101,14 @@ public class BsRegularlyDataCQ extends AbstractBsRegularlyDataCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @return this. (NotNull)
      */
     public BsRegularlyDataCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @return this. (NotNull)
      */
     public BsRegularlyDataCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
@@ -272,11 +272,36 @@ public class BsRegularlyDataCQ extends AbstractBsRegularlyDataCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        RegularlyDataCQ bq = (RegularlyDataCQ)bqs;
+        RegularlyDataCQ uq = (RegularlyDataCQ)uqs;
+        if (bq.hasConditionQueryUserM()) {
+            uq.queryUserM().reflectRelationOnUnionQuery(bq.queryUserM(), uq.queryUserM());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * (ユーザー_M)user_m by my user_id, named 'userM'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public UserMCQ queryUserM() {
+        return xdfgetConditionQueryUserM();
+    }
+    public UserMCQ xdfgetConditionQueryUserM() {
+        String prop = "userM";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUserM()); xsetupOuterJoinUserM(); }
+        return xgetQueRlMap(prop);
+    }
+    protected UserMCQ xcreateQueryUserM() {
+        String nrp = xresolveNRP("regularly_data", "userM"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new UserMCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "userM", nrp);
+    }
+    protected void xsetupOuterJoinUserM() { xregOutJo("userM"); }
+    public boolean hasConditionQueryUserM() { return xhasQueRlMap("userM"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

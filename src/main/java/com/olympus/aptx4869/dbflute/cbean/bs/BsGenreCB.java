@@ -293,6 +293,11 @@ public class BsGenreCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnGenreName() { return doColumn("genre_name"); }
         /**
+         * balance_flg: {NotNull, bool(1)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnBalanceFlg() { return doColumn("balance_flg"); }
+        /**
          * (削除フラグ)delete_flag: {NotNull, bool(1), default=[false]}
          * @return The information object of specified column. (NotNull)
          */
@@ -315,6 +320,23 @@ public class BsGenreCB extends AbstractConditionBean {
         }
         @Override
         protected String getTableDbName() { return "genre"; }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from money_reception where ...) as FOO_MAX} <br>
+         * money_reception by genre_id, named 'moneyReceptionList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(receptionCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     receptionCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     receptionCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MoneyReception.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<MoneyReceptionCB, GenreCQ> derivedMoneyReception() {
+            assertDerived("moneyReceptionList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MoneyReceptionCB> sq, GenreCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMoneyReceptionList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

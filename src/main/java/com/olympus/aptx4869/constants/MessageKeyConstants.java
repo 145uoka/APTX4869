@@ -72,6 +72,26 @@ public class MessageKeyConstants {
         public static final String NOTINPUTINSURANCENUMBER = "{glue-net.validator.NotInputInsuranceNumber}";
         /** 未来日は設定できません。 */
         public static final String NOTFUTURE = "{glue-net.validator.NotFuture}";
+        /** 正しい日付ではありません。 */
+        public static final String NOTDATE = "{glue-net.validator.NotDate}";
+        /** No{0}の{1}は正しい日付ではありません。 */
+        public static final String NOTDATEPATTERN = "{glue-net.validator.NotDatePattern}";
+        /** No{0}の{1}は正しい時刻ではありません。 */
+        public static final String NOTTIMEPATTERN = "{glue-net.validator.NotTimePattern}";
+        /** No{0}の時刻の前後が正しくありません。 */
+        public static final String NOTTIMETERM = "{glue-net.validator.NotTimeTerm}";
+        /** No{0}の曜日・毎月指定日・指定日のいずれかを入力してください。 */
+        public static final String NOTEMPTY_WORKDAY = "{glue-net.validator.NotEmpty.workday}";
+        /** No{0}の{1}を入力してください。 */
+        public static final String NOTEMPTY_WITH_ITEM = "{glue-net.validator.NotEmpty.with.item}";
+        /** No{0}の{1}の入力は無効です。 */
+        public static final String NOTINPUT = "{glue-net.validator.NotInput}";
+        /** 同営業日で時間帯が重複しています。 */
+        public static final String OVERLAPTIMEINTERVAL = "{glue-net.validator.overlapTimeInterval}";
+        /** No{0}の{1}の入力形式は｛{2}｝です。 */
+        public static final String NOTAMOUNTPATTERN = "{glue-net.validator.NotAmountPattern}";
+        /** No{0}の{1}は{length}文字以下で入力してください。 */
+        public static final String LENGTH = "{glue-net.validator.length}";
     }
 
     /**

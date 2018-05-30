@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -53,6 +54,18 @@ public class UserPropertyDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((UserProperty)et).getUserM(), (et, vl) -> ((UserProperty)et).setUserM((OptionalEntity<UserM>)vl), "userM");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -70,7 +83,7 @@ public class UserPropertyDbm extends AbstractDBMeta {
     //                                                                         Column Info
     //                                                                         ===========
     protected final ColumnInfo _columnPropertyId = cci("property_id", "property_id", null, null, Integer.class, "propertyId", null, true, true, true, "serial", 10, 0, null, "nextval('user_property_property_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, "userM", null, null, false);
     protected final ColumnInfo _columnSettlementDate = cci("settlement_date", "settlement_date", null, null, Integer.class, "settlementDate", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnBudget = cci("budget", "budget", null, null, Integer.class, "budget", null, false, false, false, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnDeleteFlag = cci("delete_flag", "delete_flag", null, "削除フラグ", Boolean.class, "deleteFlag", null, false, false, true, "bool", 1, 0, null, "false", false, null, null, null, null, null, false);
@@ -83,7 +96,7 @@ public class UserPropertyDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnPropertyId() { return _columnPropertyId; }
     /**
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
@@ -145,6 +158,14 @@ public class UserPropertyDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * (ユーザー_M)user_m by my user_id, named 'userM'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignUserM() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), UserMDbm.getInstance().columnUserId());
+        return cfi("user_property_user_id_fkey", "userM", this, UserMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userPropertyList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property

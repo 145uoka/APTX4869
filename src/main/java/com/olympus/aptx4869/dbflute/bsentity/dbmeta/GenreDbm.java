@@ -44,6 +44,7 @@ public class GenreDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((Genre)et).getGenreId(), (et, vl) -> ((Genre)et).setGenreId(cti(vl)), "genreId");
         setupEpg(_epgMap, et -> ((Genre)et).getGenreName(), (et, vl) -> ((Genre)et).setGenreName((String)vl), "genreName");
+        setupEpg(_epgMap, et -> ((Genre)et).getBalanceFlg(), (et, vl) -> ((Genre)et).setBalanceFlg((Boolean)vl), "balanceFlg");
         setupEpg(_epgMap, et -> ((Genre)et).getDeleteFlag(), (et, vl) -> ((Genre)et).setDeleteFlag((Boolean)vl), "deleteFlag");
         setupEpg(_epgMap, et -> ((Genre)et).getRegisterDatetime(), (et, vl) -> ((Genre)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((Genre)et).getUpdateDatetime(), (et, vl) -> ((Genre)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
@@ -67,8 +68,9 @@ public class GenreDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnGenreId = cci("genre_id", "genre_id", null, null, Integer.class, "genreId", null, true, true, true, "serial", 10, 0, null, "nextval('genre_genre_id_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnGenreId = cci("genre_id", "genre_id", null, null, Integer.class, "genreId", null, true, true, true, "serial", 10, 0, null, "nextval('genre_genre_id_seq'::regclass)", false, null, null, null, "moneyReceptionList", null, false);
     protected final ColumnInfo _columnGenreName = cci("genre_name", "genre_name", null, null, String.class, "genreName", null, false, false, true, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnBalanceFlg = cci("balance_flg", "balance_flg", null, null, Boolean.class, "balanceFlg", null, false, false, true, "bool", 1, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnDeleteFlag = cci("delete_flag", "delete_flag", null, "削除フラグ", Boolean.class, "deleteFlag", null, false, false, true, "bool", 1, 0, null, "false", false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, "登録日時", java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "timestamp", 26, 3, null, "now()", true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, "更新日時", java.time.LocalDateTime.class, "updateDatetime", null, false, false, false, "timestamp", 26, 3, null, null, true, null, null, null, null, null, false);
@@ -83,6 +85,11 @@ public class GenreDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnGenreName() { return _columnGenreName; }
+    /**
+     * balance_flg: {NotNull, bool(1)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnBalanceFlg() { return _columnBalanceFlg; }
     /**
      * (削除フラグ)delete_flag: {NotNull, bool(1), default=[false]}
      * @return The information object of specified column. (NotNull)
@@ -103,6 +110,7 @@ public class GenreDbm extends AbstractDBMeta {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnGenreId());
         ls.add(columnGenreName());
+        ls.add(columnBalanceFlg());
         ls.add(columnDeleteFlag());
         ls.add(columnRegisterDatetime());
         ls.add(columnUpdateDatetime());
@@ -133,6 +141,14 @@ public class GenreDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * money_reception by genre_id, named 'moneyReceptionList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMoneyReceptionList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGenreId(), MoneyReceptionDbm.getInstance().columnGenreId());
+        return cri("money_reception_genre_id_fkey", "moneyReceptionList", this, MoneyReceptionDbm.getInstance(), mp, false, "genre");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

@@ -9,6 +9,8 @@
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column dbType="text" javaType="String" name="genre_name"
             required="true" size="2147483647" type="VARCHAR"/>
+        <column dbType="bool" javaType="Boolean" name="balance_flg"
+            required="true" size="1" type="BIT"/>
         <column comment="削除フラグ" dbType="bool" default="false"
             javaType="Boolean" name="delete_flag" required="true"
             size="1" type="BIT"/>
@@ -46,6 +48,12 @@
         <column comment="更新日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="update_datetime"
             size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="aptx4869" foreignTable="genre" name="money_reception_genre_id_fkey">
+            <reference foreign="genre_id" local="genre_id"/>
+        </foreign-key>
+        <foreign-key foreignSchema="aptx4869" foreignTable="user_m" name="money_reception_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <table comment="OAuthプロパティ_M" name="oauth_property_m"
         schema="postgres.aptx4869" type="TABLE">
@@ -122,6 +130,9 @@
         <column comment="更新日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="update_datetime"
             size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="aptx4869" foreignTable="user_m" name="regularly_data_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <table comment="ユーザー_M" name="user_m" schema="postgres.aptx4869" type="TABLE">
         <column autoIncrement="true" comment="ユーザーID" dbType="serial"
@@ -175,6 +186,9 @@
         <column comment="更新日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="update_datetime"
             size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="aptx4869" foreignTable="user_m" name="user_property_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
@@ -190,8 +204,8 @@
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="regularly_data_property_id_seq" schema="postgres.aptx4869"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_m_user_id_seq" schema="postgres.aptx4869"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="user_property_property_id_seq" schema="postgres.aptx4869"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="user_m_user_id_seq" schema="postgres.aptx4869"/>
     </sequenceGroup>
 </database>

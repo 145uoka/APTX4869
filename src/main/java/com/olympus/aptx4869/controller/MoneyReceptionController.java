@@ -1,8 +1,10 @@
 package com.olympus.aptx4869.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.olympus.aptx4869.common.util.DateUtil;
 import com.olympus.aptx4869.common.util.MessageKeyUtil;
 import com.olympus.aptx4869.constants.LogMessageKeyConstants;
 import com.olympus.aptx4869.constants.MessageKeyConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants.MessageType;
+import com.olympus.aptx4869.constants.SystemCodeConstants.MoneyReceptionRecord;
+import com.olympus.aptx4869.constants.SystemCodeConstants.PATTERN;
 import com.olympus.aptx4869.dbflute.exentity.MoneyReception;
 import com.olympus.aptx4869.dbflute.exentity.UserM;
 import com.olympus.aptx4869.dto.LabelValueDto;
@@ -58,26 +63,30 @@ public class MoneyReceptionController extends BaseController{
 	 * @return 登録画面
 	 * @throws NotFoundRecordException レコード取得エラー
 	 */
-	@RequestMapping(value = "/moneyReception/create/{paramUserId}", method = {RequestMethod.GET, RequestMethod.POST})
-	public String create(@PathVariable String paramUserId, Locale locale, Model model) throws NotFoundRecordException{
+	@RequestMapping(value = "/moneyReception/create/{paramLineId}", method = {RequestMethod.GET, RequestMethod.POST})
+	public String create(@PathVariable String paramLineId, Locale locale, Model model) throws NotFoundRecordException{
 
-        Integer userId = Integer.parseInt(paramUserId);
-        OptionalEntity<UserM> userMEntity = moneyReceptionService.findUserMEntity(userId);
+        OptionalEntity<UserM> userMOptionalEntity = moneyReceptionService.findUserMEntity(paramLineId);
 
-        if(!userMEntity.isPresent()){
+        if(!userMOptionalEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。
-            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"ユーザーマスタ", userId});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"ユーザーマスタ", paramLineId});
             throw new NotFoundRecordException();
         }
 
+        UserM userMEntity = userMOptionalEntity.get();
 	    MoneyReceptionForm form = new MoneyReceptionForm();
-	    form.setUserId(paramUserId);
+	    //ラインIDより、ユーザーIDを取得。
+	    form.setUserId(String.valueOf(userMEntity.getUserId()));
 
 	    form.setMoneyReceptionDate("2018/05/30");
 
         // プルダウンを表示する。
-        List<LabelValueDto> selectGenreList = genreService.createSelectGenreList(true, SystemCodeConstants.PLEASE_SELECT_MSG);
-        model.addAttribute("selectGenreList", selectGenreList);
+        List<LabelValueDto> selectSpendingGenreList = genreService.createSelectGenreList(true, false);
+        model.addAttribute("selectSpendingGenreList", selectSpendingGenreList);
+
+        List<LabelValueDto> selectIncomeGenreList = genreService.createSelectGenreList(true, true);
+        model.addAttribute("selectIncomeGenreList", selectIncomeGenreList);
 
         // form情報をModelへ格納。
         model.addAttribute("form", form);
@@ -102,29 +111,78 @@ public class MoneyReceptionController extends BaseController{
         // form情報をModelへ格納
         model.addAttribute("form", form);
 
+        ArrayList<String> errorMsgList = new ArrayList<String>();
+
+        for(int i = 0; i < MoneyReceptionRecord.MONEY_RECEPTION_RECORD; i++){
+
+            if(StringUtils.isEmpty(form.getGenreId()[i]) && StringUtils.isEmpty(form.getAmount()[i])){
+                //項目と金額が未入力であれば、スキップ。
+                continue;
+            }
+
+            if((StringUtils.isEmpty(form.getGenreId()[i]) && StringUtils.isNotEmpty(form.getAmount()[i]))
+                    || (StringUtils.isNotEmpty(form.getGenreId()[i]) && StringUtils.isEmpty(form.getAmount()[i]))){
+
+              //項目と金額のどちらか一方が未入力であれば、エラー。
+                bindingResult.rejectValue("genreId["+i+"]", null, null, null);
+                bindingResult.rejectValue("amount["+i+"]", null, null, null);
+                String message = messageSource.getMessage(
+                        MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTEMPTY_WITH_ITEM),
+                        new Object[]{(i+1),"項目と金額の両方"}, Locale.getDefault());
+                errorMsgList.add(message);
+
+            }else if(StringUtils.isNotEmpty(form.getGenreId()[i]) && StringUtils.isNotEmpty(form.getAmount()[i])){
+
+                //項目と金額のどちらも入力されている場合
+                if(!form.getAmount()[i].matches(PATTERN.AMOUNT_PATTERN)){
+                    //金額の入力形式が間違ってれば、エラー。
+                    bindingResult.rejectValue("amount["+i+"]", null, null, null);
+                    String message = messageSource.getMessage(
+                            MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.NOTAMOUNTPATTERN),
+                            new Object[]{(i+1),"金額", "1234(カンマなし)"}, Locale.getDefault());
+                    errorMsgList.add(message);
+                }
+            }
+
+            if(StringUtils.isNotEmpty(form.getSupplement()[i])){
+                //備考欄が入力されている場合
+                if(form.getAmount()[i].length() > SystemCodeConstants.SUPPLEMENT_LENGTH){
+                    //入力文字が21字以上であれば、エラー。
+                    bindingResult.rejectValue("supplement["+i+"]", null, null, null);
+                    String message = messageSource.getMessage(
+                            MessageKeyUtil.encloseStringDelete(MessageKeyConstants.GlueNetValidator.LENGTH),
+                            new Object[]{(i+1),"備考", "20"}, Locale.getDefault());
+                    errorMsgList.add(message);
+                }
+            }
+        }
+
         // validation確認
         if (bindingResult.hasErrors()) {
 
             // エラーメッセージをform:errorsに格納。
             model.addAttribute("errors", bindingResult);
+            model.addAttribute(MessageType.ERROR, errorMsgList);
 
             // プルダウンをエラー後も表示する。
-            List<LabelValueDto> selectGenreList = genreService.createSelectGenreList(true, SystemCodeConstants.PLEASE_SELECT_MSG);
-            model.addAttribute("selectGenreList", selectGenreList);
+            List<LabelValueDto> selectSpendingGenreList = genreService.createSelectGenreList(true, false);
+            model.addAttribute("selectSpendingGenreList", selectSpendingGenreList);
+
+            List<LabelValueDto> selectIncomeGenreList = genreService.createSelectGenreList(true, true);
+            model.addAttribute("selectIncomeGenreList", selectIncomeGenreList);
 
             // 入力エラーが存在すれば、登録画面を再描画
-            return "/moneyReception/create";
+            return "money/create";
         }
 
         // 登録処理
-        MoneyReceptionDto dto = new MoneyReceptionDto();
-        convertMoneyReseptionFromToDto(form, dto);
+        List<MoneyReceptionDto> dtoList = convertMoneyReseptionFromToDtoList(form);
 
-        MoneyReception moneyReceptionEntity = moneyReceptionService.store(dto);
+        List<MoneyReception> moneyReceptionEntityList = moneyReceptionService.storeList(dtoList);
 
         // 登録処理ログ出力
-        loggerService.outLog(LogMessageKeyConstants.Info.I_99_0004,
-                new Object[]{"金銭授受", moneyReceptionEntity.getMoneyReceptionId()});
+        loggerService.outLog(LogMessageKeyConstants.Info.I_99_0005,
+                new Object[]{"金銭授受", moneyReceptionEntityList.size()});
 
         // 登録完了メッセージを表示。
         String message = messageSource.getMessage(
@@ -133,7 +191,7 @@ public class MoneyReceptionController extends BaseController{
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, message);
 
         // 登録完了後、詳細画面へ遷移。
-        return "redirect:/money/detail" + form.getMoneyReceptionId();
+        return "redirect:/";
     }
 
 
@@ -294,29 +352,48 @@ public class MoneyReceptionController extends BaseController{
 
 
     /**
-     * moneyReseptionFromからdtoを作成する．
+     * moneyReseptionFromからdtoListを作成する．
      *
-     * @param form
-     * @param dto
+     * @param form MoneyReceptionForm
+     * @return dtoList
      */
-    private void convertMoneyReseptionFromToDto(MoneyReceptionForm form, MoneyReceptionDto dto) {
+    private  List<MoneyReceptionDto> convertMoneyReseptionFromToDtoList(MoneyReceptionForm form) {
 
-        dto.setUserId(Integer.parseInt(form.getUserId()));
+        List<MoneyReceptionDto> dtoList = new ArrayList<MoneyReceptionDto>();
 
-        if(form.getMoneyReceptionFlag().equals("spending")){
-            //支出であれば、Flagはfalseをセット。
-            dto.setMoneyReceptionFlag(false);
+        for(int i = 0; i < MoneyReceptionRecord.MONEY_RECEPTION_RECORD; i++){
 
-        }else if(form.getMoneyReceptionFlag().equals("income")){
-            //収入であれば、Flagはtrueをセット。
-            dto.setMoneyReceptionFlag(true);
-        }
+            if(StringUtils.isEmpty(form.getGenreId()[i]) && StringUtils.isEmpty(form.getAmount()[i])){
+                //項目と金額が未入力であれば、スキップ。
+                continue;
+            }
 
-        for(int i = 0; i < form.getGenreId().length; i++){
+            MoneyReceptionDto dto = new MoneyReceptionDto();
+
+            //項目ごとに異なる値
             dto.setGenreId(Integer.parseInt(form.getGenreId()[i]));
             dto.setAmount(Integer.parseInt(form.getAmount()[i]));
             dto.setSupplement(form.getSupplement()[i]);
+
+            //共通の値
+            dto.setUserId(Integer.parseInt(form.getUserId()));
+            dto.setMoneyReceptionDate(DateUtil.convertToLocalDate(form.getMoneyReceptionDate()));
+
+            if(StringUtils.isNotEmpty(form.getMoneyReceptionId())){
+                //既に金銭授受IDが設定されている場合（更新処理時）、dtoにセット。
+                dto.setMoneyReceptionId(Long.parseLong(form.getMoneyReceptionId()));
+            }
+
+            if(i < MoneyReceptionRecord.SPENDING_RECORD){
+                dto.setMoneyReceptionFlag(false);  //支出：false
+            }else{
+                dto.setMoneyReceptionFlag(true);  //収入：true
+            }
+
+            dtoList.add(dto);
         }
+
+        return dtoList;
     }
 
 }

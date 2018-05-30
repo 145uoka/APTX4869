@@ -32,13 +32,13 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     
+ *     money_reception, regularly_data, user_property
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     moneyReceptionList, regularlyDataList, userPropertyList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -145,6 +145,66 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** money_reception by user_id, named 'moneyReceptionList'. */
+    protected List<MoneyReception> _moneyReceptionList;
+
+    /**
+     * [get] money_reception by user_id, named 'moneyReceptionList'.
+     * @return The entity list of referrer property 'moneyReceptionList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MoneyReception> getMoneyReceptionList() {
+        if (_moneyReceptionList == null) { _moneyReceptionList = newReferrerList(); }
+        return _moneyReceptionList;
+    }
+
+    /**
+     * [set] money_reception by user_id, named 'moneyReceptionList'.
+     * @param moneyReceptionList The entity list of referrer property 'moneyReceptionList'. (NullAllowed)
+     */
+    public void setMoneyReceptionList(List<MoneyReception> moneyReceptionList) {
+        _moneyReceptionList = moneyReceptionList;
+    }
+
+    /** regularly_data by user_id, named 'regularlyDataList'. */
+    protected List<RegularlyData> _regularlyDataList;
+
+    /**
+     * [get] regularly_data by user_id, named 'regularlyDataList'.
+     * @return The entity list of referrer property 'regularlyDataList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<RegularlyData> getRegularlyDataList() {
+        if (_regularlyDataList == null) { _regularlyDataList = newReferrerList(); }
+        return _regularlyDataList;
+    }
+
+    /**
+     * [set] regularly_data by user_id, named 'regularlyDataList'.
+     * @param regularlyDataList The entity list of referrer property 'regularlyDataList'. (NullAllowed)
+     */
+    public void setRegularlyDataList(List<RegularlyData> regularlyDataList) {
+        _regularlyDataList = regularlyDataList;
+    }
+
+    /** user_property by user_id, named 'userPropertyList'. */
+    protected List<UserProperty> _userPropertyList;
+
+    /**
+     * [get] user_property by user_id, named 'userPropertyList'.
+     * @return The entity list of referrer property 'userPropertyList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<UserProperty> getUserPropertyList() {
+        if (_userPropertyList == null) { _userPropertyList = newReferrerList(); }
+        return _userPropertyList;
+    }
+
+    /**
+     * [set] user_property by user_id, named 'userPropertyList'.
+     * @param userPropertyList The entity list of referrer property 'userPropertyList'. (NullAllowed)
+     */
+    public void setUserPropertyList(List<UserProperty> userPropertyList) {
+        _userPropertyList = userPropertyList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -173,7 +233,14 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_moneyReceptionList != null) { for (MoneyReception et : _moneyReceptionList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "moneyReceptionList")); } } }
+        if (_regularlyDataList != null) { for (RegularlyData et : _regularlyDataList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "regularlyDataList")); } } }
+        if (_userPropertyList != null) { for (UserProperty et : _userPropertyList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "userPropertyList")); } } }
+        return sb.toString();
     }
 
     @Override
@@ -200,7 +267,17 @@ public abstract class BsUserM extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_moneyReceptionList != null && !_moneyReceptionList.isEmpty())
+        { sb.append(dm).append("moneyReceptionList"); }
+        if (_regularlyDataList != null && !_regularlyDataList.isEmpty())
+        { sb.append(dm).append("regularlyDataList"); }
+        if (_userPropertyList != null && !_userPropertyList.isEmpty())
+        { sb.append(dm).append("userPropertyList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override

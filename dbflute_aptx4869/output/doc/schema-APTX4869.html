@@ -358,10 +358,10 @@ dl.procedurelist dd.column pre {
 	<tr>
 		<td class="rownumcell">1</td>
 		<td class="aliascell"></td>
-		<td class="namecell" data-name="genre"><a href="#genre" title="type=TABLE, primaryKey={genre_id}, nameLength=5, columnCount=5">genre</a></td>
+		<td class="namecell" data-name="genre"><a href="#genre" title="type=TABLE, primaryKey={genre_id}, nameLength=5, columnCount=6">genre</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#money_reception" title="money_reception_genre_id_fkey">money_reception</a></td>
 		<td class="commentcell genre_comment"><pre>&nbsp;</pre></td>
 		<td class="subcell">Genre</td>
 	</tr>
@@ -370,7 +370,7 @@ dl.procedurelist dd.column pre {
 		<td class="aliascell"></td>
 		<td class="namecell" data-name="money_reception"><a href="#money_reception" title="type=TABLE, primaryKey={money_reception_id}, nameLength=15, columnCount=10">money_reception</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#genre" title="money_reception_genre_id_fkey">genre</a>, <a href="#user_m" title="money_reception_user_id_fkey">user_m</a></td>
 		<td class="relcell">&nbsp;</td>
 		<td class="commentcell money_reception_comment"><pre>&nbsp;</pre></td>
 		<td class="subcell">MoneyReception</td>
@@ -400,7 +400,7 @@ dl.procedurelist dd.column pre {
 		<td class="aliascell"></td>
 		<td class="namecell" data-name="regularly_data"><a href="#regularly_data" title="type=TABLE, primaryKey={property_id}, nameLength=14, columnCount=8">regularly_data</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#user_m" title="regularly_data_user_id_fkey">user_m</a></td>
 		<td class="relcell">&nbsp;</td>
 		<td class="commentcell regularly_data_comment"><pre>&nbsp;</pre></td>
 		<td class="subcell">RegularlyData</td>
@@ -411,7 +411,7 @@ dl.procedurelist dd.column pre {
 		<td class="namecell" data-name="user_m"><a href="#user_m" title="type=TABLE, primaryKey={user_id}, nameLength=6, columnCount=12">user_m</a></td>
 		<td class="typecell">TABLE</td>
 		<td class="relcell">&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#money_reception" title="money_reception_user_id_fkey">money_reception</a>, <a href="#regularly_data" title="regularly_data_user_id_fkey">regularly_data</a>, <a href="#user_property" title="user_property_user_id_fkey">user_property</a></td>
 		<td class="commentcell user_m_comment"><pre>&nbsp;</pre></td>
 		<td class="subcell">UserM</td>
 	</tr>
@@ -420,7 +420,7 @@ dl.procedurelist dd.column pre {
 		<td class="aliascell"></td>
 		<td class="namecell" data-name="user_property"><a href="#user_property" title="type=TABLE, primaryKey={property_id}, nameLength=13, columnCount=7">user_property</a></td>
 		<td class="typecell">TABLE</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#user_m" title="user_property_user_id_fkey">user_m</a></td>
 		<td class="relcell">&nbsp;</td>
 		<td class="commentcell user_property_comment"><pre>&nbsp;</pre></td>
 		<td class="subcell">UserProperty</td>
@@ -428,7 +428,7 @@ dl.procedurelist dd.column pre {
 	</tbody>
 </table>
 
-<h2 id="genre" title="type=TABLE, primaryKey={genre_id}, nameLength=5, columnCount=5">
+<h2 id="genre" title="type=TABLE, primaryKey={genre_id}, nameLength=5, columnCount=6">
 genre
 </h2>
 <div class="tablecomment genre_comment" data-name="genre"><pre></pre></div>
@@ -468,7 +468,7 @@ genre
 		<td class="sizecell"> 10 </td>
 		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#money_reception" title="money_reception_genre_id_fkey">money_reception</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">genreId</td>
@@ -500,6 +500,25 @@ genre
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell">*</td>
+		<td class="aliascell"></td>
+		<td class=" columnnamecell" id="genre_balance_flg">balance_flg</td>
+		<td class="typecell">bool</td>
+		<td class="sizecell"> 1 </td>
+		<td class="defvalcell"> &nbsp;</td>
+		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell">&nbsp;</td>
+		<td class="relcell"> &nbsp;</td>
+		<td class="commentcell"><pre>&nbsp;</pre></td>
+		<td class="subcell">balanceFlg</td>
+		<td class="subcell">Boolean</td>
+	</tr>
+	<tr>
+		<td class="rownumcell">4</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell"> &nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">&nbsp;</td>
+		<td class="flgcell">*</td>
 		<td class="aliascell">削除フラグ</td>
 		<td class=" columnnamecell" id="genre_delete_flag">delete_flag</td>
 		<td class="typecell">bool</td>
@@ -513,7 +532,7 @@ genre
 		<td class="subcell">Boolean</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">4</td>
+		<td class="rownumcell">5</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -532,7 +551,7 @@ genre
 		<td class="subcell">LocalDateTime</td>
 	</tr>
 	<tr>
-		<td class="rownumcell">5</td>
+		<td class="rownumcell">6</td>
 		<td class="flgcell">&nbsp;</td>
 		<td class="flgcell"> &nbsp;</td>
 		<td class="flgcell">&nbsp;</td>
@@ -610,7 +629,7 @@ money_reception
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
 		<td class="defvalcell"> &nbsp;</td>
-		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#user_m" title="money_reception_user_id_fkey">user_m</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"><pre>&nbsp;</pre></td>
@@ -629,7 +648,7 @@ money_reception
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
 		<td class="defvalcell"> &nbsp;</td>
-		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#genre" title="money_reception_genre_id_fkey">genre</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"><pre>&nbsp;</pre></td>
@@ -1172,7 +1191,7 @@ regularly_data
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
 		<td class="defvalcell"> &nbsp;</td>
-		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#user_m" title="regularly_data_user_id_fkey">user_m</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"><pre>&nbsp;</pre></td>
@@ -1335,7 +1354,7 @@ regularly_data
 		<td class="sizecell"> 10 </td>
 		<td class="defvalcell"> &nbsp;</td>
 		<td class="relcell">&nbsp;&nbsp;</td>
-		<td class="relcell">&nbsp;</td>
+		<td class="relcell"><a href="#money_reception" title="money_reception_user_id_fkey">money_reception</a>,<br><a href="#regularly_data" title="regularly_data_user_id_fkey">regularly_data</a>,<br><a href="#user_property" title="user_property_user_id_fkey">user_property</a>&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"><pre>&nbsp;</pre></td>
 		<td class="subcell">userId</td>
@@ -1610,7 +1629,7 @@ user_property
 		<td class="typecell">int4</td>
 		<td class="sizecell"> 10 </td>
 		<td class="defvalcell"> &nbsp;</td>
-		<td class="relcell">&nbsp;&nbsp;</td>
+		<td class="relcell"><a href="#user_m" title="user_property_user_id_fkey">user_m</a>&nbsp;</td>
 		<td class="relcell">&nbsp;</td>
 		<td class="relcell"> &nbsp;</td>
 		<td class="commentcell"><pre>&nbsp;</pre></td>
@@ -2100,6 +2119,9 @@ function Decomment() {
 					'databaseComment': ''
 				}
 				, 'genre_name': {
+					'databaseComment': ''
+				}
+				, 'balance_flg': {
 					'databaseComment': ''
 				}
 				, 'delete_flag': {

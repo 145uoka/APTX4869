@@ -1,8 +1,5 @@
 package com.olympus.aptx4869.form;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class MoneyReceptionForm {
@@ -12,19 +9,14 @@ public class MoneyReceptionForm {
     @NotEmpty
     private String userId;
 
-    @NotEmpty
     private String[] genreId;
 
-    @NotEmpty
     private String moneyReceptionFlag;
 
-    @NotEmpty
-    @Pattern(regexp = "^[0-9]{9}$")
     private String[] amount;
 
     private String moneyReceptionDate;
 
-    @Size(max=20)
     private String[] supplement;
 
     public String getMoneyReceptionId() {

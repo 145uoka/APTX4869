@@ -38,13 +38,13 @@ import com.olympus.aptx4869.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     genre, user_m
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     genre, userM
  *
  * [referrer property]
  *     
@@ -379,6 +379,22 @@ public abstract class BsMoneyReceptionBhv extends AbstractBehaviorWritable<Money
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'Genre'.
+     * @param moneyReceptionList The list of moneyReception. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<Genre> pulloutGenre(List<MoneyReception> moneyReceptionList)
+    { return helpPulloutInternally(moneyReceptionList, "genre"); }
+
+    /**
+     * Pull out the list of foreign table 'UserM'.
+     * @param moneyReceptionList The list of moneyReception. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<UserM> pulloutUserM(List<MoneyReception> moneyReceptionList)
+    { return helpPulloutInternally(moneyReceptionList, "userM"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

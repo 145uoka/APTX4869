@@ -19,7 +19,7 @@ public class MoneyReceptionRestForm {
     private String moneyReceptionFlag;
 
     @NotEmpty
-    @Pattern(regexp = "^[0-9]{9}$")
+    @Pattern(regexp = "^[0-9]{1,9}$")
     private String amount;
 
     private String moneyReceptionDate;

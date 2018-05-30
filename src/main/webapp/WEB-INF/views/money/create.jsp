@@ -38,6 +38,7 @@
 					<div class="panel panel-success">
 						<div class="panel-heading">
 							<h4><c:out value="${form.moneyReceptionDate}" /></h4>
+							<form:hidden path="moneyReceptionDate"/>
 						</div>
 						<div class="panel-body">
 
@@ -53,6 +54,7 @@
 									<table class="table table-striped table-bordered table-hover table-condensed panel">
 										<thead class="main-background-color">
 											<tr>
+												<th class="text-center">No</th>
 												<th class="text-center">項目</th>
 												<th class="text-center">金額</th>
 												<th class="text-center">備考</th>
@@ -61,8 +63,9 @@
 										<tbody>
 											<c:forEach begin="0" end="9" varStatus="status">
 												<tr>
+													<td>${status.count}</td>
 													<td><form:select path="genreId[${status.index}]"
-															class="form-control" items="${selectGenreList}"
+															class="form-control" items="${selectSpendingGenreList}"
 															itemLabel="label" itemValue="value"
 															cssErrorClass="form-control error-input" /></td>
 													<td><form:input path="amount[${status.index}]"
@@ -81,16 +84,18 @@
 									<table class="table table-striped table-bordered table-hover table-condensed panel">
 										<thead class="main-background-color">
 											<tr>
+												<th class="text-center">No</th>
 												<th class="text-center">項目</th>
 												<th class="text-center">金額</th>
 												<th class="text-center">備考</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach begin="10" end="19" varStatus="status">
+											<c:forEach begin="10" end="14" varStatus="status">
 												<tr>
+													<td>${status.count + 10}</td>
 													<td><form:select path="genreId[${status.index}]"
-															class="form-control" items="${selectGenreList}"
+															class="form-control" items="${selectIncomeGenreList}"
 															itemLabel="label" itemValue="value"
 															cssErrorClass="form-control error-input" /></td>
 													<td><form:input path="amount[${status.index}]"
@@ -113,6 +118,7 @@
 		</div>
 
 		<form:hidden path="moneyReceptionId"/>
+		<form:hidden path="userId"/>
 		<form:hidden path="moneyReceptionFlag"/>
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10" align="right">

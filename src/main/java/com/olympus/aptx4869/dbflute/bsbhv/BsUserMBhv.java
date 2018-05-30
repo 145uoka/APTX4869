@@ -41,13 +41,13 @@ import com.olympus.aptx4869.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     
+ *     money_reception, regularly_data, user_property
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     moneyReceptionList, regularlyDataList, userPropertyList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -374,6 +374,198 @@ public abstract class BsUserMBhv extends AbstractBehaviorWritable<UserM, UserMCB
     public void load(UserM userM, ReferrerLoaderHandler<LoaderOfUserM> loaderLambda) {
         xassLRArg(userM, loaderLambda);
         loaderLambda.handle(new LoaderOfUserM().ready(xnewLRAryLs(userM), _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of moneyReceptionList by the set-upper of referrer. <br>
+     * money_reception by user_id, named 'moneyReceptionList'.
+     * <pre>
+     * <span style="color: #0000C0">userMBhv</span>.<span style="color: #CC4747">loadMoneyReception</span>(<span style="color: #553000">userMList</span>, <span style="color: #553000">receptionCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">receptionCB</span>.setupSelect...
+     *     <span style="color: #553000">receptionCB</span>.query().set...
+     *     <span style="color: #553000">receptionCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (UserM userM : <span style="color: #553000">userMList</span>) {
+     *     ... = userM.<span style="color: #CC4747">getMoneyReceptionList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userMList The entity list of userM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MoneyReception> loadMoneyReception(List<UserM> userMList, ReferrerConditionSetupper<MoneyReceptionCB> refCBLambda) {
+        xassLRArg(userMList, refCBLambda);
+        return doLoadMoneyReception(userMList, new LoadReferrerOption<MoneyReceptionCB, MoneyReception>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of moneyReceptionList by the set-upper of referrer. <br>
+     * money_reception by user_id, named 'moneyReceptionList'.
+     * <pre>
+     * <span style="color: #0000C0">userMBhv</span>.<span style="color: #CC4747">loadMoneyReception</span>(<span style="color: #553000">userM</span>, <span style="color: #553000">receptionCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">receptionCB</span>.setupSelect...
+     *     <span style="color: #553000">receptionCB</span>.query().set...
+     *     <span style="color: #553000">receptionCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">userM</span>.<span style="color: #CC4747">getMoneyReceptionList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userM The entity of userM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MoneyReception> loadMoneyReception(UserM userM, ReferrerConditionSetupper<MoneyReceptionCB> refCBLambda) {
+        xassLRArg(userM, refCBLambda);
+        return doLoadMoneyReception(xnewLRLs(userM), new LoadReferrerOption<MoneyReceptionCB, MoneyReception>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MoneyReception> doLoadMoneyReception(List<UserM> userMList, LoadReferrerOption<MoneyReceptionCB, MoneyReception> option) {
+        return helpLoadReferrerInternally(userMList, option, "moneyReceptionList");
+    }
+
+    /**
+     * Load referrer of regularlyDataList by the set-upper of referrer. <br>
+     * regularly_data by user_id, named 'regularlyDataList'.
+     * <pre>
+     * <span style="color: #0000C0">userMBhv</span>.<span style="color: #CC4747">loadRegularlyData</span>(<span style="color: #553000">userMList</span>, <span style="color: #553000">dataCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">dataCB</span>.setupSelect...
+     *     <span style="color: #553000">dataCB</span>.query().set...
+     *     <span style="color: #553000">dataCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (UserM userM : <span style="color: #553000">userMList</span>) {
+     *     ... = userM.<span style="color: #CC4747">getRegularlyDataList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userMList The entity list of userM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<RegularlyData> loadRegularlyData(List<UserM> userMList, ReferrerConditionSetupper<RegularlyDataCB> refCBLambda) {
+        xassLRArg(userMList, refCBLambda);
+        return doLoadRegularlyData(userMList, new LoadReferrerOption<RegularlyDataCB, RegularlyData>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of regularlyDataList by the set-upper of referrer. <br>
+     * regularly_data by user_id, named 'regularlyDataList'.
+     * <pre>
+     * <span style="color: #0000C0">userMBhv</span>.<span style="color: #CC4747">loadRegularlyData</span>(<span style="color: #553000">userM</span>, <span style="color: #553000">dataCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">dataCB</span>.setupSelect...
+     *     <span style="color: #553000">dataCB</span>.query().set...
+     *     <span style="color: #553000">dataCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">userM</span>.<span style="color: #CC4747">getRegularlyDataList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userM The entity of userM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<RegularlyData> loadRegularlyData(UserM userM, ReferrerConditionSetupper<RegularlyDataCB> refCBLambda) {
+        xassLRArg(userM, refCBLambda);
+        return doLoadRegularlyData(xnewLRLs(userM), new LoadReferrerOption<RegularlyDataCB, RegularlyData>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<RegularlyData> doLoadRegularlyData(List<UserM> userMList, LoadReferrerOption<RegularlyDataCB, RegularlyData> option) {
+        return helpLoadReferrerInternally(userMList, option, "regularlyDataList");
+    }
+
+    /**
+     * Load referrer of userPropertyList by the set-upper of referrer. <br>
+     * user_property by user_id, named 'userPropertyList'.
+     * <pre>
+     * <span style="color: #0000C0">userMBhv</span>.<span style="color: #CC4747">loadUserProperty</span>(<span style="color: #553000">userMList</span>, <span style="color: #553000">propertyCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">propertyCB</span>.setupSelect...
+     *     <span style="color: #553000">propertyCB</span>.query().set...
+     *     <span style="color: #553000">propertyCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (UserM userM : <span style="color: #553000">userMList</span>) {
+     *     ... = userM.<span style="color: #CC4747">getUserPropertyList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userMList The entity list of userM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<UserProperty> loadUserProperty(List<UserM> userMList, ReferrerConditionSetupper<UserPropertyCB> refCBLambda) {
+        xassLRArg(userMList, refCBLambda);
+        return doLoadUserProperty(userMList, new LoadReferrerOption<UserPropertyCB, UserProperty>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of userPropertyList by the set-upper of referrer. <br>
+     * user_property by user_id, named 'userPropertyList'.
+     * <pre>
+     * <span style="color: #0000C0">userMBhv</span>.<span style="color: #CC4747">loadUserProperty</span>(<span style="color: #553000">userM</span>, <span style="color: #553000">propertyCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">propertyCB</span>.setupSelect...
+     *     <span style="color: #553000">propertyCB</span>.query().set...
+     *     <span style="color: #553000">propertyCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">userM</span>.<span style="color: #CC4747">getUserPropertyList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setUserId_InScope(pkList);
+     * cb.query().addOrderBy_UserId_Asc();
+     * </pre>
+     * @param userM The entity of userM. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<UserProperty> loadUserProperty(UserM userM, ReferrerConditionSetupper<UserPropertyCB> refCBLambda) {
+        xassLRArg(userM, refCBLambda);
+        return doLoadUserProperty(xnewLRLs(userM), new LoadReferrerOption<UserPropertyCB, UserProperty>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<UserProperty> doLoadUserProperty(List<UserM> userMList, LoadReferrerOption<UserPropertyCB, UserProperty> option) {
+        return helpLoadReferrerInternally(userMList, option, "userPropertyList");
     }
 
     // ===================================================================================

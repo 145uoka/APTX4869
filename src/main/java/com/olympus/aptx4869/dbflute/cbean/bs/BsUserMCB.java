@@ -351,6 +351,57 @@ public class BsUserMCB extends AbstractConditionBean {
         @Override
         protected String getTableDbName() { return "user_m"; }
         /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from money_reception where ...) as FOO_MAX} <br>
+         * money_reception by user_id, named 'moneyReceptionList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(receptionCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     receptionCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     receptionCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, MoneyReception.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<MoneyReceptionCB, UserMCQ> derivedMoneyReception() {
+            assertDerived("moneyReceptionList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<MoneyReceptionCB> sq, UserMCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveMoneyReceptionList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from regularly_data where ...) as FOO_MAX} <br>
+         * regularly_data by user_id, named 'regularlyDataList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(dataCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     dataCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     dataCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, RegularlyData.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<RegularlyDataCB, UserMCQ> derivedRegularlyData() {
+            assertDerived("regularlyDataList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<RegularlyDataCB> sq, UserMCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveRegularlyDataList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from user_property where ...) as FOO_MAX} <br>
+         * user_property by user_id, named 'userPropertyList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(propertyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     propertyCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     propertyCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, UserProperty.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<UserPropertyCB, UserMCQ> derivedUserProperty() {
+            assertDerived("userPropertyList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<UserPropertyCB> sq, UserMCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveUserPropertyList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */

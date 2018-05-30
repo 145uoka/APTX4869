@@ -3,11 +3,10 @@ package com.olympus.aptx4869.controller;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +18,6 @@ import com.olympus.aptx4869.common.util.DateUtil;
 import com.olympus.aptx4869.common.util.MessageKeyUtil;
 import com.olympus.aptx4869.constants.LogMessageKeyConstants;
 import com.olympus.aptx4869.constants.MessageKeyConstants;
-import com.olympus.aptx4869.constants.SystemCodeConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants.MessageType;
 import com.olympus.aptx4869.dbflute.exentity.MoneyReception;
 import com.olympus.aptx4869.dto.LabelValueDto;
@@ -50,7 +48,7 @@ public class MoneyReceptionRestController extends BaseController{
     MoneyReceptionService moneyReceptionService;
 
 	/**
-     * 金銭授受登録処理用コントローラー．
+     * API用：金銭授受登録処理用コントローラー．
      *
      * @param form 登録情報フォーム
      * @param bindingResult 入力エラー情報
@@ -61,21 +59,13 @@ public class MoneyReceptionRestController extends BaseController{
      */
     @RequestMapping(value = "/api/moneyReception/store", method = RequestMethod.POST)
     @ResponseBody
-    public ResultDto store(@RequestBody MoneyReceptionRestForm form, BindingResult bindingResult,
+    public boolean store(@RequestBody @Validated MoneyReceptionRestForm form, BindingResult bindingResult,
             Locale locale, Model model, RedirectAttributes redirectAttributes) {
+
+        ResultDto resultDto = new ResultDto();
 
         // form情報をModelへ格納
         model.addAttribute("form", form);
-
-        if(StringUtils.isNotEmpty(form.getMoneyReceptionDate())){
-            if(!DateUtil.isValidDateFormat(form.getMoneyReceptionDate())){
-                //日付に変換できなければ、エラー
-                String message = messageSource.getMessage(
-                        MessageKeyUtil.encloseStringDelete(MessageKeyConstants.CustomValidators.DATEFORMAT_MESSAGE),
-                        new Object[]{DateUtil.DATE_TIME_FORMAT_YYYYMM}, Locale.getDefault());
-                bindingResult.rejectValue("moneyReceptionDate",null, null, message);
-            }
-        }
 
         // validation確認
         if (bindingResult.hasErrors()) {
@@ -84,13 +74,15 @@ public class MoneyReceptionRestController extends BaseController{
             model.addAttribute("errors", bindingResult);
 
             // プルダウンをエラー後も表示する。
-            List<LabelValueDto> selectGenreList = genreService.createSelectGenreList(true, SystemCodeConstants.PLEASE_SELECT_MSG);
-            model.addAttribute("selectGenreList", selectGenreList);
+            List<LabelValueDto> selectSpendingGenreList = genreService.createSelectGenreList(true, false);
+            model.addAttribute("selectSpendingGenreList", selectSpendingGenreList);
+
+            List<LabelValueDto> selectIncomeGenreList = genreService.createSelectGenreList(true, true);
+            model.addAttribute("selectIncomeGenreList", selectIncomeGenreList);
 
             // 入力エラーが存在すれば、登録画面を再描画
-            ResultDto resultDto = new ResultDto();
             resultDto.setProcessingFlag(false);
-            return resultDto;
+            return resultDto.isProcessingFlag();
         }
 
         // 登録処理
@@ -110,8 +102,8 @@ public class MoneyReceptionRestController extends BaseController{
         redirectAttributes.addFlashAttribute(MessageType.SUCCESS, message);
 
         // 登録完了後、詳細画面へ遷移。
-        ResultDto resultDto = new ResultDto();
-        return resultDto;
+        resultDto.setProcessingFlag(true);
+        return resultDto.isProcessingFlag();
     }
 
 
@@ -122,8 +114,6 @@ public class MoneyReceptionRestController extends BaseController{
      * @param dto
      */
     private void convertMoneyReseptionFromToDto(MoneyReceptionRestForm form, MoneyReceptionDto dto) {
-
-        BeanUtils.copyProperties(form, dto);
 
         if(form.getMoneyReceptionFlag().equals("false")){
             //支出であれば、Flagはfalseをセット。
@@ -137,6 +127,7 @@ public class MoneyReceptionRestController extends BaseController{
         dto.setUserId(Integer.parseInt(form.getUserId()));
         dto.setGenreId(Integer.parseInt(form.getGenreId()));
         dto.setAmount(Integer.parseInt(form.getAmount()));
+        dto.setSupplement(form.getSupplement());
         dto.setMoneyReceptionDate(DateUtil.convertToLocalDateOrNull(form.getMoneyReceptionDate()));
     }
 

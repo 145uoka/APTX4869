@@ -18,6 +18,7 @@ CREATE TABLE aptx4869.genre
 (
 	genre_id serial NOT NULL,
 	genre_name text NOT NULL,
+	balance_flg boolean NOT NULL,
 	-- 削除フラグ
 	delete_flag boolean DEFAULT 'false' NOT NULL,
 	-- 登録日時
@@ -154,6 +155,41 @@ CREATE TABLE aptx4869.user_property
 	update_datetime timestamp(3),
 	PRIMARY KEY (property_id)
 ) WITHOUT OIDS;
+
+
+
+/* Create Foreign Keys */
+
+ALTER TABLE aptx4869.money_reception
+	ADD FOREIGN KEY (genre_id)
+	REFERENCES aptx4869.genre (genre_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE aptx4869.money_reception
+	ADD FOREIGN KEY (user_id)
+	REFERENCES aptx4869.user_m (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE aptx4869.regularly_data
+	ADD FOREIGN KEY (user_id)
+	REFERENCES aptx4869.user_m (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE aptx4869.user_property
+	ADD FOREIGN KEY (user_id)
+	REFERENCES aptx4869.user_m (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
 
 
 
