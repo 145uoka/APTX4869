@@ -3,14 +3,15 @@ package com.olympus.aptx4869.form;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class MoneyReceptionRestForm {
 
-//    @Override
-//    public String toString() {
-//        return ToStringBuilder.reflectionToString(this);
-//    }
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 
     private String moneyReceptionId;
 
