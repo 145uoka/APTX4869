@@ -15,8 +15,7 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
-    ; driver   = org.postgresql.Driver
-    #; url      = jdbc:postgresql://192.168.0.18:5432/postgres?currentSchema=ishigouoka_k
+   ; driver   = org.postgresql.Driver
     ; url      = jdbc:postgresql://localhost:5432/postgres?currentSchema=aptx4869
     ; schema   = aptx4869
     ; user     = postgres
