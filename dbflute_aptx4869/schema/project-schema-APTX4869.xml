@@ -46,6 +46,12 @@
         <column comment="更新日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="update_datetime"
             size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="aptx4869" foreignTable="genre" name="money_reception_genre_id_fkey">
+            <reference foreign="genre_id" local="genre_id"/>
+        </foreign-key>
+        <foreign-key foreignSchema="aptx4869" foreignTable="user_m" name="money_reception_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <table comment="OAuthプロパティ_M" name="oauth_property_m"
         schema="postgres.aptx4869" type="TABLE">
@@ -122,6 +128,9 @@
         <column comment="更新日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="update_datetime"
             size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="aptx4869" foreignTable="user_m" name="regularly_data_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <table comment="ユーザー_M" name="user_m" schema="postgres.aptx4869" type="TABLE">
         <column autoIncrement="true" comment="ユーザーID" dbType="serial"
@@ -175,6 +184,9 @@
         <column comment="更新日時" dbType="timestamp"
             javaType="java.time.LocalDateTime" name="update_datetime"
             size="26, 3" type="TIMESTAMP"/>
+        <foreign-key foreignSchema="aptx4869" foreignTable="user_m" name="user_property_user_id_fkey">
+            <reference foreign="user_id" local="user_id"/>
+        </foreign-key>
     </table>
     <sequenceGroup>
         <sequence incrementSize="1" maximumValue="9223372036854775807"

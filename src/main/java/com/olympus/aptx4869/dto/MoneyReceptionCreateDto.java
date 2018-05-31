@@ -25,7 +25,18 @@ public class MoneyReceptionCreateDto {
 
     private LocalDateTime updateDatetime;
 
-    public Integer getMoneyReceptionId() {
+    //徳野追記
+    private GenreDto genreDto;
+
+    public GenreDto getGenreDto() {
+		return genreDto;
+	}
+
+	public void setGenreDto(GenreDto genreDto) {
+		this.genreDto = genreDto;
+	}
+
+	public Integer getMoneyReceptionId() {
         return moneyReceptionId;
     }
 

@@ -41,13 +41,13 @@ import com.olympus.aptx4869.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     
+ *     money_reception
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     moneyReceptionList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -374,6 +374,70 @@ public abstract class BsGenreBhv extends AbstractBehaviorWritable<Genre, GenreCB
     public void load(Genre genre, ReferrerLoaderHandler<LoaderOfGenre> loaderLambda) {
         xassLRArg(genre, loaderLambda);
         loaderLambda.handle(new LoaderOfGenre().ready(xnewLRAryLs(genre), _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of moneyReceptionList by the set-upper of referrer. <br>
+     * money_reception by genre_id, named 'moneyReceptionList'.
+     * <pre>
+     * <span style="color: #0000C0">genreBhv</span>.<span style="color: #CC4747">loadMoneyReception</span>(<span style="color: #553000">genreList</span>, <span style="color: #553000">receptionCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">receptionCB</span>.setupSelect...
+     *     <span style="color: #553000">receptionCB</span>.query().set...
+     *     <span style="color: #553000">receptionCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * <span style="color: #70226C">for</span> (Genre genre : <span style="color: #553000">genreList</span>) {
+     *     ... = genre.<span style="color: #CC4747">getMoneyReceptionList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setGenreId_InScope(pkList);
+     * cb.query().addOrderBy_GenreId_Asc();
+     * </pre>
+     * @param genreList The entity list of genre. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MoneyReception> loadMoneyReception(List<Genre> genreList, ReferrerConditionSetupper<MoneyReceptionCB> refCBLambda) {
+        xassLRArg(genreList, refCBLambda);
+        return doLoadMoneyReception(genreList, new LoadReferrerOption<MoneyReceptionCB, MoneyReception>().xinit(refCBLambda));
+    }
+
+    /**
+     * Load referrer of moneyReceptionList by the set-upper of referrer. <br>
+     * money_reception by genre_id, named 'moneyReceptionList'.
+     * <pre>
+     * <span style="color: #0000C0">genreBhv</span>.<span style="color: #CC4747">loadMoneyReception</span>(<span style="color: #553000">genre</span>, <span style="color: #553000">receptionCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">receptionCB</span>.setupSelect...
+     *     <span style="color: #553000">receptionCB</span>.query().set...
+     *     <span style="color: #553000">receptionCB</span>.query().addOrderBy...
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = <span style="color: #553000">genre</span>.<span style="color: #CC4747">getMoneyReceptionList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setGenreId_InScope(pkList);
+     * cb.query().addOrderBy_GenreId_Asc();
+     * </pre>
+     * @param genre The entity of genre. (NotNull)
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerListGateway<MoneyReception> loadMoneyReception(Genre genre, ReferrerConditionSetupper<MoneyReceptionCB> refCBLambda) {
+        xassLRArg(genre, refCBLambda);
+        return doLoadMoneyReception(xnewLRLs(genre), new LoadReferrerOption<MoneyReceptionCB, MoneyReception>().xinit(refCBLambda));
+    }
+
+    protected NestedReferrerListGateway<MoneyReception> doLoadMoneyReception(List<Genre> genreList, LoadReferrerOption<MoneyReceptionCB, MoneyReception> option) {
+        return helpLoadReferrerInternally(genreList, option, "moneyReceptionList");
     }
 
     // ===================================================================================

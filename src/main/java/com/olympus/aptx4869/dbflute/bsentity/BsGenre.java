@@ -32,13 +32,13 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     
+ *     money_reception
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     moneyReceptionList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -110,6 +110,26 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** money_reception by genre_id, named 'moneyReceptionList'. */
+    protected List<MoneyReception> _moneyReceptionList;
+
+    /**
+     * [get] money_reception by genre_id, named 'moneyReceptionList'.
+     * @return The entity list of referrer property 'moneyReceptionList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MoneyReception> getMoneyReceptionList() {
+        if (_moneyReceptionList == null) { _moneyReceptionList = newReferrerList(); }
+        return _moneyReceptionList;
+    }
+
+    /**
+     * [set] money_reception by genre_id, named 'moneyReceptionList'.
+     * @param moneyReceptionList The entity list of referrer property 'moneyReceptionList'. (NullAllowed)
+     */
+    public void setMoneyReceptionList(List<MoneyReception> moneyReceptionList) {
+        _moneyReceptionList = moneyReceptionList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -138,7 +158,10 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_moneyReceptionList != null) { for (MoneyReception et : _moneyReceptionList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "moneyReceptionList")); } } }
+        return sb.toString();
     }
 
     @Override
@@ -158,7 +181,13 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_moneyReceptionList != null && !_moneyReceptionList.isEmpty())
+        { sb.append(dm).append("moneyReceptionList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override

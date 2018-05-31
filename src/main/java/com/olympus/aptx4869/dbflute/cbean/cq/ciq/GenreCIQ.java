@@ -62,6 +62,16 @@ public class GenreCIQ extends AbstractBsGenreCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueGenreId() { return _myCQ.xdfgetGenreId(); }
+    public String keepGenreId_ExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepGenreId_NotExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepGenreId_SpecifyDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepGenreId_QueryDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepGenreId_QueryDerivedReferrer_MoneyReceptionListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueGenreName() { return _myCQ.xdfgetGenreName(); }
     protected ConditionValue xgetCValueDeleteFlag() { return _myCQ.xdfgetDeleteFlag(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }

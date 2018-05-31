@@ -25,13 +25,13 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     user_m
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     userM
  *
  * [referrer property]
  *     
@@ -59,6 +59,13 @@ public class LoaderOfRegularlyData {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfUserM _foreignUserMLoader;
+    public LoaderOfUserM pulloutUserM() {
+        if (_foreignUserMLoader == null)
+        { _foreignUserMLoader = new LoaderOfUserM().ready(myBhv().pulloutUserM(_selectedList), _selector); }
+        return _foreignUserMLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

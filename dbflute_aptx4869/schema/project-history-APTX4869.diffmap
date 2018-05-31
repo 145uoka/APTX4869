@@ -1,4 +1,43 @@
 map:{
+    ; 2018/05/29 17:48:46 = map:{
+        ; diffDate = 2018/05/29 17:48:46
+        ; tableDiff = map:{
+            ; money_reception = map:{
+                ; tableName = money_reception
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; money_reception_genre_id_fkey = map:{
+                        ; constraintName = money_reception_genre_id_fkey
+                        ; diffType = ADD
+                    }
+                    ; money_reception_user_id_fkey = map:{
+                        ; constraintName = money_reception_user_id_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; regularly_data = map:{
+                ; tableName = regularly_data
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; regularly_data_user_id_fkey = map:{
+                        ; constraintName = regularly_data_user_id_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; user_property = map:{
+                ; tableName = user_property
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; user_property_user_id_fkey = map:{
+                        ; constraintName = user_property_user_id_fkey
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
     ; 2018/05/28 17:29:35 = map:{
         ; diffDate = 2018/05/28 17:29:35
         ; tableDiff = map:{

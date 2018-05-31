@@ -25,13 +25,13 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     genre, user_m
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     genre, userM
  *
  * [referrer property]
  *     
@@ -59,6 +59,20 @@ public class LoaderOfMoneyReception {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected LoaderOfGenre _foreignGenreLoader;
+    public LoaderOfGenre pulloutGenre() {
+        if (_foreignGenreLoader == null)
+        { _foreignGenreLoader = new LoaderOfGenre().ready(myBhv().pulloutGenre(_selectedList), _selector); }
+        return _foreignGenreLoader;
+    }
+
+    protected LoaderOfUserM _foreignUserMLoader;
+    public LoaderOfUserM pulloutUserM() {
+        if (_foreignUserMLoader == null)
+        { _foreignUserMLoader = new LoaderOfUserM().ready(myBhv().pulloutUserM(_selectedList), _selector); }
+        return _foreignUserMLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

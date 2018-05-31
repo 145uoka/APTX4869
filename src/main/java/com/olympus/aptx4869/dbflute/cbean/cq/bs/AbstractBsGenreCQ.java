@@ -158,6 +158,79 @@ public abstract class AbstractBsGenreCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select genre_id from money_reception where ...)} <br>
+     * money_reception by genre_id, named 'moneyReceptionAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMoneyReception</span>(receptionCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     receptionCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MoneyReceptionList for 'exists'. (NotNull)
+     */
+    public void existsMoneyReception(SubQuery<MoneyReceptionCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MoneyReceptionCB cb = new MoneyReceptionCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepGenreId_ExistsReferrer_MoneyReceptionList(cb.query());
+        registerExistsReferrer(cb.query(), "genre_id", "genre_id", pp, "moneyReceptionList");
+    }
+    public abstract String keepGenreId_ExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select genre_id from money_reception where ...)} <br>
+     * money_reception by genre_id, named 'moneyReceptionAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMoneyReception</span>(receptionCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     receptionCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of GenreId_NotExistsReferrer_MoneyReceptionList for 'not exists'. (NotNull)
+     */
+    public void notExistsMoneyReception(SubQuery<MoneyReceptionCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MoneyReceptionCB cb = new MoneyReceptionCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepGenreId_NotExistsReferrer_MoneyReceptionList(cb.query());
+        registerNotExistsReferrer(cb.query(), "genre_id", "genre_id", pp, "moneyReceptionList");
+    }
+    public abstract String keepGenreId_NotExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq);
+
+    public void xsderiveMoneyReceptionList(String fn, SubQuery<MoneyReceptionCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MoneyReceptionCB cb = new MoneyReceptionCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepGenreId_SpecifyDerivedReferrer_MoneyReceptionList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "genre_id", "genre_id", pp, "moneyReceptionList", al, op);
+    }
+    public abstract String keepGenreId_SpecifyDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from money_reception where ...)} <br>
+     * money_reception by genre_id, named 'moneyReceptionAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMoneyReception()</span>.<span style="color: #CC4747">max</span>(receptionCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     receptionCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     receptionCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MoneyReceptionCB> derivedMoneyReception() {
+        return xcreateQDRFunctionMoneyReceptionList();
+    }
+    protected HpQDRFunction<MoneyReceptionCB> xcreateQDRFunctionMoneyReceptionList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMoneyReceptionList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMoneyReceptionList(String fn, SubQuery<MoneyReceptionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MoneyReceptionCB cb = new MoneyReceptionCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepGenreId_QueryDerivedReferrer_MoneyReceptionList(cb.query()); String prpp = keepGenreId_QueryDerivedReferrer_MoneyReceptionListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "genre_id", "genre_id", sqpp, "moneyReceptionList", rd, vl, prpp, op);
+    }
+    public abstract String keepGenreId_QueryDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq);
+    public abstract String keepGenreId_QueryDerivedReferrer_MoneyReceptionListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * genre_id: {PK, ID, NotNull, serial(10)}
      */

@@ -101,14 +101,14 @@ public class BsMoneyReceptionCQ extends AbstractBsMoneyReceptionCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @return this. (NotNull)
      */
     public BsMoneyReceptionCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @return this. (NotNull)
      */
     public BsMoneyReceptionCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
@@ -121,14 +121,14 @@ public class BsMoneyReceptionCQ extends AbstractBsMoneyReceptionCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @return this. (NotNull)
      */
     public BsMoneyReceptionCQ addOrderBy_GenreId_Asc() { regOBA("genre_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @return this. (NotNull)
      */
     public BsMoneyReceptionCQ addOrderBy_GenreId_Desc() { regOBD("genre_id"); return this; }
@@ -312,11 +312,59 @@ public class BsMoneyReceptionCQ extends AbstractBsMoneyReceptionCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        MoneyReceptionCQ bq = (MoneyReceptionCQ)bqs;
+        MoneyReceptionCQ uq = (MoneyReceptionCQ)uqs;
+        if (bq.hasConditionQueryGenre()) {
+            uq.queryGenre().reflectRelationOnUnionQuery(bq.queryGenre(), uq.queryGenre());
+        }
+        if (bq.hasConditionQueryUserM()) {
+            uq.queryUserM().reflectRelationOnUnionQuery(bq.queryUserM(), uq.queryUserM());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * genre by my genre_id, named 'genre'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public GenreCQ queryGenre() {
+        return xdfgetConditionQueryGenre();
+    }
+    public GenreCQ xdfgetConditionQueryGenre() {
+        String prop = "genre";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryGenre()); xsetupOuterJoinGenre(); }
+        return xgetQueRlMap(prop);
+    }
+    protected GenreCQ xcreateQueryGenre() {
+        String nrp = xresolveNRP("money_reception", "genre"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new GenreCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "genre", nrp);
+    }
+    protected void xsetupOuterJoinGenre() { xregOutJo("genre"); }
+    public boolean hasConditionQueryGenre() { return xhasQueRlMap("genre"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * (ユーザー_M)user_m by my user_id, named 'userM'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public UserMCQ queryUserM() {
+        return xdfgetConditionQueryUserM();
+    }
+    public UserMCQ xdfgetConditionQueryUserM() {
+        String prop = "userM";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUserM()); xsetupOuterJoinUserM(); }
+        return xgetQueRlMap(prop);
+    }
+    protected UserMCQ xcreateQueryUserM() {
+        String nrp = xresolveNRP("money_reception", "userM"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new UserMCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "userM", nrp);
+    }
+    protected void xsetupOuterJoinUserM() { xregOutJo("userM"); }
+    public boolean hasConditionQueryUserM() { return xhasQueRlMap("userM"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

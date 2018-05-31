@@ -157,6 +157,41 @@ CREATE TABLE aptx4869.user_property
 
 
 
+/* Create Foreign Keys */
+
+ALTER TABLE aptx4869.money_reception
+	ADD FOREIGN KEY (genre_id)
+	REFERENCES aptx4869.genre (genre_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE aptx4869.money_reception
+	ADD FOREIGN KEY (user_id)
+	REFERENCES aptx4869.user_m (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE aptx4869.regularly_data
+	ADD FOREIGN KEY (user_id)
+	REFERENCES aptx4869.user_m (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE aptx4869.user_property
+	ADD FOREIGN KEY (user_id)
+	REFERENCES aptx4869.user_m (user_id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+
 /* Comments */
 
 COMMENT ON COLUMN aptx4869.genre.delete_flag IS '削除フラグ';

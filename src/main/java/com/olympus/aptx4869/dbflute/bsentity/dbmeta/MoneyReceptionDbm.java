@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -56,6 +57,19 @@ public class MoneyReceptionDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((MoneyReception)et).getGenre(), (et, vl) -> ((MoneyReception)et).setGenre((OptionalEntity<Genre>)vl), "genre");
+        setupEfpg(_efpgMap, et -> ((MoneyReception)et).getUserM(), (et, vl) -> ((MoneyReception)et).setUserM((OptionalEntity<UserM>)vl), "userM");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -73,8 +87,8 @@ public class MoneyReceptionDbm extends AbstractDBMeta {
     //                                                                         Column Info
     //                                                                         ===========
     protected final ColumnInfo _columnMoneyReceptionId = cci("money_reception_id", "money_reception_id", null, null, Long.class, "moneyReceptionId", null, true, true, true, "bigserial", 19, 0, null, "nextval('money_reception_money_reception_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnGenreId = cci("genre_id", "genre_id", null, null, Integer.class, "genreId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, "userM", null, null, false);
+    protected final ColumnInfo _columnGenreId = cci("genre_id", "genre_id", null, null, Integer.class, "genreId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, "genre", null, null, false);
     protected final ColumnInfo _columnMoneyReceptionFlag = cci("money_reception_flag", "money_reception_flag", null, null, Boolean.class, "moneyReceptionFlag", null, false, false, true, "bool", 1, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnAmount = cci("amount", "amount", null, null, Integer.class, "amount", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnMoneyReceptionDate = cci("money_reception_date", "money_reception_date", null, null, java.time.LocalDate.class, "moneyReceptionDate", null, false, false, true, "date", 13, 0, null, null, false, null, null, null, null, null, false);
@@ -89,12 +103,12 @@ public class MoneyReceptionDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnMoneyReceptionId() { return _columnMoneyReceptionId; }
     /**
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
     /**
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnGenreId() { return _columnGenreId; }
@@ -169,6 +183,22 @@ public class MoneyReceptionDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * genre by my genre_id, named 'genre'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignGenre() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGenreId(), GenreDbm.getInstance().columnGenreId());
+        return cfi("money_reception_genre_id_fkey", "genre", this, GenreDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "moneyReceptionList", false);
+    }
+    /**
+     * (ユーザー_M)user_m by my user_id, named 'userM'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignUserM() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), UserMDbm.getInstance().columnUserId());
+        return cfi("money_reception_user_id_fkey", "userM", this, UserMDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "moneyReceptionList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
