@@ -22,6 +22,10 @@ public class LogMessageKeyConstants {
         public static final String I_99_0004 = "I_99_0004";
         /** [{0}]を登録しました。データ数 = [{1}] */
         public static final String I_99_0005 = "I_99_0005";
+        /** [{0}]を更新しました。データ数 = [{2}] */
+        public static final String I_99_0006 = "I_99_0006";
+        /** [{0}]を削除しました。データ数 = [{3}] */
+        public static final String I_99_0007 = "I_99_0007";
     }
 
     /**

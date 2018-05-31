@@ -4,11 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dbflute.cbean.result.ListResultBean;
 import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.olympus.aptx4869.constants.LogMessageKeyConstants;
 import com.olympus.aptx4869.dbflute.exbhv.MoneyReceptionBhv;
@@ -39,9 +41,9 @@ public class MoneyReceptionService {
 
 
 	 /**
-     * ユーザーマスタからユーザーIDで検索をする．
+     * ユーザーマスタからラインIDで検索をする．
      *
-     * @param userId ユーザーID
+     * @param lineId ラインID
      * @return userMEntity
      */
     public OptionalEntity<UserM> findUserMEntity(String lineId) {
@@ -53,18 +55,21 @@ public class MoneyReceptionService {
     }
 
     /**
-     * 金銭授受_Tから金銭授受IDで検索をする．
+     * 金銭授受_TからユーザーIDと日付で検索をする．
      *
-     * @param moneyReceptionId 金銭授受ID
-     * @return userMEntity
+     * @param userId ユーザーID
+     * @param moneyReceptionDate 日付
+     * @return moneyReceptionEntityList
      */
-    public OptionalEntity<MoneyReception> findMoneyReceptionEntity(Long moneyReceptionId) {
-        OptionalEntity<MoneyReception> moneyReceptionEntity = moneyReceptionBhv.selectEntity(cb ->{
-            cb.query().setMoneyReceptionId_Equal(moneyReceptionId);
+    public ListResultBean<MoneyReception> findMoneyReceptionEntityList(Integer userId, LocalDate moneyReceptionDate) {
+        ListResultBean<MoneyReception> moneyReceptionEntityList = moneyReceptionBhv.selectList(cb ->{
+            cb.query().setUserId_Equal(userId);
+            cb.query().setMoneyReceptionDate_Equal(moneyReceptionDate);
             cb.query().setDeleteFlag_Equal(false);
         });
-        return moneyReceptionEntity;
+        return moneyReceptionEntityList;
     }
+
 
 	/**
 	 * 金銭授受_Tの登録処理を行う。(API用：１件のみ)
@@ -94,7 +99,7 @@ public class MoneyReceptionService {
 	/**
      * 金銭授受_Tの登録処理を行う。（アプリ用：複数件）
      *
-     * @param dto 登録情報
+     * @param dtoList 登録情報
      * @return MoneyReceptionEntityのリスト
      */
     public List<MoneyReception> storeList( List<MoneyReceptionDto> dtoList) {
@@ -121,62 +126,47 @@ public class MoneyReceptionService {
     }
 
 
-	/**
-	 * 金銭授受_Tの更新処理を行う。
-	 *
-	 * @param dto 更新情報
-	 * @return MoneyReceptionEntity
-	 * @throws NotFoundRecordException レコード取得エラー
-	 */
-	public MoneyReception update(MoneyReceptionDto dto) throws NotFoundRecordException{
+    /**
+     * 金銭授受_Tの更新処理を行う。
+     *
+     * @param dtoList 更新情報
+     * @return moneyReceptionEntityList
+     * @throws NotFoundRecordException レコード取得エラー
+     */
+    public List<MoneyReception> updateList(List<MoneyReceptionDto> dtoList) throws NotFoundRecordException{
 
-	    // 金銭授受_Tから金銭授受IDでSELECT.
-	    OptionalEntity<MoneyReception> moneyReceptionEntity =  findMoneyReceptionEntity(dto.getMoneyReceptionId());
+        // 金銭授受_Tから対象のレコードをSELECT。
+        ListResultBean<MoneyReception> moneyReceptionSelectEntityList =
+                findMoneyReceptionEntityList(dtoList.get(0).getUserId(), dtoList.get(0).getMoneyReceptionDate());
 
-	    if(!moneyReceptionEntity.isPresent()){
-	        //対象レコードが存在しなければ、エラー画面へ
-	        loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"金銭授受_T", dto.getMoneyReceptionId()});
-            throw new NotFoundRecordException();
-	    }
-
-	    // 金銭授受_Tのentity取得
-	    MoneyReception entity = moneyReceptionEntity.get();
-
-	    // 入力情報をentityにセットする。
-	    BeanUtils.copyProperties(dto, entity);
-
-	    // 金銭授受_Tを更新する。
-	    moneyReceptionBhv.update(entity);
-
-	    return entity;
-	}
-
-	/**
-	 * 金銭授受_Tの削除処理（論理削除）を行う。
-	 *
-	 * @param moneyReceptionId 金銭授受ID
-	 * @return MoneyReceptionEntity
-	 * @throws NotFoundRecordException レコード取得エラー
-	 */
-	public MoneyReception delete(Long moneyReceptionId) throws NotFoundRecordException{
-
-	 // 金銭授受_Tから金銭授受IDでSELECT.
-        OptionalEntity<MoneyReception> moneyReceptionEntity =  findMoneyReceptionEntity(moneyReceptionId);
-
-        if(!moneyReceptionEntity.isPresent()){
+        if(CollectionUtils.isEmpty(moneyReceptionSelectEntityList)){
             //対象レコードが存在しなければ、エラー画面へ
-            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"金銭授受_T", moneyReceptionId});
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0002, new Object[]{"金銭授受_T"});
             throw new NotFoundRecordException();
         }
 
-        // 金銭授受_Tのentity取得
-        MoneyReception entity = moneyReceptionEntity.get();
+        //レコード削除
+        moneyReceptionBhv.batchDelete(moneyReceptionSelectEntityList);
 
-        //deleteFlagにtrueをセットして更新。
-        entity.setDeleteFlag(true);
-        moneyReceptionBhv.update(entity);
+        List<MoneyReception> moneyReceptionEntityList = new ArrayList<MoneyReception>();
 
-        return entity;
+        for(MoneyReceptionDto dto : dtoList){
+
+            MoneyReception MoneyReceptionEntity = new MoneyReception();
+            // 次の金銭授受IDを取得する。
+            Long moneyReceptionId = moneyReceptionBhv.selectNextVal();
+            // entityにdtoの値をセット。
+            BeanUtils.copyProperties(dto, MoneyReceptionEntity);
+            MoneyReceptionEntity.setMoneyReceptionId(moneyReceptionId);
+
+            moneyReceptionEntityList.add(MoneyReceptionEntity);
+
+        }
+
+        //新しいレコードを登録
+        moneyReceptionBhv.batchInsert(moneyReceptionEntityList);
+
+        return moneyReceptionEntityList;
     }
 
 }

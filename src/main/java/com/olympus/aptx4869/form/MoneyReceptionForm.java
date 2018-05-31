@@ -4,7 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class MoneyReceptionForm {
 
-    private String moneyReceptionId;
+    private String[] moneyReceptionId;
 
     @NotEmpty
     private String userId;
@@ -19,11 +19,11 @@ public class MoneyReceptionForm {
 
     private String[] supplement;
 
-    public String getMoneyReceptionId() {
+    public String[] getMoneyReceptionId() {
         return moneyReceptionId;
     }
 
-    public void setMoneyReceptionId(String moneyReceptionId) {
+    public void setMoneyReceptionId(String[] moneyReceptionId) {
         this.moneyReceptionId = moneyReceptionId;
     }
 
@@ -74,6 +74,5 @@ public class MoneyReceptionForm {
     public void setSupplement(String[] supplement) {
         this.supplement = supplement;
     }
-
 
 }

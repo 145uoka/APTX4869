@@ -73,10 +73,11 @@ public class MoneyReceptionRestController extends BaseController{
             // エラーメッセージをform:errorsに格納。
             model.addAttribute("errors", bindingResult);
 
-            // プルダウンをエラー後も表示する。
+         // 支出プルダウンを表示する。
             List<LabelValueDto> selectSpendingGenreList = genreService.createSelectGenreList(true, false);
             model.addAttribute("selectSpendingGenreList", selectSpendingGenreList);
 
+            // 収入プルダウンを表示する。
             List<LabelValueDto> selectIncomeGenreList = genreService.createSelectGenreList(true, true);
             model.addAttribute("selectIncomeGenreList", selectIncomeGenreList);
 

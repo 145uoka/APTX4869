@@ -14,7 +14,7 @@
 	<jsp:include page="../common/header.jsp" />
 
 	<form:form modelAttribute="form" class="form-horizontal" name="form"
-		action="${pageContext.request.contextPath}/moneyReception/store" method="POST">
+		action="${pageContext.request.contextPath}/moneyReception/update" method="POST">
 
 		<div class="container">
 
@@ -64,6 +64,7 @@
 											<c:forEach begin="0" end="9" varStatus="status">
 												<tr>
 													<td>${status.count}</td>
+													<form:hidden path="moneyReceptionId[${status.index}]"/>
 													<td><form:select path="genreId[${status.index}]"
 															class="form-control" items="${selectSpendingGenreList}"
 															itemLabel="label" itemValue="value"
@@ -94,6 +95,7 @@
 											<c:forEach begin="10" end="14" varStatus="status">
 												<tr>
 													<td>${status.count + 10}</td>
+													<form:hidden path="moneyReceptionId[${status.index}]"/>
 													<td><form:select path="genreId[${status.index}]"
 															class="form-control" items="${selectIncomeGenreList}"
 															itemLabel="label" itemValue="value"
@@ -121,8 +123,8 @@
 		<form:hidden path="moneyReceptionFlag"/>
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10" align="center">
-				<a type="button" class="btn btn-add" onClick="resistration()">
-					<i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;&nbsp;登録する
+				<a type="button" class="btn btn-edit" onClick="update()">
+					<i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;&nbsp;更新する
 				</a>
 			</div>
 		</div>
@@ -131,19 +133,10 @@
 
 	<script type="text/javascript">
 
-		function resistration() {
+		function update() {
 			$(".btn").prop("disabled", true)
 			document.form.submit();
 		}
-
-		/* function receptionFlag(name) {
-			if(name == 'spending'){
-				$('#moneyReceptionFlag').val(true);
-
-			}else if(name == 'income'){
-				$('#moneyReceptionFlag').val(false);
-			}
-		} */
 
 	</script>
 <jsp:include page="../common/footer.jsp" />
