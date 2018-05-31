@@ -74,6 +74,8 @@ public class MoneyReceptionRestController extends BaseController{
 
         RestResultDto resultDto = new RestResultDto();
 
+        try {
+
         Integer userId = null;
         if (!bindingResult.hasErrors()) {
             // LINE IDに紐づくユーザの検索
@@ -117,7 +119,19 @@ public class MoneyReceptionRestController extends BaseController{
 
         resultDto.setSuccessFlag(true);
 
+        } catch (Exception e) {
+            // システムエラー
+            List<ErrorInfo> errorInfoList = new ArrayList<ErrorInfo>();
+                ErrorInfo errorInfo = new ErrorInfo();
+                errorInfo.setProperty("unknown");
+                errorInfo.setDescription(e.getMessage());
+                errorInfoList.add(errorInfo);
+            resultDto.setSuccessFlag(false);
+            resultDto.setErrorInfo(errorInfoList);
+        }
+
         logger.debug("[END]" + resultDto.toString());
+
         return resultDto;
     }
 

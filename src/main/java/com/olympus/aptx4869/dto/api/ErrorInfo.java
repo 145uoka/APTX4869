@@ -1,6 +1,13 @@
 package com.olympus.aptx4869.dto.api;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class ErrorInfo {
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 
     private String errorCode;
 
