@@ -1,8 +1,8 @@
 package com.olympus.aptx4869.controller;
 
-import java.util.List;
 import java.util.Locale;
 
+import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,13 +20,14 @@ import com.olympus.aptx4869.constants.LogMessageKeyConstants;
 import com.olympus.aptx4869.constants.MessageKeyConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants.MessageType;
 import com.olympus.aptx4869.dbflute.exentity.MoneyReception;
-import com.olympus.aptx4869.dto.LabelValueDto;
+import com.olympus.aptx4869.dbflute.exentity.UserM;
 import com.olympus.aptx4869.dto.MoneyReceptionDto;
 import com.olympus.aptx4869.dto.ResultDto;
+import com.olympus.aptx4869.exception.NotFoundRecordException;
 import com.olympus.aptx4869.form.MoneyReceptionRestForm;
-import com.olympus.aptx4869.service.GenreService;
 import com.olympus.aptx4869.service.LoggerService;
 import com.olympus.aptx4869.service.MoneyReceptionService;
+import com.olympus.aptx4869.service.UserService;
 
 /**
  * 支出・収入登録画面のコントローラー．
@@ -42,7 +43,7 @@ public class MoneyReceptionRestController extends BaseController{
     LoggerService loggerService;
 
     @Autowired
-    GenreService genreService;
+    UserService userService;
 
     @Autowired
     MoneyReceptionService moneyReceptionService;
@@ -56,11 +57,22 @@ public class MoneyReceptionRestController extends BaseController{
      * @param model Model
      * @param redirectAttributes リダイレクト先に送るオブジェクト情報
      * @return 正常終了:詳細画面, エラー有:登録画面
+	 * @throws NotFoundRecordException
      */
     @RequestMapping(value = "/api/moneyReception/store", method = RequestMethod.POST)
     @ResponseBody
     public boolean store(@RequestBody @Validated MoneyReceptionRestForm form, BindingResult bindingResult,
-            Locale locale, Model model, RedirectAttributes redirectAttributes) {
+            Locale locale, Model model, RedirectAttributes redirectAttributes) throws NotFoundRecordException {
+
+        OptionalEntity<UserM> userMOptionalEntity = userService.findUserMEntity(form.getLineId());
+
+        if(!userMOptionalEntity.isPresent()){
+            // 該当するテーブル情報がなければ、レコード取得エラー。
+            loggerService.outLog(LogMessageKeyConstants.Warn.W_99_0001, new Object[]{"ユーザーマスタ", form.getLineId()});
+            throw new NotFoundRecordException();
+        }
+
+        UserM userMEntity = userMOptionalEntity.get();
 
         ResultDto resultDto = new ResultDto();
 
@@ -73,14 +85,6 @@ public class MoneyReceptionRestController extends BaseController{
             // エラーメッセージをform:errorsに格納。
             model.addAttribute("errors", bindingResult);
 
-         // 支出プルダウンを表示する。
-            List<LabelValueDto> selectSpendingGenreList = genreService.createSelectGenreList(true, false);
-            model.addAttribute("selectSpendingGenreList", selectSpendingGenreList);
-
-            // 収入プルダウンを表示する。
-            List<LabelValueDto> selectIncomeGenreList = genreService.createSelectGenreList(true, true);
-            model.addAttribute("selectIncomeGenreList", selectIncomeGenreList);
-
             // 入力エラーが存在すれば、登録画面を再描画
             resultDto.setProcessingFlag(false);
             return resultDto.isProcessingFlag();
@@ -89,6 +93,7 @@ public class MoneyReceptionRestController extends BaseController{
         // 登録処理
         MoneyReceptionDto dto = new MoneyReceptionDto();
         convertMoneyReseptionFromToDto(form, dto);
+        dto.setUserId(userMEntity.getUserId());
 
         MoneyReception moneyReceptionEntity = moneyReceptionService.store(dto);
 
@@ -125,7 +130,6 @@ public class MoneyReceptionRestController extends BaseController{
             dto.setMoneyReceptionFlag(true);
         }
 
-        dto.setUserId(Integer.parseInt(form.getUserId()));
         dto.setGenreId(Integer.parseInt(form.getGenreId()));
         dto.setAmount(Integer.parseInt(form.getAmount()));
         dto.setSupplement(form.getSupplement());

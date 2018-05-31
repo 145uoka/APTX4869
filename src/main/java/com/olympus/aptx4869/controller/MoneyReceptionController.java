@@ -37,6 +37,7 @@ import com.olympus.aptx4869.form.MoneyReceptionForm;
 import com.olympus.aptx4869.service.GenreService;
 import com.olympus.aptx4869.service.LoggerService;
 import com.olympus.aptx4869.service.MoneyReceptionService;
+import com.olympus.aptx4869.service.UserService;
 
 /**
  * 支出・収入登録画面のコントローラー．
@@ -57,6 +58,10 @@ public class MoneyReceptionController extends BaseController{
     @Autowired
     MoneyReceptionService moneyReceptionService;
 
+    @Autowired
+    UserService userService;
+
+
 
 	/**
 	 * 金銭授受登録画面の初期表示コントローラー．
@@ -68,7 +73,7 @@ public class MoneyReceptionController extends BaseController{
 	@RequestMapping(value = "/moneyReception/create/{paramLineId}", method = {RequestMethod.GET, RequestMethod.POST})
 	public String create(@PathVariable String paramLineId, Locale locale, Model model) throws NotFoundRecordException{
 
-        OptionalEntity<UserM> userMOptionalEntity = moneyReceptionService.findUserMEntity(paramLineId);
+        OptionalEntity<UserM> userMOptionalEntity = userService.findUserMEntity(paramLineId);
 
         if(!userMOptionalEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。
@@ -81,7 +86,8 @@ public class MoneyReceptionController extends BaseController{
 	    //ラインIDより、ユーザーIDを取得。
 	    form.setUserId(String.valueOf(userMEntity.getUserId()));
 
-	    form.setMoneyReceptionDate("2018/05/30");
+	    //登録時は現在時刻
+	    form.setMoneyReceptionDate(DateUtil.getNowDateFormatYyyysmmsdd());
 
         /// 支出プルダウンを表示する。
         List<LabelValueDto> selectSpendingGenreList = genreService.createSelectGenreList(true, false);
@@ -211,7 +217,7 @@ public class MoneyReceptionController extends BaseController{
     @RequestMapping(value = "/moneyReception/edit/{paramLineId}", method = RequestMethod.GET)
     public String edit(@PathVariable String paramLineId, Locale locale, Model model) throws NotFoundRecordException{
 
-        OptionalEntity<UserM> userMOptionalEntity = moneyReceptionService.findUserMEntity(paramLineId);
+        OptionalEntity<UserM> userMOptionalEntity = userService.findUserMEntity(paramLineId);
 
         if(!userMOptionalEntity.isPresent()){
             // 該当するテーブル情報がなければ、レコード取得エラー。

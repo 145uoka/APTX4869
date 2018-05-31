@@ -19,6 +19,8 @@ public class MoneyReceptionForm {
 
     private String[] supplement;
 
+    private String lineId;
+
     public String[] getMoneyReceptionId() {
         return moneyReceptionId;
     }
@@ -74,5 +76,14 @@ public class MoneyReceptionForm {
     public void setSupplement(String[] supplement) {
         this.supplement = supplement;
     }
+
+    public String getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(String lineId) {
+        this.lineId = lineId;
+    }
+
 
 }
