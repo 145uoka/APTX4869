@@ -1,10 +1,7 @@
 package com.olympus.aptx4869.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.dbflute.cbean.result.ListResultBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.olympus.aptx4869.dbflute.exbhv.MoneyReceptionBhv;
-import com.olympus.aptx4869.dbflute.exbhv.pmbean.SumAmountPmb;
-import com.olympus.aptx4869.dbflute.exentity.customize.SumAmount;
 import com.olympus.aptx4869.dto.AmountDto;
 import com.olympus.aptx4869.dto.UserDto;
 import com.olympus.aptx4869.service.GraphService;
@@ -37,50 +32,28 @@ public class GraphController {
 
 	 Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
 	/**
-	 *
+	 *グラフ画面表示メソッド
+	 * @param model 画面
+	 * @param paramUserId 画面ユーザーID
 	 * @return グラフ画面
-	 * @throws JsonProcessingException
+	 * @throws JsonProcessingException jsonエラー
 	 */
 	@RequestMapping(value = "/graph/{paramUserId}", method = {RequestMethod.GET})
 	public String graph(Model model, @PathVariable String paramUserId) throws JsonProcessingException{
 		int userId = Integer.parseInt(paramUserId);
+		//ユーザーMテーブルから締め日取出し
 		UserDto userDto = graphService.findSettlementDate(userId);
 		int settlementDate = userDto.getSettlementDate();
-		// 現在日付
-		LocalDate today = LocalDate.now();
-		LocalDate  toDate = LocalDate.of(today.getYear(), today.getMonthValue(), settlementDate);
-		if(today.isAfter(toDate)){
-			toDate = toDate.plusMonths(1);
-		}
-		LocalDate  fromDate = toDate.minusMonths(1).plusDays(1);
-
-
-		SumAmountPmb pmb = new SumAmountPmb();
-		pmb.setUserId(userId);
-		pmb.setMoneyReceptionFromDate(fromDate);
-		pmb.setMoneyReceptionToDate(toDate);
-		pmb.setMoneyReceptionFlag(false);
-		ListResultBean<SumAmount> amountList = moneyReceptionBhv.outsideSql().selectList(pmb);
-
-		List<AmountDto> amountDtoList = new ArrayList<AmountDto>();
 		int amountMoney = 0;
-
-
-		for (int i = 0; i < amountList.size(); i++) {
-			AmountDto amountDto = new AmountDto();
-			amountDto.setGenreName(amountList.get(i).getGenreName());
-			amountDto.setSum(amountList.get(i).getSum());
-			amountDtoList.add(amountDto);
+		Boolean flag = false;
+		//指定月の支出データ
+		List<AmountDto> amountDtoList = graphService.getAmound(userId, settlementDate, flag);
+		for (int i = 0; i < amountDtoList.size(); i++) {
 			amountMoney += amountDtoList.get(i).getSum();
 		}
-
 		ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(amountDtoList);
-
-        logger.debug(json);
-
         model.addAttribute("json", json);
         model.addAttribute("amountMoney", amountMoney);
 		model.addAttribute("amountDtoList", amountDtoList);
