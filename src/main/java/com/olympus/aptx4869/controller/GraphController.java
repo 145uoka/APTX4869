@@ -50,13 +50,17 @@ public class GraphController {
 		int settlementDate = userDto.getSettlementDate();
 		// 現在日付
 		LocalDate today = LocalDate.now();
-		LocalDate  ToDate = LocalDate.of(today.getYear(), today.getMonthValue(), settlementDate);
-		LocalDate  FromDate = ToDate.minusMonths(2).plusDays(1);
+		LocalDate  toDate = LocalDate.of(today.getYear(), today.getMonthValue(), settlementDate);
+		if(today.isAfter(toDate)){
+			toDate = toDate.plusMonths(1);
+		}
+		LocalDate  fromDate = toDate.minusMonths(1).plusDays(1);
+
 
 		SumAmountPmb pmb = new SumAmountPmb();
 		pmb.setUserId(userId);
-		pmb.setMoneyReceptionFromDate(FromDate);
-		pmb.setMoneyReceptionToDate(ToDate);
+		pmb.setMoneyReceptionFromDate(fromDate);
+		pmb.setMoneyReceptionToDate(toDate);
 		pmb.setMoneyReceptionFlag(false);
 		ListResultBean<SumAmount> amountList = moneyReceptionBhv.outsideSql().selectList(pmb);
 
