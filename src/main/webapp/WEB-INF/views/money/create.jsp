@@ -136,15 +136,6 @@
 			document.form.submit();
 		}
 
-		/* function receptionFlag(name) {
-			if(name == 'spending'){
-				$('#moneyReceptionFlag').val(true);
-
-			}else if(name == 'income'){
-				$('#moneyReceptionFlag').val(false);
-			}
-		} */
-
 	</script>
 <jsp:include page="../common/footer.jsp" />
 </body>

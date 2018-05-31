@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.cbean.result.ListResultBean;
-import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.olympus.aptx4869.constants.LogMessageKeyConstants;
 import com.olympus.aptx4869.dbflute.exbhv.MoneyReceptionBhv;
-import com.olympus.aptx4869.dbflute.exbhv.UserMBhv;
 import com.olympus.aptx4869.dbflute.exentity.MoneyReception;
-import com.olympus.aptx4869.dbflute.exentity.UserM;
 import com.olympus.aptx4869.dto.MoneyReceptionDto;
 import com.olympus.aptx4869.exception.NotFoundRecordException;
 
@@ -33,26 +30,9 @@ public class MoneyReceptionService {
 	@Autowired
 	MoneyReceptionBhv moneyReceptionBhv;
 
-    @Autowired
-    UserMBhv userMBhv;
-
 	@Autowired
 	LoggerService loggerService;
 
-
-	 /**
-     * ユーザーマスタからラインIDで検索をする．
-     *
-     * @param lineId ラインID
-     * @return userMEntity
-     */
-    public OptionalEntity<UserM> findUserMEntity(String lineId) {
-        OptionalEntity<UserM> userMEntity = userMBhv.selectEntity(cb ->{
-            cb.query().setLineId_Equal(lineId);
-            cb.query().setDeleteFlag_Equal(false);
-        });
-        return userMEntity;
-    }
 
     /**
      * 金銭授受_TからユーザーIDと日付で検索をする．
