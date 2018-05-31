@@ -10,7 +10,7 @@ public class MoneyReceptionRestForm {
     private String moneyReceptionId;
 
     @NotEmpty
-    private String userId;
+    private String lineId;
 
     @NotEmpty
     private String genreId;
@@ -36,12 +36,12 @@ public class MoneyReceptionRestForm {
         this.moneyReceptionId = moneyReceptionId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getLineId() {
+        return lineId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setLineId(String lineId) {
+        this.lineId = lineId;
     }
 
     public String getGenreId() {
