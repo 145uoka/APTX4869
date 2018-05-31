@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dbflute.optional.OptionalEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
@@ -39,6 +41,8 @@ import com.olympus.aptx4869.service.MoneyReceptionService;
 @RestController
 public class MoneyReceptionRestController extends BaseController{
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     /** ログを扱う */
     @Autowired
     LoggerService loggerService;
@@ -65,6 +69,8 @@ public class MoneyReceptionRestController extends BaseController{
     @RequestMapping(value = "/api/moneyReception/store", method = RequestMethod.POST)
     @ResponseBody
     public RestResultDto store(@RequestBody @Validated MoneyReceptionRestForm form, BindingResult bindingResult) {
+
+        logger.debug("[START]" + form.toString());
 
         RestResultDto resultDto = new RestResultDto();
 
@@ -110,6 +116,8 @@ public class MoneyReceptionRestController extends BaseController{
                 new Object[]{"金銭授受", moneyReceptionEntity.getMoneyReceptionId()});
 
         resultDto.setSuccessFlag(true);
+
+        logger.debug("[END]" + resultDto.toString());
         return resultDto;
     }
 
