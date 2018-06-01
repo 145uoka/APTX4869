@@ -12,6 +12,10 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<c:if test="${userDto.loginFlg}">
+<P>ようこそ&nbsp;<c:out value="${userDto.lineName}"></c:out>&nbsp;さん</P>
+</c:if>
+
 
 <div class="demo01">
   <a href="${pageContext.request.contextPath}/login">サンプル</a>
