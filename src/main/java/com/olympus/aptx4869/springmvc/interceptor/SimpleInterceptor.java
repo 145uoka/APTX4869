@@ -44,6 +44,9 @@ public class SimpleInterceptor implements HandlerInterceptor {
             response.setHeader("Cache-Control", "no-cache");
             response.setHeader("Pragma", "no-cache");
             response.setHeader("Expires", "-1");
+            if (!modelAndView.getViewName().startsWith("redirect:")) {
+                modelAndView.getModel().put("loginUserDto", loginUserDto);
+            }
         }
     }
 
