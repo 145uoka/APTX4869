@@ -79,6 +79,48 @@ public class BsUserMCQ extends AbstractBsUserMCQ {
       return _userId; }
     protected ConditionValue xgetCValueUserId() { return xdfgetUserId(); }
 
+    public Map<String, MoneyReceptionCQ> xdfgetUserId_ExistsReferrer_MoneyReceptionList() { return xgetSQueMap("userId_ExistsReferrer_MoneyReceptionList"); }
+    public String keepUserId_ExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq) { return xkeepSQue("userId_ExistsReferrer_MoneyReceptionList", sq); }
+
+    public Map<String, RegularlyDataCQ> xdfgetUserId_ExistsReferrer_RegularlyDataList() { return xgetSQueMap("userId_ExistsReferrer_RegularlyDataList"); }
+    public String keepUserId_ExistsReferrer_RegularlyDataList(RegularlyDataCQ sq) { return xkeepSQue("userId_ExistsReferrer_RegularlyDataList", sq); }
+
+    public Map<String, UserPropertyCQ> xdfgetUserId_ExistsReferrer_UserPropertyList() { return xgetSQueMap("userId_ExistsReferrer_UserPropertyList"); }
+    public String keepUserId_ExistsReferrer_UserPropertyList(UserPropertyCQ sq) { return xkeepSQue("userId_ExistsReferrer_UserPropertyList", sq); }
+
+    public Map<String, MoneyReceptionCQ> xdfgetUserId_NotExistsReferrer_MoneyReceptionList() { return xgetSQueMap("userId_NotExistsReferrer_MoneyReceptionList"); }
+    public String keepUserId_NotExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq) { return xkeepSQue("userId_NotExistsReferrer_MoneyReceptionList", sq); }
+
+    public Map<String, RegularlyDataCQ> xdfgetUserId_NotExistsReferrer_RegularlyDataList() { return xgetSQueMap("userId_NotExistsReferrer_RegularlyDataList"); }
+    public String keepUserId_NotExistsReferrer_RegularlyDataList(RegularlyDataCQ sq) { return xkeepSQue("userId_NotExistsReferrer_RegularlyDataList", sq); }
+
+    public Map<String, UserPropertyCQ> xdfgetUserId_NotExistsReferrer_UserPropertyList() { return xgetSQueMap("userId_NotExistsReferrer_UserPropertyList"); }
+    public String keepUserId_NotExistsReferrer_UserPropertyList(UserPropertyCQ sq) { return xkeepSQue("userId_NotExistsReferrer_UserPropertyList", sq); }
+
+    public Map<String, MoneyReceptionCQ> xdfgetUserId_SpecifyDerivedReferrer_MoneyReceptionList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_MoneyReceptionList"); }
+    public String keepUserId_SpecifyDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_MoneyReceptionList", sq); }
+
+    public Map<String, RegularlyDataCQ> xdfgetUserId_SpecifyDerivedReferrer_RegularlyDataList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_RegularlyDataList"); }
+    public String keepUserId_SpecifyDerivedReferrer_RegularlyDataList(RegularlyDataCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_RegularlyDataList", sq); }
+
+    public Map<String, UserPropertyCQ> xdfgetUserId_SpecifyDerivedReferrer_UserPropertyList() { return xgetSQueMap("userId_SpecifyDerivedReferrer_UserPropertyList"); }
+    public String keepUserId_SpecifyDerivedReferrer_UserPropertyList(UserPropertyCQ sq) { return xkeepSQue("userId_SpecifyDerivedReferrer_UserPropertyList", sq); }
+
+    public Map<String, MoneyReceptionCQ> xdfgetUserId_QueryDerivedReferrer_MoneyReceptionList() { return xgetSQueMap("userId_QueryDerivedReferrer_MoneyReceptionList"); }
+    public String keepUserId_QueryDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_MoneyReceptionList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_MoneyReceptionListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_MoneyReceptionList"); }
+    public String keepUserId_QueryDerivedReferrer_MoneyReceptionListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_MoneyReceptionList", pm); }
+
+    public Map<String, RegularlyDataCQ> xdfgetUserId_QueryDerivedReferrer_RegularlyDataList() { return xgetSQueMap("userId_QueryDerivedReferrer_RegularlyDataList"); }
+    public String keepUserId_QueryDerivedReferrer_RegularlyDataList(RegularlyDataCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_RegularlyDataList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_RegularlyDataListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_RegularlyDataList"); }
+    public String keepUserId_QueryDerivedReferrer_RegularlyDataListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_RegularlyDataList", pm); }
+
+    public Map<String, UserPropertyCQ> xdfgetUserId_QueryDerivedReferrer_UserPropertyList() { return xgetSQueMap("userId_QueryDerivedReferrer_UserPropertyList"); }
+    public String keepUserId_QueryDerivedReferrer_UserPropertyList(UserPropertyCQ sq) { return xkeepSQue("userId_QueryDerivedReferrer_UserPropertyList", sq); }
+    public Map<String, Object> xdfgetUserId_QueryDerivedReferrer_UserPropertyListParameter() { return xgetSQuePmMap("userId_QueryDerivedReferrer_UserPropertyList"); }
+    public String keepUserId_QueryDerivedReferrer_UserPropertyListParameter(Object pm) { return xkeepSQuePm("userId_QueryDerivedReferrer_UserPropertyList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * (ユーザーID)user_id: {PK, ID, NotNull, serial(10)}

@@ -174,7 +174,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param userId The value of userId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_Equal(Integer userId) {
@@ -187,7 +187,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param userId The value of userId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_NotEqual(Integer userId) {
@@ -200,7 +200,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param userId The value of userId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterThan(Integer userId) {
@@ -209,7 +209,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param userId The value of userId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessThan(Integer userId) {
@@ -218,7 +218,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param userId The value of userId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterEqual(Integer userId) {
@@ -227,7 +227,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param userId The value of userId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessEqual(Integer userId) {
@@ -238,7 +238,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param minNumber The min number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -251,7 +251,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param minNumber The min number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -262,7 +262,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param userIdList The collection of userId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUserId_InScope(Collection<Integer> userIdList) {
@@ -275,7 +275,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @param userIdList The collection of userId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUserId_NotInScope(Collection<Integer> userIdList) {
@@ -291,7 +291,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param genreId The value of genreId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setGenreId_Equal(Integer genreId) {
@@ -304,7 +304,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param genreId The value of genreId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setGenreId_NotEqual(Integer genreId) {
@@ -317,7 +317,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param genreId The value of genreId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setGenreId_GreaterThan(Integer genreId) {
@@ -326,7 +326,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param genreId The value of genreId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setGenreId_LessThan(Integer genreId) {
@@ -335,7 +335,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param genreId The value of genreId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setGenreId_GreaterEqual(Integer genreId) {
@@ -344,7 +344,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param genreId The value of genreId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setGenreId_LessEqual(Integer genreId) {
@@ -355,7 +355,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param minNumber The min number of genreId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of genreId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -368,7 +368,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param minNumber The min number of genreId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of genreId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -379,7 +379,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param genreIdList The collection of genreId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setGenreId_InScope(Collection<Integer> genreIdList) {
@@ -392,7 +392,7 @@ public abstract class AbstractBsMoneyReceptionCQ extends AbstractConditionQuery 
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * genre_id: {NotNull, int4(10)}
+     * genre_id: {NotNull, int4(10), FK to genre}
      * @param genreIdList The collection of genreId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setGenreId_NotInScope(Collection<Integer> genreIdList) {

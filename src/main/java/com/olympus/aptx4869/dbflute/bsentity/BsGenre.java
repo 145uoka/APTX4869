@@ -17,7 +17,7 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     genre_id
  *
  * [column]
- *     genre_id, genre_name, delete_flag, register_datetime, update_datetime
+ *     genre_id, genre_name, balance_flg, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
  *     genre_genre_id_seq
@@ -32,23 +32,25 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     
+ *     money_reception
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     
+ *     moneyReceptionList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer genreId = entity.getGenreId();
  * String genreName = entity.getGenreName();
+ * Boolean balanceFlg = entity.getBalanceFlg();
  * Boolean deleteFlag = entity.getDeleteFlag();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * entity.setGenreId(genreId);
  * entity.setGenreName(genreName);
+ * entity.setBalanceFlg(balanceFlg);
  * entity.setDeleteFlag(deleteFlag);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setUpdateDatetime(updateDatetime);
@@ -72,6 +74,9 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
 
     /** genre_name: {NotNull, text(2147483647)} */
     protected String _genreName;
+
+    /** balance_flg: {NotNull, bool(1)} */
+    protected Boolean _balanceFlg;
 
     /** (削除フラグ)delete_flag: {NotNull, bool(1), default=[false]} */
     protected Boolean _deleteFlag;
@@ -110,6 +115,26 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** money_reception by genre_id, named 'moneyReceptionList'. */
+    protected List<MoneyReception> _moneyReceptionList;
+
+    /**
+     * [get] money_reception by genre_id, named 'moneyReceptionList'.
+     * @return The entity list of referrer property 'moneyReceptionList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<MoneyReception> getMoneyReceptionList() {
+        if (_moneyReceptionList == null) { _moneyReceptionList = newReferrerList(); }
+        return _moneyReceptionList;
+    }
+
+    /**
+     * [set] money_reception by genre_id, named 'moneyReceptionList'.
+     * @param moneyReceptionList The entity list of referrer property 'moneyReceptionList'. (NullAllowed)
+     */
+    public void setMoneyReceptionList(List<MoneyReception> moneyReceptionList) {
+        _moneyReceptionList = moneyReceptionList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -138,7 +163,10 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_moneyReceptionList != null) { for (MoneyReception et : _moneyReceptionList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "moneyReceptionList")); } } }
+        return sb.toString();
     }
 
     @Override
@@ -146,6 +174,7 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_genreId));
         sb.append(dm).append(xfND(_genreName));
+        sb.append(dm).append(xfND(_balanceFlg));
         sb.append(dm).append(xfND(_deleteFlag));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -158,7 +187,13 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_moneyReceptionList != null && !_moneyReceptionList.isEmpty())
+        { sb.append(dm).append("moneyReceptionList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -203,6 +238,24 @@ public abstract class BsGenre extends AbstractEntity implements DomainEntity, En
     public void setGenreName(String genreName) {
         registerModifiedProperty("genreName");
         _genreName = genreName;
+    }
+
+    /**
+     * [get] balance_flg: {NotNull, bool(1)} <br>
+     * @return The value of the column 'balance_flg'. (basically NotNull if selected: for the constraint)
+     */
+    public Boolean getBalanceFlg() {
+        checkSpecifiedProperty("balanceFlg");
+        return _balanceFlg;
+    }
+
+    /**
+     * [set] balance_flg: {NotNull, bool(1)} <br>
+     * @param balanceFlg The value of the column 'balance_flg'. (basically NotNull if update: for the constraint)
+     */
+    public void setBalanceFlg(Boolean balanceFlg) {
+        registerModifiedProperty("balanceFlg");
+        _balanceFlg = balanceFlg;
     }
 
     /**

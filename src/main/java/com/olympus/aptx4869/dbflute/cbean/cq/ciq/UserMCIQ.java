@@ -62,6 +62,36 @@ public class UserMCIQ extends AbstractBsUserMCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
+    public String keepUserId_ExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserId_ExistsReferrer_RegularlyDataList(RegularlyDataCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserId_ExistsReferrer_UserPropertyList(UserPropertyCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserId_NotExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserId_NotExistsReferrer_RegularlyDataList(RegularlyDataCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserId_NotExistsReferrer_UserPropertyList(UserPropertyCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserId_SpecifyDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserId_SpecifyDerivedReferrer_RegularlyDataList(RegularlyDataCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserId_SpecifyDerivedReferrer_UserPropertyList(UserPropertyCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_MoneyReceptionListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_RegularlyDataList(RegularlyDataCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_RegularlyDataListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_UserPropertyList(UserPropertyCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_UserPropertyListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueLineId() { return _myCQ.xdfgetLineId(); }
     protected ConditionValue xgetCValueLineEmail() { return _myCQ.xdfgetLineEmail(); }
     protected ConditionValue xgetCValueLineName() { return _myCQ.xdfgetLineName(); }

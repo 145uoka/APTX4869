@@ -8,3 +8,5 @@ data-directory: playsql/data/ut/xls
 
 [UT_TESTDATA.xls]
   property_m (6)
+  genre (10)
+  user_m (1)

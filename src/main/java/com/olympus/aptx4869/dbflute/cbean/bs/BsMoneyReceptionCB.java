@@ -237,6 +237,46 @@ public class BsMoneyReceptionCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br>
+     * genre by my genre_id, named 'genre'.
+     * <pre>
+     * <span style="color: #0000C0">moneyReceptionBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Genre()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">moneyReception</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">moneyReception</span>.<span style="color: #CC4747">getGenre()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_Genre() {
+        assertSetupSelectPurpose("genre");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnGenreId();
+        }
+        doSetupSelect(() -> query().queryGenre());
+    }
+
+    /**
+     * Set up relation columns to select clause. <br>
+     * (ユーザー_M)user_m by my user_id, named 'userM'.
+     * <pre>
+     * <span style="color: #0000C0">moneyReceptionBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">moneyReception</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">moneyReception</span>.<span style="color: #CC4747">getUserM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_UserM() {
+        assertSetupSelectPurpose("userM");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnUserId();
+        }
+        doSetupSelect(() -> query().queryUserM());
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +318,8 @@ public class BsMoneyReceptionCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<MoneyReceptionCQ> {
+        protected GenreCB.HpSpecification _genre;
+        protected UserMCB.HpSpecification _userM;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<MoneyReceptionCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,12 +330,12 @@ public class BsMoneyReceptionCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnMoneyReceptionId() { return doColumn("money_reception_id"); }
         /**
-         * (ユーザーID)user_id: {NotNull, int4(10)}
+         * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
         /**
-         * genre_id: {NotNull, int4(10)}
+         * genre_id: {NotNull, int4(10), FK to genre}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnGenreId() { return doColumn("genre_id"); }
@@ -337,9 +379,57 @@ public class BsMoneyReceptionCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnMoneyReceptionId(); // PK
+            if (qyCall().qy().hasConditionQueryGenre()
+                    || qyCall().qy().xgetReferrerQuery() instanceof GenreCQ) {
+                columnGenreId(); // FK or one-to-one referrer
+            }
+            if (qyCall().qy().hasConditionQueryUserM()
+                    || qyCall().qy().xgetReferrerQuery() instanceof UserMCQ) {
+                columnUserId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "money_reception"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * genre by my genre_id, named 'genre'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public GenreCB.HpSpecification specifyGenre() {
+            assertRelation("genre");
+            if (_genre == null) {
+                _genre = new GenreCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryGenre()
+                                    , () -> _qyCall.qy().queryGenre())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _genre.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryGenre()
+                      , () -> xsyncQyCall().qy().queryGenre()));
+                }
+            }
+            return _genre;
+        }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * (ユーザー_M)user_m by my user_id, named 'userM'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public UserMCB.HpSpecification specifyUserM() {
+            assertRelation("userM");
+            if (_userM == null) {
+                _userM = new UserMCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserM()
+                                    , () -> _qyCall.qy().queryUserM())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _userM.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserM()
+                      , () -> xsyncQyCall().qy().queryUserM()));
+                }
+            }
+            return _userM;
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

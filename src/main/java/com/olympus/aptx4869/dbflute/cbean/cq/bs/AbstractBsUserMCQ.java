@@ -158,6 +158,225 @@ public abstract class AbstractBsUserMCQ extends AbstractConditionQuery {
     }
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from money_reception where ...)} <br>
+     * money_reception by user_id, named 'moneyReceptionAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsMoneyReception</span>(receptionCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     receptionCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of MoneyReceptionList for 'exists'. (NotNull)
+     */
+    public void existsMoneyReception(SubQuery<MoneyReceptionCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MoneyReceptionCB cb = new MoneyReceptionCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_MoneyReceptionList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "moneyReceptionList");
+    }
+    public abstract String keepUserId_ExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from regularly_data where ...)} <br>
+     * regularly_data by user_id, named 'regularlyDataAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsRegularlyData</span>(dataCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     dataCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of RegularlyDataList for 'exists'. (NotNull)
+     */
+    public void existsRegularlyData(SubQuery<RegularlyDataCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        RegularlyDataCB cb = new RegularlyDataCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_RegularlyDataList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "regularlyDataList");
+    }
+    public abstract String keepUserId_ExistsReferrer_RegularlyDataList(RegularlyDataCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from user_property where ...)} <br>
+     * user_property by user_id, named 'userPropertyAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsUserProperty</span>(propertyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     propertyCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserPropertyList for 'exists'. (NotNull)
+     */
+    public void existsUserProperty(SubQuery<UserPropertyCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        UserPropertyCB cb = new UserPropertyCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_UserPropertyList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "userPropertyList");
+    }
+    public abstract String keepUserId_ExistsReferrer_UserPropertyList(UserPropertyCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from money_reception where ...)} <br>
+     * money_reception by user_id, named 'moneyReceptionAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsMoneyReception</span>(receptionCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     receptionCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_MoneyReceptionList for 'not exists'. (NotNull)
+     */
+    public void notExistsMoneyReception(SubQuery<MoneyReceptionCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        MoneyReceptionCB cb = new MoneyReceptionCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_MoneyReceptionList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "moneyReceptionList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from regularly_data where ...)} <br>
+     * regularly_data by user_id, named 'regularlyDataAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsRegularlyData</span>(dataCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     dataCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_RegularlyDataList for 'not exists'. (NotNull)
+     */
+    public void notExistsRegularlyData(SubQuery<RegularlyDataCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        RegularlyDataCB cb = new RegularlyDataCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_RegularlyDataList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "regularlyDataList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_RegularlyDataList(RegularlyDataCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from user_property where ...)} <br>
+     * user_property by user_id, named 'userPropertyAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsUserProperty</span>(propertyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     propertyCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_UserPropertyList for 'not exists'. (NotNull)
+     */
+    public void notExistsUserProperty(SubQuery<UserPropertyCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        UserPropertyCB cb = new UserPropertyCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_UserPropertyList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "userPropertyList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_UserPropertyList(UserPropertyCQ sq);
+
+    public void xsderiveMoneyReceptionList(String fn, SubQuery<MoneyReceptionCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MoneyReceptionCB cb = new MoneyReceptionCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_MoneyReceptionList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "moneyReceptionList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq);
+
+    public void xsderiveRegularlyDataList(String fn, SubQuery<RegularlyDataCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        RegularlyDataCB cb = new RegularlyDataCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_RegularlyDataList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "regularlyDataList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_RegularlyDataList(RegularlyDataCQ sq);
+
+    public void xsderiveUserPropertyList(String fn, SubQuery<UserPropertyCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        UserPropertyCB cb = new UserPropertyCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_UserPropertyList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "userPropertyList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_UserPropertyList(UserPropertyCQ sq);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from money_reception where ...)} <br>
+     * money_reception by user_id, named 'moneyReceptionAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedMoneyReception()</span>.<span style="color: #CC4747">max</span>(receptionCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     receptionCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     receptionCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<MoneyReceptionCB> derivedMoneyReception() {
+        return xcreateQDRFunctionMoneyReceptionList();
+    }
+    protected HpQDRFunction<MoneyReceptionCB> xcreateQDRFunctionMoneyReceptionList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveMoneyReceptionList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveMoneyReceptionList(String fn, SubQuery<MoneyReceptionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MoneyReceptionCB cb = new MoneyReceptionCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_MoneyReceptionList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_MoneyReceptionListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "moneyReceptionList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_MoneyReceptionListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from regularly_data where ...)} <br>
+     * regularly_data by user_id, named 'regularlyDataAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedRegularlyData()</span>.<span style="color: #CC4747">max</span>(dataCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     dataCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     dataCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<RegularlyDataCB> derivedRegularlyData() {
+        return xcreateQDRFunctionRegularlyDataList();
+    }
+    protected HpQDRFunction<RegularlyDataCB> xcreateQDRFunctionRegularlyDataList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveRegularlyDataList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveRegularlyDataList(String fn, SubQuery<RegularlyDataCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        RegularlyDataCB cb = new RegularlyDataCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_RegularlyDataList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_RegularlyDataListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "regularlyDataList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_RegularlyDataList(RegularlyDataCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_RegularlyDataListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from user_property where ...)} <br>
+     * user_property by user_id, named 'userPropertyAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedUserProperty()</span>.<span style="color: #CC4747">max</span>(propertyCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     propertyCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     propertyCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<UserPropertyCB> derivedUserProperty() {
+        return xcreateQDRFunctionUserPropertyList();
+    }
+    protected HpQDRFunction<UserPropertyCB> xcreateQDRFunctionUserPropertyList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveUserPropertyList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveUserPropertyList(String fn, SubQuery<UserPropertyCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        UserPropertyCB cb = new UserPropertyCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_UserPropertyList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_UserPropertyListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "userPropertyList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_UserPropertyList(UserPropertyCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_UserPropertyListParameter(Object vl);
+
+    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * (ユーザーID)user_id: {PK, ID, NotNull, serial(10)}
      */

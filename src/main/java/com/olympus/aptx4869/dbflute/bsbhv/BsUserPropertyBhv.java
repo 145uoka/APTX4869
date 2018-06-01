@@ -38,13 +38,13 @@ import com.olympus.aptx4869.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     user_m
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     userM
  *
  * [referrer property]
  *     
@@ -379,6 +379,14 @@ public abstract class BsUserPropertyBhv extends AbstractBehaviorWritable<UserPro
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of foreign table 'UserM'.
+     * @param userPropertyList The list of userProperty. (NotNull, EmptyAllowed)
+     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<UserM> pulloutUserM(List<UserProperty> userPropertyList)
+    { return helpPulloutInternally(userPropertyList, "userM"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

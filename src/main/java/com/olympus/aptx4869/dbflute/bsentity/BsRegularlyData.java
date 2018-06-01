@@ -3,9 +3,11 @@ package com.olympus.aptx4869.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import com.olympus.aptx4869.dbflute.allcommon.EntityDefinedCommonColumn;
 import com.olympus.aptx4869.dbflute.allcommon.DBMetaInstanceHandler;
 import com.olympus.aptx4869.dbflute.exentity.*;
@@ -29,13 +31,13 @@ import com.olympus.aptx4869.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     user_m
  *
  * [referrer table]
  *     
  *
  * [foreign property]
- *     
+ *     userM
  *
  * [referrer property]
  *     
@@ -76,7 +78,7 @@ public abstract class BsRegularlyData extends AbstractEntity implements DomainEn
     /** property_id: {PK, ID, NotNull, serial(10)} */
     protected Integer _propertyId;
 
-    /** (ユーザーID)user_id: {NotNull, int4(10)} */
+    /** (ユーザーID)user_id: {NotNull, int4(10), FK to user_m} */
     protected Integer _userId;
 
     /** regularly_flag: {NotNull, bool(1)} */
@@ -122,6 +124,27 @@ public abstract class BsRegularlyData extends AbstractEntity implements DomainEn
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** (ユーザー_M)user_m by my user_id, named 'userM'. */
+    protected OptionalEntity<UserM> _userM;
+
+    /**
+     * [get] (ユーザー_M)user_m by my user_id, named 'userM'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'userM'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<UserM> getUserM() {
+        if (_userM == null) { _userM = OptionalEntity.relationEmpty(this, "userM"); }
+        return _userM;
+    }
+
+    /**
+     * [set] (ユーザー_M)user_m by my user_id, named 'userM'.
+     * @param userM The entity of foreign property 'userM'. (NullAllowed)
+     */
+    public void setUserM(OptionalEntity<UserM> userM) {
+        _userM = userM;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -153,7 +176,13 @@ public abstract class BsRegularlyData extends AbstractEntity implements DomainEn
 
     @Override
     protected String doBuildStringWithRelation(String li) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_userM != null && _userM.isPresent())
+        { sb.append(li).append(xbRDS(_userM, "userM")); }
+        return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -176,7 +205,13 @@ public abstract class BsRegularlyData extends AbstractEntity implements DomainEn
 
     @Override
     protected String doBuildRelationString(String dm) {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        if (_userM != null && _userM.isPresent())
+        { sb.append(dm).append("userM"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -206,7 +241,7 @@ public abstract class BsRegularlyData extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] (ユーザーID)user_id: {NotNull, int4(10)} <br>
+     * [get] (ユーザーID)user_id: {NotNull, int4(10), FK to user_m} <br>
      * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getUserId() {
@@ -215,7 +250,7 @@ public abstract class BsRegularlyData extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] (ユーザーID)user_id: {NotNull, int4(10)} <br>
+     * [set] (ユーザーID)user_id: {NotNull, int4(10), FK to user_m} <br>
      * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
      */
     public void setUserId(Integer userId) {

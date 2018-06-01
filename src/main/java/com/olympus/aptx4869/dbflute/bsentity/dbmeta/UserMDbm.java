@@ -76,7 +76,7 @@ public class UserMDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, true, true, true, "serial", 10, 0, null, "nextval('user_m_user_id_seq'::regclass)", false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, true, true, true, "serial", 10, 0, null, "nextval('user_m_user_id_seq'::regclass)", false, null, null, null, "moneyReceptionList,regularlyDataList,userPropertyList", null, false);
     protected final ColumnInfo _columnLineId = cci("line_id", "line_id", null, "LINE_ID", String.class, "lineId", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineEmail = cci("line_email", "line_email", null, "LINEのEmail", String.class, "lineEmail", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnLineName = cci("line_name", "line_name", null, "LINE表示名", String.class, "lineName", null, false, false, false, "text", 2147483647, 0, null, null, false, null, null, null, null, null, false);
@@ -191,6 +191,30 @@ public class UserMDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * money_reception by user_id, named 'moneyReceptionList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerMoneyReceptionList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), MoneyReceptionDbm.getInstance().columnUserId());
+        return cri("money_reception_user_id_fkey", "moneyReceptionList", this, MoneyReceptionDbm.getInstance(), mp, false, "userM");
+    }
+    /**
+     * regularly_data by user_id, named 'regularlyDataList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerRegularlyDataList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), RegularlyDataDbm.getInstance().columnUserId());
+        return cri("regularly_data_user_id_fkey", "regularlyDataList", this, RegularlyDataDbm.getInstance(), mp, false, "userM");
+    }
+    /**
+     * user_property by user_id, named 'userPropertyList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerUserPropertyList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), UserPropertyDbm.getInstance().columnUserId());
+        return cri("user_property_user_id_fkey", "userPropertyList", this, UserPropertyDbm.getInstance(), mp, false, "userM");
+    }
 
     // ===================================================================================
     //                                                                        Various Info

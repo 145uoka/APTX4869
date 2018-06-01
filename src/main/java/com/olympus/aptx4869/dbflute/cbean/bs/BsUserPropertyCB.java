@@ -237,6 +237,26 @@ public class BsUserPropertyCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br>
+     * (ユーザー_M)user_m by my user_id, named 'userM'.
+     * <pre>
+     * <span style="color: #0000C0">userPropertyBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserM()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">userProperty</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">userProperty</span>.<span style="color: #CC4747">getUserM()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_UserM() {
+        assertSetupSelectPurpose("userM");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnUserId();
+        }
+        doSetupSelect(() -> query().queryUserM());
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -278,6 +298,7 @@ public class BsUserPropertyCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<UserPropertyCQ> {
+        protected UserMCB.HpSpecification _userM;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<UserPropertyCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -288,7 +309,7 @@ public class BsUserPropertyCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnPropertyId() { return doColumn("property_id"); }
         /**
-         * (ユーザーID)user_id: {NotNull, int4(10)}
+         * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
@@ -322,9 +343,33 @@ public class BsUserPropertyCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnPropertyId(); // PK
+            if (qyCall().qy().hasConditionQueryUserM()
+                    || qyCall().qy().xgetReferrerQuery() instanceof UserMCQ) {
+                columnUserId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "user_property"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * (ユーザー_M)user_m by my user_id, named 'userM'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public UserMCB.HpSpecification specifyUserM() {
+            assertRelation("userM");
+            if (_userM == null) {
+                _userM = new UserMCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserM()
+                                    , () -> _qyCall.qy().queryUserM())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _userM.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserM()
+                      , () -> xsyncQyCall().qy().queryUserM()));
+                }
+            }
+            return _userM;
+        }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)

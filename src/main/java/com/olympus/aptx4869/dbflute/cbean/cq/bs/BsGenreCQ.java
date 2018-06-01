@@ -79,6 +79,20 @@ public class BsGenreCQ extends AbstractBsGenreCQ {
       return _genreId; }
     protected ConditionValue xgetCValueGenreId() { return xdfgetGenreId(); }
 
+    public Map<String, MoneyReceptionCQ> xdfgetGenreId_ExistsReferrer_MoneyReceptionList() { return xgetSQueMap("genreId_ExistsReferrer_MoneyReceptionList"); }
+    public String keepGenreId_ExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq) { return xkeepSQue("genreId_ExistsReferrer_MoneyReceptionList", sq); }
+
+    public Map<String, MoneyReceptionCQ> xdfgetGenreId_NotExistsReferrer_MoneyReceptionList() { return xgetSQueMap("genreId_NotExistsReferrer_MoneyReceptionList"); }
+    public String keepGenreId_NotExistsReferrer_MoneyReceptionList(MoneyReceptionCQ sq) { return xkeepSQue("genreId_NotExistsReferrer_MoneyReceptionList", sq); }
+
+    public Map<String, MoneyReceptionCQ> xdfgetGenreId_SpecifyDerivedReferrer_MoneyReceptionList() { return xgetSQueMap("genreId_SpecifyDerivedReferrer_MoneyReceptionList"); }
+    public String keepGenreId_SpecifyDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq) { return xkeepSQue("genreId_SpecifyDerivedReferrer_MoneyReceptionList", sq); }
+
+    public Map<String, MoneyReceptionCQ> xdfgetGenreId_QueryDerivedReferrer_MoneyReceptionList() { return xgetSQueMap("genreId_QueryDerivedReferrer_MoneyReceptionList"); }
+    public String keepGenreId_QueryDerivedReferrer_MoneyReceptionList(MoneyReceptionCQ sq) { return xkeepSQue("genreId_QueryDerivedReferrer_MoneyReceptionList", sq); }
+    public Map<String, Object> xdfgetGenreId_QueryDerivedReferrer_MoneyReceptionListParameter() { return xgetSQuePmMap("genreId_QueryDerivedReferrer_MoneyReceptionList"); }
+    public String keepGenreId_QueryDerivedReferrer_MoneyReceptionListParameter(Object pm) { return xkeepSQuePm("genreId_QueryDerivedReferrer_MoneyReceptionList", pm); }
+
     /**
      * Add order-by as ascend. <br>
      * genre_id: {PK, ID, NotNull, serial(10)}
@@ -112,6 +126,26 @@ public class BsGenreCQ extends AbstractBsGenreCQ {
      * @return this. (NotNull)
      */
     public BsGenreCQ addOrderBy_GenreName_Desc() { regOBD("genre_name"); return this; }
+
+    protected ConditionValue _balanceFlg;
+    public ConditionValue xdfgetBalanceFlg()
+    { if (_balanceFlg == null) { _balanceFlg = nCV(); }
+      return _balanceFlg; }
+    protected ConditionValue xgetCValueBalanceFlg() { return xdfgetBalanceFlg(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * balance_flg: {NotNull, bool(1)}
+     * @return this. (NotNull)
+     */
+    public BsGenreCQ addOrderBy_BalanceFlg_Asc() { regOBA("balance_flg"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * balance_flg: {NotNull, bool(1)}
+     * @return this. (NotNull)
+     */
+    public BsGenreCQ addOrderBy_BalanceFlg_Desc() { regOBD("balance_flg"); return this; }
 
     protected ConditionValue _deleteFlag;
     public ConditionValue xdfgetDeleteFlag()

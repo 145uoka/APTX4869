@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -54,6 +55,18 @@ public class RegularlyDataDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((RegularlyData)et).getUserM(), (et, vl) -> ((RegularlyData)et).setUserM((OptionalEntity<UserM>)vl), "userM");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
@@ -71,7 +84,7 @@ public class RegularlyDataDbm extends AbstractDBMeta {
     //                                                                         Column Info
     //                                                                         ===========
     protected final ColumnInfo _columnPropertyId = cci("property_id", "property_id", null, null, Integer.class, "propertyId", null, true, true, true, "serial", 10, 0, null, "nextval('regularly_data_property_id_seq'::regclass)", false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, "ユーザーID", Integer.class, "userId", null, false, false, true, "int4", 10, 0, null, null, false, null, null, "userM", null, null, false);
     protected final ColumnInfo _columnRegularlyFlag = cci("regularly_flag", "regularly_flag", null, null, Boolean.class, "regularlyFlag", null, false, false, true, "bool", 1, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnAmount = cci("amount", "amount", null, null, Integer.class, "amount", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnAccountingdate = cci("accountingdate", "accountingdate", null, null, Integer.class, "accountingdate", null, false, false, true, "int4", 10, 0, null, null, false, null, null, null, null, null, false);
@@ -85,7 +98,7 @@ public class RegularlyDataDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnPropertyId() { return _columnPropertyId; }
     /**
-     * (ユーザーID)user_id: {NotNull, int4(10)}
+     * (ユーザーID)user_id: {NotNull, int4(10), FK to user_m}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
@@ -153,6 +166,14 @@ public class RegularlyDataDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * (ユーザー_M)user_m by my user_id, named 'userM'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignUserM() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), UserMDbm.getInstance().columnUserId());
+        return cfi("regularly_data_user_id_fkey", "userM", this, UserMDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "regularlyDataList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
