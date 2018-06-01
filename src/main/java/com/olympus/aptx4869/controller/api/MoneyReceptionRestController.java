@@ -120,6 +120,7 @@ public class MoneyReceptionRestController extends BaseController{
         resultDto.setSuccessFlag(true);
 
         } catch (Exception e) {
+            logger.debug(e.toString());
             // システムエラー
             List<ErrorInfo> errorInfoList = new ArrayList<ErrorInfo>();
                 ErrorInfo errorInfo = new ErrorInfo();
