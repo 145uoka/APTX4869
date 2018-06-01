@@ -12,8 +12,8 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<c:if test="${userDto.loginFlg}">
-<P>ようこそ&nbsp;<c:out value="${userDto.lineName}"></c:out>&nbsp;さん</P>
+<c:if test="${loginUserDto.loginFlg}">
+<P>ようこそ&nbsp;<c:out value="${loginUserDto.lineName}"></c:out>&nbsp;さん</P>
 </c:if>
 
 
