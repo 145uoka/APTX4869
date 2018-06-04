@@ -43,7 +43,8 @@ google.charts.setOnLoadCallback(drawChart);
 						}
 
 						var dc = new drawChart();
-						dc.SetTitle('今月の支出');
+						var targetMonth = ${graphDto.year} + "年" + ${graphDto.month} + "月";
+						dc.SetTitle(targetMonth + 'の支出');
 						dc.SetDefaultDataArray(function(){
 						  var wd = [];
 						  wd.push(['Amount', '支出合計']);
@@ -64,7 +65,7 @@ google.charts.setOnLoadCallback(drawChart);
 </head>
 <body>
 	<c:choose>
-		<c:when test="${!empty amountDtoList}">
+		<c:when test="${!empty graphDto.amountDtoList}">
 			<div class="container">
 				<div class="row">
 					<div id="piechart" style="width: 80%; height: 500px; margin: auto;"></div>
@@ -74,20 +75,28 @@ google.charts.setOnLoadCallback(drawChart);
 
 						<table
 							class="table table-striped table-bordered table-hover table-condensed">
+              <thead>
 							<tr>
-								<th colspan="2" bgcolor="#FE9A2E">今月の支出</th>
+								<th colspan="2" bgcolor="#FE9A2E"><c:out value="${graphDto.year}年 ${graphDto.month}月の支出"></c:out></th>
 							</tr>
-							<c:forEach var="amountDto" items="${amountDtoList}"
+
+              <tr>
+                  <th class="text-center"><c:out
+                      value="項目" /></th>
+                  <th class="text-center"><c:out value="金額" /></th>
+                </tr>
+                </thead>
+							<c:forEach var="amountDto" items="${graphDto.amountDtoList}"
 								varStatus="status">
 								<tr>
 									<th class="text-center"><c:out
 											value="${amountDto.genreName}" /></th>
-									<td class="text-center"><c:out value="${amountDto.sum}" />円</td>
+									<td class="text-right"><c:out value="${amountDto.sum}" />円</td>
 								</tr>
 							</c:forEach>
 							<tr>
-								<th colspan="2" bgcolor="#F3E2A9" class="text-right">合計:<c:out
-										value="${amountMoney}" />円
+								<th colspan="2" bgcolor="#F3E2A9" class="text-right">合計／<c:out
+										value="${graphDto.amountSummary}" />円
 								</th>
 							</tr>
 						</table>

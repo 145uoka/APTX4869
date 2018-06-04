@@ -66,7 +66,7 @@ public class MoneyReceptionController extends BaseController{
 	 * @throws NotFoundRecordException レコード取得エラー
 	 */
 	@RequestMapping(value = "/moneyReception/create/{paramLineId}", method = {RequestMethod.GET, RequestMethod.POST})
-	public String create(@PathVariable String paramLineId, Locale locale, Model model) throws NotFoundRecordException{
+	public String create(@PathVariable String paramLineId, MoneyReceptionForm form, Locale locale, Model model) throws NotFoundRecordException{
 
         OptionalEntity<UserM> userMOptionalEntity = moneyReceptionService.findUserMEntity(paramLineId);
 
@@ -77,11 +77,16 @@ public class MoneyReceptionController extends BaseController{
         }
 
         UserM userMEntity = userMOptionalEntity.get();
-	    MoneyReceptionForm form = new MoneyReceptionForm();
+	    MoneyReceptionForm moneyReceptionForm = new MoneyReceptionForm();
 	    //ラインIDより、ユーザーIDを取得。
-	    form.setUserId(String.valueOf(userMEntity.getUserId()));
+	    moneyReceptionForm.setUserId(String.valueOf(userMEntity.getUserId()));
 
-	    form.setMoneyReceptionDate("2018/05/30");
+	    if (StringUtils.isEmpty(form.getMoneyReceptionDate())) {
+	        LocalDate toDay = LocalDate.now();
+	        moneyReceptionForm.setMoneyReceptionDate(DateUtil.date2DisplayStr(toDay));
+	    } else {
+	        moneyReceptionForm.setMoneyReceptionDate(form.getMoneyReceptionDate());
+	    }
 
         /// 支出プルダウンを表示する。
         List<LabelValueDto> selectSpendingGenreList = genreService.createSelectGenreList(true, false);
@@ -92,7 +97,7 @@ public class MoneyReceptionController extends BaseController{
         model.addAttribute("selectIncomeGenreList", selectIncomeGenreList);
 
         // form情報をModelへ格納。
-        model.addAttribute("form", form);
+        model.addAttribute("form", moneyReceptionForm);
 
 		return "money/create";
 	}

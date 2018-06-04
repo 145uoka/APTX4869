@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.olympus.aptx4869.constants.SystemCodeConstants.SettlementDate;
 import com.olympus.aptx4869.dbflute.exbhv.GenreBhv;
 import com.olympus.aptx4869.dbflute.exbhv.MoneyReceptionBhv;
 import com.olympus.aptx4869.dbflute.exbhv.UserMBhv;
@@ -59,16 +60,14 @@ public class GraphService {
 	 * @param flag trueは収入、falseは支出
 	 * @return 収支データー
 	 */
-	public List<AmountDto> getAmound(int userId, int settlementDate, boolean flag){
-			// 現在日付
-			LocalDate today = LocalDate.now();
+	public List<AmountDto> getAmound(int userId, int year, int month, SettlementDate settlementDate, boolean flag){
+
 			//締め日
-			LocalDate  toDate = LocalDate.of(today.getYear(), today.getMonthValue(), settlementDate);
-			if(today.isAfter(toDate)){
-				toDate = toDate.plusMonths(1);
-			}
+			LocalDate  toDate = getLastOfMonth(year, month, settlementDate);
+
 			//締め日の翌日
 			LocalDate  fromDate = toDate.minusMonths(1).plusDays(1);
+
 			//外だしSQL
 			SumAmountPmb pmb = new SumAmountPmb();
 			pmb.setUserId(userId);
@@ -86,6 +85,32 @@ public class GraphService {
 				amountDtoList.add(amountDto);
 			}
 			return amountDtoList;
+	}
+
+	/**
+	 * 対象年月の締め日を取得。
+	 * <p>
+	 * @param year 対象年
+	 * @param month 月
+	 * @param settlementDate 締め日
+	 * @return 対象年月の締め日
+	 */
+	public static LocalDate getLastOfMonth(int year, int month, SettlementDate settlementDate) {
+
+	    LocalDate date = null;
+
+	    if (settlementDate == SettlementDate.LAST_OF_MONTH) {
+	        date = LocalDate.of(year,month + 1, 1);
+	        date.minusDays(1);
+        } else {
+            date = LocalDate.of(year,month, 1);
+            date.plusDays(settlementDate.getValue() - 1);
+            if (date.getDayOfMonth() > month) {
+                date = LocalDate.of(year,month + 1, 1);
+                date.minusDays(1);
+            }
+        }
+	    return date;
 	}
 
 
