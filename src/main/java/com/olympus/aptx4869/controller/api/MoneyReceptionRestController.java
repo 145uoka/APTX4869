@@ -145,7 +145,7 @@ public class MoneyReceptionRestController extends BaseController{
      */
     private void convertMoneyReseptionFromToDto(MoneyReceptionRestForm form, MoneyReceptionDto dto, Integer userId) {
         dto.setUserId(userId);
-        Flag moneyReceptionFlag = Flag.getFlagByStringValue(form.getMoneyReceptionFlag());
+        Flag moneyReceptionFlag = Flag.getFlagByBooleanStrValue(form.getMoneyReceptionFlag());
         dto.setMoneyReceptionFlag(moneyReceptionFlag.isBoolValue());
         dto.setGenreId(Integer.parseInt(form.getGenreId()));
         dto.setAmount(Integer.parseInt(form.getAmount()));
