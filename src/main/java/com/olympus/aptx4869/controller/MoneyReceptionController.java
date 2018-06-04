@@ -26,6 +26,7 @@ import com.olympus.aptx4869.constants.LogMessageKeyConstants;
 import com.olympus.aptx4869.constants.MessageKeyConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants.MessageType;
+import com.olympus.aptx4869.constants.SystemCodeConstants.MoneyReceptionFlag;
 import com.olympus.aptx4869.constants.SystemCodeConstants.MoneyReceptionRecord;
 import com.olympus.aptx4869.constants.SystemCodeConstants.PATTERN;
 import com.olympus.aptx4869.dbflute.exentity.MoneyReception;
@@ -437,9 +438,9 @@ public class MoneyReceptionController extends BaseController{
             dto.setMoneyReceptionDate(DateUtil.convertToLocalDate(form.getMoneyReceptionDate()));
 
             if(i < MoneyReceptionRecord.SPENDING_RECORD){
-                dto.setMoneyReceptionFlag(false);  //支出：false
+                dto.setMoneyReceptionFlag(MoneyReceptionFlag.EXPENSE.getValue());  //支出：false
             }else{
-                dto.setMoneyReceptionFlag(true);  //収入：true
+                dto.setMoneyReceptionFlag(MoneyReceptionFlag.INCOME.getValue());  //収入：true
             }
 
             dtoList.add(dto);

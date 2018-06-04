@@ -21,6 +21,27 @@ public class SystemCodeConstants {
 
     public static final int SUPPLEMENT_LENGTH = 20;
 
+    public static enum MoneyReceptionFlag {
+
+        INCOME(true, "収入"),
+        EXPENSE(false, "支出");
+
+        public boolean getValue() {
+            return value;
+        }
+        public String getLabel() {
+            return label;
+        }
+
+        final boolean value;
+        final String label;
+
+        private MoneyReceptionFlag(boolean value, String label) {
+            this.value = value;
+            this.label = label;
+        }
+    }
+
     public static enum SettlementDate {
         FIRST_OF_MONTH(1, "1"),
         TWO(2, "2"),

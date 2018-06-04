@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.olympus.aptx4869.constants.SystemCodeConstants.MoneyReceptionFlag;
 import com.olympus.aptx4869.constants.SystemCodeConstants.SettlementDate;
 import com.olympus.aptx4869.dbflute.exbhv.MoneyReceptionBhv;
 import com.olympus.aptx4869.dto.AmountDto;
@@ -60,7 +61,7 @@ public class GraphController {
 		    settlementDate = SettlementDate.LAST_OF_MONTH;
 		}
 
-		Boolean flag = false;
+		boolean moneyReceptionFlag = MoneyReceptionFlag.EXPENSE.getValue();
 
 		//指定月の支出データ
 		LocalDate toDate = LocalDate.now();
@@ -74,7 +75,7 @@ public class GraphController {
 		if (StringUtils.isNotEmpty(form.getMonth())) {
 		    month = Integer.parseInt(form.getMonth());
         }
-		List<AmountDto> amountDtoList = graphService.getAmound(userId, year, month, settlementDate, flag);
+		List<AmountDto> amountDtoList = graphService.getAmound(userId, year, month, settlementDate, moneyReceptionFlag);
 
 		int amountSummary = 0;
 		for (int i = 0; i < amountDtoList.size(); i++) {
