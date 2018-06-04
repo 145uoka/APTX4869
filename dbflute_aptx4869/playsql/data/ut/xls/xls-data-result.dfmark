@@ -10,3 +10,4 @@ data-directory: playsql/data/ut/xls
   property_m (6)
   genre (10)
   user_m (1)
+  money_reception (4)

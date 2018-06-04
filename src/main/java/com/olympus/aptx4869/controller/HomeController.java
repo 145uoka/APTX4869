@@ -36,6 +36,9 @@ public class HomeController extends BaseController {
 		    logger.debug("Login - [" + userInfo.isLoginFlg() + "]");
 		}
 
+		if (loginUserDto.isLoginFlg()) {
+		    return super.redirect("/graph/" + loginUserDto.getUserId());
+		}
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);

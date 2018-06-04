@@ -204,8 +204,8 @@
         <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="regularly_data_property_id_seq" schema="postgres.aptx4869"/>
         <sequence incrementSize="1" maximumValue="9223372036854775807"
-            minimumValue="1" name="user_property_property_id_seq" schema="postgres.aptx4869"/>
-        <sequence incrementSize="1" maximumValue="9223372036854775807"
             minimumValue="1" name="user_m_user_id_seq" schema="postgres.aptx4869"/>
+        <sequence incrementSize="1" maximumValue="9223372036854775807"
+            minimumValue="1" name="user_property_property_id_seq" schema="postgres.aptx4869"/>
     </sequenceGroup>
 </database>

@@ -189,10 +189,10 @@ public class MoneyReceptionController extends BaseController{
                 new Object[]{"金銭授受", moneyReceptionEntityList.size()});
 
         // 登録完了メッセージを表示。
-        String message = messageSource.getMessage(
-                MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.CREATE), null, Locale.getDefault());
-
-        redirectAttributes.addFlashAttribute(MessageType.SUCCESS, message);
+//        String message = messageSource.getMessage(
+//                MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.CREATE), null, Locale.getDefault());
+//
+//        redirectAttributes.addFlashAttribute(MessageType.SUCCESS, message);
 
         // 詳細画面へ遷移。
         return "redirect:/";
@@ -388,10 +388,10 @@ public class MoneyReceptionController extends BaseController{
         loggerService.outLog(LogMessageKeyConstants.Info.I_99_0006, new Object[]{"金銭授受", moneyReceptionEntityList.size()});
 
         // 更新完了メッセージを表示。
-        String message = messageSource.getMessage(
-                MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.UPDATE), null, Locale.getDefault());
-
-        redirectAttributes.addFlashAttribute(MessageType.SUCCESS, message);
+//        String message = messageSource.getMessage(
+//                MessageKeyUtil.encloseStringDelete(MessageKeyConstants.Success.UPDATE), null, Locale.getDefault());
+//
+//        redirectAttributes.addFlashAttribute(MessageType.SUCCESS, message);
 
         // 詳細画面へ遷移。
         return "redirect:/";
@@ -422,7 +422,7 @@ public class MoneyReceptionController extends BaseController{
             dto.setAmount(Integer.parseInt(form.getAmount()[i]));
             dto.setSupplement(form.getSupplement()[i]);
 
-            if(StringUtils.isNotEmpty(form.getMoneyReceptionId()[i])){
+            if(form.getMoneyReceptionId() != null && StringUtils.isNotEmpty(form.getMoneyReceptionId()[i])){
                 //既に金銭授受IDが設定されている場合（更新処理時）、dtoにセット。
                 dto.setMoneyReceptionId(Long.parseLong(form.getMoneyReceptionId()[i]));
             }
