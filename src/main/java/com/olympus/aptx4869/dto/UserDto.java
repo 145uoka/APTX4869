@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
  */
 public class UserDto implements Serializable {
 
+
     /** serialVersionUID */
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +38,18 @@ public class UserDto implements Serializable {
     /** userId */
     private Integer userId;
 
-    /**
+    private Integer settlementDate;
+
+
+	public Integer getSettlementDate() {
+		return settlementDate;
+	}
+
+	public void setSettlementDate(Integer settlementDate) {
+		this.settlementDate = settlementDate;
+	}
+
+	/**
      * firstNameの取得。
      *
      * @return firstName

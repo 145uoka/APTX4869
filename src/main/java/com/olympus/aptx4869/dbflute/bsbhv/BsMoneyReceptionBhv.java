@@ -57,6 +57,8 @@ public abstract class BsMoneyReceptionBhv extends AbstractBehaviorWritable<Money
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
+    /** 指定した期間の収支の項目ごとの金額の合計を抽出するSQL */
+    public static final String PATH_selectSumAmount = "selectSumAmount";
     /*df:endQueryPath*/
 
     // ===================================================================================

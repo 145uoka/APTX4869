@@ -332,6 +332,9 @@ dl.procedurelist dd.column pre {
 <h1>Schema for APTX4869 (postgresql)</h1>
 <p class="mainschema">generated from <strong>postgres.aptx4869</strong></p>
 <div class="navilinkarea">
+<p class="sublink">
+ <a href="#outsidesql">OutsideSql List</a>
+</p>
 <p class="sisterlink"><a href="./history-APTX4869.html">to HistoryHTML</a></p>
 </div>
 
@@ -573,6 +576,7 @@ genre
 
 <h2 id="money_reception" title="type=TABLE, primaryKey={money_reception_id}, nameLength=15, columnCount=10">
 money_reception
+&nbsp;<span class="bqpcount"><a href="#money_reception_sql">(outsideSql=1)</a></span>
 </h2>
 <div class="tablecomment money_reception_comment" data-name="money_reception"><pre></pre></div>
 <input type="hidden" value="money_reception">
@@ -1735,6 +1739,19 @@ user_property
 
 
 
+<h2 id="outsidesql">OutsideSql List</h2>
+<h3 id="money_reception_sql"><a href="#money_reception">money_reception</a></h3>
+<dl class="bqplist">
+	<dt>(指定した期間の収支の項目ごとの金額の合計を抽出するSQL)selectSumAmount</dt>
+	<dd>
+		<pre class="commentdesc">  SQL Description here.</pre>
+	</dd>
+	<dd class="subinfo">
+		<span class="file">MoneyReceptionBhv_selectSumAmount.sql</span>
+		<span class="ctet">(df:entity)</span>
+		<span class="pmb">(df:pmb)</span>
+	</dd>
+</dl>
 
 <h2 id="thanks">Thanks</h2>
 <p>
