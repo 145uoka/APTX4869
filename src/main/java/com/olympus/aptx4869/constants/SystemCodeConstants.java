@@ -173,7 +173,7 @@ public class SystemCodeConstants {
         public static Flag getFlagByBooleanStrValue(String value){
 
             for(Flag flag : Flag.values()) {
-                if (StringUtils.equals(flag.getStringValue(), value)) {
+                if (StringUtils.equals(flag.getBoolStrValue(), value)) {
                     return flag;
                 }
             }
@@ -202,5 +202,10 @@ public class SystemCodeConstants {
         public boolean isBoolValue() {
             return boolValue;
         }
+
+        public String getBoolStrValue() {
+            return boolStrValue;
+        }
+
     }
 }
