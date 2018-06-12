@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.olympus.aptx4869.common.BeforeLogin;
 import com.olympus.aptx4869.common.util.DateUtil;
 import com.olympus.aptx4869.constants.LogMessageKeyConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants.Flag;
@@ -38,6 +39,7 @@ import com.olympus.aptx4869.service.MoneyReceptionService;
  * @author hasegawa_m
  *
  */
+@BeforeLogin
 @RestController
 public class MoneyReceptionRestController extends BaseController{
 

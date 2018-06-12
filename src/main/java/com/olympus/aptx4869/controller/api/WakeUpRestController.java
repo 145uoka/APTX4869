@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.olympus.aptx4869.common.BeforeLogin;
 import com.olympus.aptx4869.controller.BaseController;
 
 /**
  * 呼び覚ましのコントローラー．
  *
  */
+@BeforeLogin
 @RestController
 public class WakeUpRestController extends BaseController{
 
