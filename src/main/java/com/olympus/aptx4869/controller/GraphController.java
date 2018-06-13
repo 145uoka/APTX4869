@@ -1,21 +1,28 @@
 package com.olympus.aptx4869.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.olympus.aptx4869.constants.SystemCodeConstants.MoneyReceptionFlag;
+import com.olympus.aptx4869.constants.SystemCodeConstants.SettlementDate;
 import com.olympus.aptx4869.dbflute.exbhv.MoneyReceptionBhv;
 import com.olympus.aptx4869.dto.AmountDto;
+import com.olympus.aptx4869.dto.GraphDto;
 import com.olympus.aptx4869.dto.LoginUserDto;
 import com.olympus.aptx4869.dto.UserPropertyDto;
+import com.olympus.aptx4869.form.GraphForm;
 import com.olympus.aptx4869.service.GraphService;
 
 /**
@@ -31,7 +38,8 @@ public class GraphController {
 	MoneyReceptionBhv moneyReceptionBhv;
 	@Autowired
 	LoginUserDto loginUserDto;
-	 Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 *グラフ画面表示メソッド
@@ -41,24 +49,46 @@ public class GraphController {
 	 * @throws JsonProcessingException jsonエラー
 	 */
 	@RequestMapping(value = "/graph", method = {RequestMethod.GET})
-	public String graph(Model model) throws JsonProcessingException{
+	public String graph(GraphForm form, BindingResult bindingResult, Model model) throws JsonProcessingException{
+
 		int userId = loginUserDto.getUserId();
+
 		//ユーザープロパティテーブルから締め日取出し
 		UserPropertyDto userPropertyDto = graphService.findSettlementDate(userId);
-		int settlementDate = userPropertyDto.getSettlementDate();
-		int amountMoney = 0;
-		Boolean flag = false;
+		SettlementDate settlementDate = SettlementDate.getByValue(userPropertyDto.getSettlementDate());
+
+		boolean moneyReceptionFlag = MoneyReceptionFlag.EXPENSE.getValue();
+
 		//指定月の支出データ
-		List<AmountDto> amountDtoList = graphService.getAmound(userId, settlementDate, flag);
-		for (int i = 0; i < amountDtoList.size(); i++) {
-			amountMoney += amountDtoList.get(i).getSum();
+		LocalDate toDate = LocalDate.now();
+		int year = toDate.getYear();
+		int month = toDate.getMonthValue();
+
+		if (StringUtils.isNotEmpty(form.getYear())) {
+		    year = Integer.parseInt(form.getYear());
 		}
+
+		if (StringUtils.isNotEmpty(form.getMonth())) {
+		    month = Integer.parseInt(form.getMonth());
+        }
+
+		List<AmountDto> amountDtoList = graphService.getAmound(userId, year, month, settlementDate, moneyReceptionFlag);
+
+		int amountSummary = 0;
+		for (int i = 0; i < amountDtoList.size(); i++) {
+			amountSummary += amountDtoList.get(i).getSum();
+		}
+
+		GraphDto graphDto = new GraphDto();
+		graphDto.setYear(year);
+		graphDto.setMonth(month);
+		graphDto.setAmountSummary(amountSummary);
+		graphDto.setAmountDtoList(amountDtoList);
+
 		ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(amountDtoList);
         model.addAttribute("json", json);
-        model.addAttribute("amountMoney", amountMoney);
-		model.addAttribute("amountDtoList", amountDtoList);
-
+        model.addAttribute("graphDto", graphDto);
 
 		return "graph";
 	}

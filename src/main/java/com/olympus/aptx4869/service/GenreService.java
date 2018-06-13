@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.olympus.aptx4869.constants.SystemCodeConstants;
 import com.olympus.aptx4869.dbflute.exbhv.GenreBhv;
 import com.olympus.aptx4869.dbflute.exentity.Genre;
 import com.olympus.aptx4869.dto.LabelValueDto;
@@ -32,7 +33,7 @@ public class GenreService {
 	 * @param firstmessage 最初の文言
 	 * @return dtoのリスト
 	 */
-	public List<LabelValueDto> createSelectGenreList(boolean hasBrank, String firstmessage) {
+	public List<LabelValueDto> createSelectGenreList(boolean hasBrank, boolean flag) {
 		List<LabelValueDto> dtoList = new ArrayList<LabelValueDto>();
 		LabelValueDto dto;
 
@@ -40,14 +41,16 @@ public class GenreService {
 			//プルダウンの最初のメッセージをセット。
 			dto = new LabelValueDto();
 			dto.setValue("");
-			dto.setLabel(firstmessage);
+			dto.setLabel(SystemCodeConstants.PLEASE_SELECT_MSG);
 			dtoList.add(dto);
 		}
 
 		ListResultBean<Genre> findGenreList = genreBhv.selectList(cb -> {
 			//deleteflagがfalseであるレコードをSELECT。
 			cb.query().setDeleteFlag_Equal(false);
+			cb.query().setBalanceFlg_Equal(flag);
 		});
+
 		for (Genre genre : findGenreList) {
 			//SELECT結果をすべて取り出し、ラベルと値をセット。
 			dto = new LabelValueDto();

@@ -127,6 +127,26 @@ public class BsGenreCQ extends AbstractBsGenreCQ {
      */
     public BsGenreCQ addOrderBy_GenreName_Desc() { regOBD("genre_name"); return this; }
 
+    protected ConditionValue _balanceFlg;
+    public ConditionValue xdfgetBalanceFlg()
+    { if (_balanceFlg == null) { _balanceFlg = nCV(); }
+      return _balanceFlg; }
+    protected ConditionValue xgetCValueBalanceFlg() { return xdfgetBalanceFlg(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * balance_flg: {NotNull, bool(1)}
+     * @return this. (NotNull)
+     */
+    public BsGenreCQ addOrderBy_BalanceFlg_Asc() { regOBA("balance_flg"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * balance_flg: {NotNull, bool(1)}
+     * @return this. (NotNull)
+     */
+    public BsGenreCQ addOrderBy_BalanceFlg_Desc() { regOBD("balance_flg"); return this; }
+
     protected ConditionValue _deleteFlag;
     public ConditionValue xdfgetDeleteFlag()
     { if (_deleteFlag == null) { _deleteFlag = nCV(); }

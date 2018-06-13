@@ -18,6 +18,7 @@ CREATE TABLE aptx4869.genre
 (
 	genre_id serial NOT NULL,
 	genre_name text NOT NULL,
+	balance_flg boolean NOT NULL,
 	-- 削除フラグ
 	delete_flag boolean DEFAULT 'false' NOT NULL,
 	-- 登録日時

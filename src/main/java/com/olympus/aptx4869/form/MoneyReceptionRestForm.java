@@ -3,14 +3,20 @@ package com.olympus.aptx4869.form;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class MoneyReceptionCreateForm {
+public class MoneyReceptionRestForm {
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 
     private String moneyReceptionId;
 
     @NotEmpty
-    private String userId;
+    private String lineId;
 
     @NotEmpty
     private String genreId;
@@ -18,10 +24,10 @@ public class MoneyReceptionCreateForm {
     @NotEmpty
     private String moneyReceptionFlag;
 
-    @Pattern(regexp = "^[0-9]{9}$")
+    @NotEmpty
+    @Pattern(regexp = "^[0-9]{1,9}$")
     private String amount;
 
-    @NotEmpty
     private String moneyReceptionDate;
 
     @Size(max=20)
@@ -36,12 +42,12 @@ public class MoneyReceptionCreateForm {
         this.moneyReceptionId = moneyReceptionId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getLineId() {
+        return lineId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setLineId(String lineId) {
+        this.lineId = lineId;
     }
 
     public String getGenreId() {

@@ -293,6 +293,11 @@ public class BsGenreCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnGenreName() { return doColumn("genre_name"); }
         /**
+         * balance_flg: {NotNull, bool(1)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnBalanceFlg() { return doColumn("balance_flg"); }
+        /**
          * (削除フラグ)delete_flag: {NotNull, bool(1), default=[false]}
          * @return The information object of specified column. (NotNull)
          */

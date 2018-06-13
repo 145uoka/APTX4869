@@ -3,7 +3,7 @@
   指定した期間の収支の項目ごとの金額の合計を抽出するSQL
 
  [df:description]
-  SQL Description here.
+  指定した期間の収支の項目ごとの金額の合計を抽出するSQL
 
 */
 

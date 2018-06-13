@@ -382,6 +382,18 @@ public abstract class AbstractBsGenreCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * balance_flg: {NotNull, bool(1)}
+     * @param balanceFlg The value of balanceFlg as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setBalanceFlg_Equal(Boolean balanceFlg) {
+        regBalanceFlg(CK_EQ, balanceFlg);
+    }
+
+    protected void regBalanceFlg(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueBalanceFlg(), "balance_flg"); }
+    protected abstract ConditionValue xgetCValueBalanceFlg();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * (削除フラグ)delete_flag: {NotNull, bool(1), default=[false]}
      * @param deleteFlag The value of deleteFlag as equal. (basically NotNull: error as default, or no condition as option)
      */

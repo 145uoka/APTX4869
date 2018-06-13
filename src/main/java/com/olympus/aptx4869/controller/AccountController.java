@@ -69,10 +69,12 @@ public class AccountController {
 			// エラー文字をmessage.jspfファイルからとってくる
 			bindingResult.rejectValue("budget", "error.budget");
 		}
+
 		if(Integer.parseInt(form.getSettlementDate()) == 0){
 			// エラー文字をmessage.jspfファイルからとってくる
 			bindingResult.rejectValue("settlementDate", "error.settlementDate");
 		}
+
 		// validation確認
 		if (bindingResult.hasErrors()) {
 			List<SettlementDate> settlementDateList = accountService.settlementDate();
@@ -84,15 +86,19 @@ public class AccountController {
 
 			return"account";
 		}
+
 		Integer userId = loginUserDto.getUserId();
 		UserPropertyDto userPropertyDto = new UserPropertyDto(form);
 		userPropertyDto.setUserId(userId);
 
 		userPropertyService.registerUserProperty(userPropertyDto);
+
 		// 登録完了メッセージ設定
 		String infoMessage = messageSource.getMessage("info.event.insert", null, Locale.getDefault());
+
 		// リダイレクト先に情報を保持
 		redirectAttributes.addFlashAttribute("infoMessages", infoMessage);
+
 		return "redirect:/calendar";
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.olympus.aptx4869.constants.SystemCodeConstants;
 import com.olympus.aptx4869.dto.SettlementDate;
 /**
  * @author tokuno_a
@@ -18,11 +19,11 @@ public class AccountService {
 	SettlementDate settlementDate = new SettlementDate();
 	settlementDate.setLabel("締め日を選択してください");
 	settlementDateList.add(settlementDate);
-	settlementDateList.add(new SettlementDate("10日", 10));
-	settlementDateList.add(new SettlementDate("15日", 15));
-	settlementDateList.add(new SettlementDate("20日", 20));
-	settlementDateList.add(new SettlementDate("25日", 25));
-	settlementDateList.add(new SettlementDate("月末", 100));
+
+	for(SystemCodeConstants.SettlementDate settlementDateEnum : SystemCodeConstants.SettlementDate.values()) {
+		settlementDateList.add(new SettlementDate(settlementDateEnum.getLabel(), settlementDateEnum.getValue()));
+    }
+
 	return settlementDateList;
 	}
 }

@@ -86,7 +86,7 @@ public class LoginController extends BaseController implements Serializable {
 
         logger.info("Login is : {}", loginUserDto.isLoginFlg());
 
-        return super.redirect("/");
+        return super.redirect("/graph");
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

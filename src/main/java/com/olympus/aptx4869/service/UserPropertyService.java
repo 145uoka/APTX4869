@@ -1,5 +1,6 @@
 package com.olympus.aptx4869.service;
 
+import org.dbflute.optional.OptionalEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,21 @@ public class UserPropertyService {
 	 * @return 登録した情報
 	 */
 	public void registerUserProperty(UserPropertyDto userPropertyDto) {
-		Integer propertyId = userPropertyBhv.selectNextVal();
+
+		OptionalEntity<UserProperty> optUserProperty = userPropertyBhv.selectEntity(cb->{
+			cb.query().setUserId_Equal(userPropertyDto.getUserId());
+		});
+
+
 		UserProperty userProperty = new UserProperty();
+
+		if (optUserProperty.isPresent()) {
+			userProperty = optUserProperty.get();
+		}
+
 		BeanUtils.copyProperties(userPropertyDto, userProperty);
-		userProperty.setPropertyId(propertyId);
-		userPropertyBhv.insert(userProperty);
+
+		userPropertyBhv.insertOrUpdate(userProperty);
 	}
 
 

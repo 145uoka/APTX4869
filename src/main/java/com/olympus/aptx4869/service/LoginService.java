@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.olympus.aptx4869.constants.PropertyNameConstants;
 import com.olympus.aptx4869.constants.PropertyNameConstants.OAuth;
 import com.olympus.aptx4869.constants.SystemCodeConstants;
+import com.olympus.aptx4869.constants.SystemCodeConstants.SettlementDate;
 import com.olympus.aptx4869.dbflute.exbhv.OauthPropertyMBhv;
 import com.olympus.aptx4869.dbflute.exbhv.UserMBhv;
 import com.olympus.aptx4869.dbflute.exentity.UserM;
@@ -128,6 +129,7 @@ public class LoginService {
             userM.setLastLoginDatetime(LocalDateTime.now());
             userM.setLineName(oAuthTokenDto.getLineName());
             userM.setLineEmail(oAuthTokenDto.getLineEmail());
+            userM.setSettlementDate(SettlementDate.LAST_OF_MONTH.getValue());
 
             userMBhv.insert(userM);
 

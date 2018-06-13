@@ -73,6 +73,7 @@ public class GenreCIQ extends AbstractBsGenreCQ {
     public String keepGenreId_QueryDerivedReferrer_MoneyReceptionListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueGenreName() { return _myCQ.xdfgetGenreName(); }
+    protected ConditionValue xgetCValueBalanceFlg() { return _myCQ.xdfgetBalanceFlg(); }
     protected ConditionValue xgetCValueDeleteFlag() { return _myCQ.xdfgetDeleteFlag(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

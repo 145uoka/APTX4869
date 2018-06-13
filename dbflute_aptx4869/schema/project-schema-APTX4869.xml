@@ -9,6 +9,8 @@
             pkPosition="1" primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column dbType="text" javaType="String" name="genre_name"
             required="true" size="2147483647" type="VARCHAR"/>
+        <column dbType="bool" javaType="Boolean" name="balance_flg"
+            required="true" size="1" type="BIT"/>
         <column comment="削除フラグ" dbType="bool" default="false"
             javaType="Boolean" name="delete_flag" required="true"
             size="1" type="BIT"/>

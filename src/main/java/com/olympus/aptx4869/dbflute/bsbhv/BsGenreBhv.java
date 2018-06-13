@@ -26,7 +26,7 @@ import com.olympus.aptx4869.dbflute.cbean.*;
  *     genre_id
  *
  * [column]
- *     genre_id, genre_name, delete_flag, register_datetime, update_datetime
+ *     genre_id, genre_name, balance_flg, delete_flag, register_datetime, update_datetime
  *
  * [sequence]
  *     genre_genre_id_seq
