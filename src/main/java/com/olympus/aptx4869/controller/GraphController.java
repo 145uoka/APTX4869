@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,7 +14,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.olympus.aptx4869.dbflute.exbhv.MoneyReceptionBhv;
 import com.olympus.aptx4869.dto.AmountDto;
-import com.olympus.aptx4869.dto.UserDto;
+import com.olympus.aptx4869.dto.LoginUserDto;
+import com.olympus.aptx4869.dto.UserPropertyDto;
 import com.olympus.aptx4869.service.GraphService;
 
 /**
@@ -29,7 +29,8 @@ public class GraphController {
 	GraphService graphService;
 	@Autowired
 	MoneyReceptionBhv moneyReceptionBhv;
-
+	@Autowired
+	LoginUserDto loginUserDto;
 	 Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
@@ -39,12 +40,12 @@ public class GraphController {
 	 * @return グラフ画面
 	 * @throws JsonProcessingException jsonエラー
 	 */
-	@RequestMapping(value = "/graph/{paramUserId}", method = {RequestMethod.GET})
-	public String graph(Model model, @PathVariable String paramUserId) throws JsonProcessingException{
-		int userId = Integer.parseInt(paramUserId);
-		//ユーザーMテーブルから締め日取出し
-		UserDto userDto = graphService.findSettlementDate(userId);
-		int settlementDate = userDto.getSettlementDate();
+	@RequestMapping(value = "/graph", method = {RequestMethod.GET})
+	public String graph(Model model) throws JsonProcessingException{
+		int userId = loginUserDto.getUserId();
+		//ユーザープロパティテーブルから締め日取出し
+		UserPropertyDto userPropertyDto = graphService.findSettlementDate(userId);
+		int settlementDate = userPropertyDto.getSettlementDate();
 		int amountMoney = 0;
 		Boolean flag = false;
 		//指定月の支出データ

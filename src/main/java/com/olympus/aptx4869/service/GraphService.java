@@ -1,6 +1,7 @@
 package com.olympus.aptx4869.service;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +13,17 @@ import org.springframework.stereotype.Service;
 
 import com.olympus.aptx4869.dbflute.exbhv.GenreBhv;
 import com.olympus.aptx4869.dbflute.exbhv.MoneyReceptionBhv;
-import com.olympus.aptx4869.dbflute.exbhv.UserMBhv;
+import com.olympus.aptx4869.dbflute.exbhv.UserPropertyBhv;
 import com.olympus.aptx4869.dbflute.exbhv.pmbean.SumAmountPmb;
-import com.olympus.aptx4869.dbflute.exentity.UserM;
+import com.olympus.aptx4869.dbflute.exentity.UserProperty;
 import com.olympus.aptx4869.dbflute.exentity.customize.SumAmount;
 import com.olympus.aptx4869.dto.AmountDto;
-import com.olympus.aptx4869.dto.UserDto;
+import com.olympus.aptx4869.dto.UserPropertyDto;
 
+/**
+ * @author tokuno_a
+ *グラフ
+ */
 @Service
 public class GraphService {
 	@Autowired
@@ -26,7 +31,7 @@ public class GraphService {
 	@Autowired
 	GenreBhv genreBhv;
 	@Autowired
-	UserMBhv userBhv;
+	UserPropertyBhv userPropertyBhv;
 
 
 
@@ -36,9 +41,9 @@ public class GraphService {
 	 *
 	 * @return 締め日を返却
 	 */
-	public UserDto findSettlementDate(Integer userId) {
+	public UserPropertyDto findSettlementDate(Integer userId) {
 
-		OptionalEntity<UserM> user = userBhv.selectEntity(cb -> {
+		OptionalEntity<UserProperty> user = userPropertyBhv.selectEntity(cb -> {
 			cb.query().setUserId_Equal(userId);
 			cb.query().setDeleteFlag_Equal(false);
 		});
@@ -46,10 +51,10 @@ public class GraphService {
 		if (!user.isPresent()) {
 			return null;
 		}
-		UserDto userDto = new UserDto();
-		UserM userEntity = user.get();
-		BeanUtils.copyProperties(userEntity, userDto);
-		return userDto;
+		UserPropertyDto userPropertyDto = new UserPropertyDto();
+		UserProperty userEntity = user.get();
+		BeanUtils.copyProperties(userEntity, userPropertyDto);
+		return userPropertyDto;
 	}
 
 	/**
@@ -62,8 +67,13 @@ public class GraphService {
 	public List<AmountDto> getAmound(int userId, int settlementDate, boolean flag){
 			// 現在日付
 			LocalDate today = LocalDate.now();
+			LocalDate  toDate = null;
 			//締め日
-			LocalDate  toDate = LocalDate.of(today.getYear(), today.getMonthValue(), settlementDate);
+			if(settlementDate == 100){
+				toDate = today.with(TemporalAdjusters.lastDayOfMonth());
+			}else{
+				toDate = LocalDate.of(today.getYear(), today.getMonthValue(), settlementDate);
+			}
 			if(today.isAfter(toDate)){
 				toDate = toDate.plusMonths(1);
 			}

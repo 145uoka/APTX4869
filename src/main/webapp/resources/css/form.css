@@ -1,0 +1,145 @@
+
+
+
+
+.ribbon3 {
+	display: inline-block;
+	position: relative;
+	height: 60px;
+	line-height: 60px;
+	vertical-align: middle;
+	text-align: center;
+	padding: 7px 0;
+	font-size: 18px;
+	background: #EC5C43;
+	color: #FFF;
+	box-sizing: border-box;
+}
+
+.ribbon3 h3 {
+	vertical-align: middle;
+	margin: 0;
+	padding: 0 30px;
+	border-top: dashed 2px rgba(255, 255, 255, 0.5);
+	border-bottom: dashed 2px rgba(255, 255, 255, 0.5);
+	line-height: 42px;
+}
+
+.ribbon3:before, .ribbon3:after {
+	position: absolute;
+	content: '';
+	width: 0px;
+	height: 0px;
+	z-index: 1;
+}
+
+.ribbon3:before { /*左の山形*/
+	top: 0;
+	left: 0;
+	border-width: 30px 0px 30px 15px;
+	border-color: transparent transparent transparent #fff;
+	border-style: solid;
+}
+
+.ribbon3:after { /*右の山形*/
+	top: 0;
+	right: 0;
+	border-width: 30px 15px 30px 0px;
+	border-color: transparent #fff transparent transparent;
+	border-style: solid;
+}
+
+.client input {
+	display: none;
+}
+
+.client label {
+	display: block;
+	float: left;
+	cursor: pointer;
+	width: 100px;
+	margin: 0;
+	padding: 12px 5px;
+	border-right: 1px solid #abb2b7;
+	background: #bdc3c7;
+	color: #555e64;
+	font-size: 14px;
+	text-align: center;
+	line-height: 1;
+	transition: .2s;
+}
+
+.client input[type="radio"]:checked+label {
+	background-color: #FDA543;
+	color: #fff;
+}
+
+.client label:hover {
+	background-color: #FBE987; /* マウスオーバー時の背景色を指定する */
+}
+
+.box {
+
+    padding: 1em 1em;
+    margin: 0.5em 0;
+    font-weight: bold;
+    color: #555e64;/*文字色*/
+    border: solid 50px #FDA687;/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+.box p {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.feedback-input {
+    color:#3c3c3c;
+  font-weight:500;
+    font-size: 18px;
+    border-radius: 0;
+    line-height: 22px;
+    background-color: #fbfbfb;
+    padding: 13px 13px 13px 54px;
+    margin-bottom: 10px;
+    width:60%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+  border: 2px solid rgba(0,0,0,0);
+}
+
+.feedback-input:focus{
+    background: #fff;
+    box-shadow: 0;
+    border: 2px solid #FE8B61;
+    color: #FE8B61;
+    outline: none;
+  padding: 13px 13px 13px 54px;
+}
+
+.focused{
+    color:#FE8B61;
+    border:#FE8B61 solid 1px;
+}
+
+/* Icons ---------------------------------- */
+#budget{
+    background-image: url("../img/illustrain09-neko1.png");
+    background-size: 30px 30px;
+    background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+#budget:focus{
+    background-image: url("../img/illustrain09-neko2.png");
+    background-size: 30px 30px;
+    background-position: 8px 5px;
+  background-position: 11px 8px;
+    background-repeat: no-repeat;
+}
+
+
+
