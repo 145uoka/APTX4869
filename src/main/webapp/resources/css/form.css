@@ -78,19 +78,8 @@
 	background-color: #FBE987; /* マウスオーバー時の背景色を指定する */
 }
 
-.box {
 
-    padding: 1em 1em;
-    margin: 0.5em 0;
-    font-weight: bold;
-    color: #555e64;/*文字色*/
-    border: solid 50px #FDA687;/*線*/
-    border-radius: 10px;/*角の丸み*/
-}
-.box p {
-    margin: 0;
-    padding: 0;
-}
+
 
 
 

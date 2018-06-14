@@ -26,7 +26,9 @@ import com.olympus.aptx4869.constants.SystemCodeConstants;
 import com.olympus.aptx4869.constants.SystemCodeConstants.SettlementDate;
 import com.olympus.aptx4869.dbflute.exbhv.OauthPropertyMBhv;
 import com.olympus.aptx4869.dbflute.exbhv.UserMBhv;
+import com.olympus.aptx4869.dbflute.exbhv.UserPropertyBhv;
 import com.olympus.aptx4869.dbflute.exentity.UserM;
+import com.olympus.aptx4869.dbflute.exentity.UserProperty;
 import com.olympus.aptx4869.dto.LoginUserDto;
 import com.olympus.aptx4869.dto.OAuthTokenDto;
 import com.olympus.aptx4869.dto.PropertyDto;
@@ -43,6 +45,9 @@ public class LoginService {
 
     @Autowired
     PropertyService propertyService;
+
+    @Autowired
+	UserPropertyBhv userPropertyBhv;
 
     @Autowired
     UserMBhv userMBhv;
@@ -134,6 +139,11 @@ public class LoginService {
             userMBhv.insert(userM);
 
             BeanUtils.copyProperties(userM, loginUserDto);
+
+            UserProperty userProperty = new UserProperty();
+			userProperty.setUserId(loginUserDto.getUserId());
+			userProperty.setSettlementDate(SettlementDate.LAST_OF_MONTH.getValue());
+			userPropertyBhv.insert(userProperty);
         }
         loginUserDto.setLoginFlg(true);
 

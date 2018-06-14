@@ -7,6 +7,22 @@
 <head>
 <meta charset="utf-8">
 <jsp:include page="../common/common.jsp" />
+<style>
+thead {
+ background: #F4E954
+}
+thead.b{
+ background: #FCCB50
+}
+a.btn{
+	background-color: #FA974C;
+	color: #FFFFFF;
+}
+a.btn:hover{
+	background-color: #FCCB50;
+	color: #FFFFFF;
+}
+</style>
 </head>
 
 <body>
@@ -35,7 +51,7 @@
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
 
-					<div class="panel panel-success">
+					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h4><c:out value="${form.moneyReceptionDate}" /></h4>
 							<form:hidden path="moneyReceptionDate"/>
@@ -52,7 +68,7 @@
 							<div class="tab-content">
 								<div class="tab-pane active" id="spending">
 									<table class="table table-striped table-bordered table-hover table-condensed panel">
-										<thead class="main-background-color">
+										<thead>
 											<tr>
 												<th class="text-center">No</th>
 												<th class="text-center">項目</th>
@@ -60,7 +76,7 @@
 												<th class="text-center">備考</th>
 											</tr>
 										</thead>
-										<tbody>
+										<tbody class="b">
 											<c:forEach begin="0" end="9" varStatus="status">
 												<tr>
 													<td>${status.count}</td>
@@ -82,7 +98,7 @@
 
 								<div class="tab-pane" id="income">
 									<table class="table table-striped table-bordered table-hover table-condensed panel">
-										<thead class="main-background-color">
+										<thead class="b">
 											<tr>
 												<th class="text-center">No</th>
 												<th class="text-center">項目</th>
@@ -121,7 +137,7 @@
 		<form:hidden path="moneyReceptionFlag"/>
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10" align="center">
-				<a type="button" class="btn btn-add" onClick="resistration()">
+				<a type="button" class="btn" onClick="resistration()">
 					<i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;&nbsp;登録する
 				</a>
 			</div>

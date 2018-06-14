@@ -5758,12 +5758,12 @@ button.list-group-item-danger.active:focus {
   border-color: #faebcc;
 }
 .panel-warning > .panel-heading {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc;
+  color: #407e22;
+  background-color: #b7e379;
+  border-color: #407e22;
 }
 .panel-warning > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #faebcc;
+  border-top-color: #d9f69d;
 }
 .panel-warning > .panel-heading .badge {
   color: #fcf8e3;
