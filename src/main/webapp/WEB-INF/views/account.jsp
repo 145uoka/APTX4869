@@ -16,7 +16,7 @@
     margin: 2em 1em;
     font-weight: bold;
     color: #555e64;/*文字色*/
-   border: solid 20px #0FDA26A;
+   border: solid 20px #FDA26A;
     border-radius: 10px;/*角の丸み*/
 }
 
