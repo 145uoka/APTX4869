@@ -63,14 +63,17 @@ public class GraphController {
 		LocalDate toDate = LocalDate.now();
 		int year = toDate.getYear();
 		int month = toDate.getMonthValue();
+		if(toDate.getDayOfMonth() > settlementDate.getValue()){
+			month += 1;
+		}
 
 		if (StringUtils.isNotEmpty(form.getYear())) {
-		    year = Integer.parseInt(form.getYear());
+			year = Integer.parseInt(form.getYear());
 		}
 
 		if (StringUtils.isNotEmpty(form.getMonth())) {
-		    month = Integer.parseInt(form.getMonth());
-        }
+			month = Integer.parseInt(form.getMonth());
+		}
 
 		List<AmountDto> amountDtoList = graphService.getAmound(userId, year, month, settlementDate, moneyReceptionFlag);
 
@@ -86,9 +89,9 @@ public class GraphController {
 		graphDto.setAmountDtoList(amountDtoList);
 
 		ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(amountDtoList);
-        model.addAttribute("json", json);
-        model.addAttribute("graphDto", graphDto);
+		String json = mapper.writeValueAsString(amountDtoList);
+		model.addAttribute("json", json);
+		model.addAttribute("graphDto", graphDto);
 
 		return "graph";
 	}

@@ -18,6 +18,13 @@ google.charts.setOnLoadCallback(drawChart);
 						   var options = {
 						       title: '',
 						       curveType: 'function',
+						       colors: [
+						                '#AFE367',
+						                '#F4E954',
+						                '#FB8761',
+						                '#FF8D8E',
+						                '#ACDAE5'
+						            ]
 						   };
 						   var defaultDataArray = [];
 
@@ -64,10 +71,9 @@ google.charts.setOnLoadCallback(drawChart);
 				</script>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${!empty graphDto.amountDtoList}">
 			<div class="container">
 				<div class="row">
+				<label>指定月の締め日までを一月としています</label>
 					<div id="piechart" style="width: 80%; height: 500px; margin: auto;"></div>
 				</div>
 				<div class="row">
@@ -75,17 +81,17 @@ google.charts.setOnLoadCallback(drawChart);
 
 						<table
 							class="table table-striped table-bordered table-hover table-condensed">
-              <thead>
-							<tr>
-								<th colspan="2" bgcolor="#FE9A2E"><c:out value="${graphDto.year}年 ${graphDto.month}月の支出"></c:out></th>
-							</tr>
+							<thead>
+								<tr>
+									<th colspan="2" bgcolor="#FE9A2E"><c:out
+											value="     ${graphDto.year}年 ${graphDto.month}月の支出"></c:out></th>
+								</tr>
 
-              <tr>
-                  <th class="text-center"><c:out
-                      value="項目" /></th>
-                  <th class="text-center"><c:out value="金額" /></th>
-                </tr>
-                </thead>
+								<tr >
+									<th class="text-center"><c:out value="項目" /></th>
+									<th class="text-center"><c:out value="金額" /></th>
+								</tr>
+							</thead>
 							<c:forEach var="amountDto" items="${graphDto.amountDtoList}"
 								varStatus="status">
 								<tr>
@@ -95,7 +101,7 @@ google.charts.setOnLoadCallback(drawChart);
 								</tr>
 							</c:forEach>
 							<tr>
-								<th colspan="2" bgcolor="#F3E2A9" class="text-right">合計／<c:out
+								<th colspan="2" bgcolor="#FBD78E" class="text-right">合計／<c:out
 										value="${graphDto.amountSummary}" />円
 								</th>
 							</tr>
@@ -104,11 +110,6 @@ google.charts.setOnLoadCallback(drawChart);
 					</div>
 				</div>
 			</div>
-		</c:when>
 
-		<c:otherwise>
-			<h2>まだ支出はありません</h2>
-		</c:otherwise>
-	</c:choose>
 </body>
 </html>

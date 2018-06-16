@@ -10,6 +10,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>アカウント</title>
 <style>
+.box {
+
+    padding: 1em 1em;
+    margin: 2em 1em;
+    font-weight: bold;
+    color: #555e64;/*文字色*/
+   border: solid 20px #FDA26A;
+    border-radius: 10px;/*角の丸み*/
+}
+
+
 .title h3 {
 	position: relative;
 	color: #333333;
@@ -44,8 +55,8 @@ a.cp_btn {
 	text-align: center;
 	text-decoration: none;
 	color: #fff;
-	border: 1px solid #FDA543;
-	background: #FDA543;
+	border: 1px solid #F67D3D;
+	background: #F67D3D;
 	overflow: hidden;
 	z-index: 1 !important;
 }
