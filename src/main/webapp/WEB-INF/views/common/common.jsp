@@ -24,6 +24,8 @@
 <link href='<c:url value="/resources/css/vendor/sticky_footer/sticky-footer.css"/>' rel="stylesheet">
 <link href='<c:url value="/resources/css/vendor/bootstrap_datepicker/datepicker.css"/>' rel="stylesheet">
 
+<link href='<c:url value="/resources/css/vendor/fullcalendar/fullcalendar.css"/>' rel="stylesheet">
+
 <!-- CSS Glue-net -->
 <link href='<c:url value="/resources/css/color/templateColor.css"/>' rel="stylesheet">
 <link href='<c:url value="/resources/css/common/commonTableStyle.css"/>' rel="stylesheet">
@@ -37,6 +39,12 @@
 <script type="text/javascript" src='<c:url value="/resources/js/vendor/jquery_blockUI/jquery.blockUI.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/vendor/bootstrap_tab/tab.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/common/keyControl.js"/>'></script>
+
+<script type="text/javascript" src='<c:url value="/resources/js/vendor/fullcalendar/moment.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/vendor/fullcalendar/jquery.min.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/vendor/fullcalendar/fullcalendar.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/vendor/fullcalendar/locale/ja.js"/>'></script>
+
 
 <!-- JS Glue-net -->
 <script type="text/javascript" src='<c:url value="/resources/js/common/common.js"/>'></script>
