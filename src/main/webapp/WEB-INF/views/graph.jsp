@@ -87,8 +87,8 @@ google.charts.setOnLoadCallback(drawChart);
 											value="     ${graphDto.year}年 ${graphDto.month}月の支出"></c:out></th>
 								</tr>
 
-								<tr >
-									<th class="text-center"><c:out value="項目" /></th>
+								<tr style="color:#FB8761" >
+									<th class="text-center" ><c:out value="項目" /></th>
 									<th class="text-center"><c:out value="金額" /></th>
 								</tr>
 							</thead>

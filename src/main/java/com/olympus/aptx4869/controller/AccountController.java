@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.olympus.aptx4869.dto.LoginUserDto;
 import com.olympus.aptx4869.dto.SettlementDate;
 import com.olympus.aptx4869.dto.UserPropertyDto;
+import com.olympus.aptx4869.exception.NotLoginException;
 import com.olympus.aptx4869.form.AccountForm;
 import com.olympus.aptx4869.service.AccountService;
 import com.olympus.aptx4869.service.UserPropertyService;
@@ -39,13 +40,21 @@ public class AccountController {
 	@Autowired
 	MessageSource messageSource;
 
+
+
+
 	/**
 	 *アカウント初期画面
 	 * @param model モデル
 	 * @return アカウント画面
+	 * @throws NotLoginException
 	 */
 	@RequestMapping(value = "/account", method = {RequestMethod.GET})
-	public String account(Model model){
+	public String account(Model model) throws NotLoginException{
+		if(loginUserDto.getUserId() == null){
+			throw new NotLoginException();
+		}
+
 		AccountForm form = new AccountForm();
 		List<SettlementDate> settlementDateList = accountService.settlementDate();
 		model.addAttribute("list",settlementDateList);
@@ -60,10 +69,11 @@ public class AccountController {
 	 * @param model モデル
 	 * @param redirectAttributes リダイレクト
 	 * @return カレンダー画面にリダイレクト
+	 * @throws NotLoginException
 	 */
 	@RequestMapping(value = "/registerAccount", method = {RequestMethod.POST})
 	public String register(@Validated @ModelAttribute("form") AccountForm form, BindingResult bindingResult, Model model,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes) throws NotLoginException {
 
 		if(!StringUtils.isNumericSpace(form.getBudget())){
 			// エラー文字をmessage.jspfファイルからとってくる
@@ -86,7 +96,9 @@ public class AccountController {
 
 			return"account";
 		}
-
+		if(loginUserDto.getUserId() == null){
+			throw new NotLoginException();
+		}
 		Integer userId = loginUserDto.getUserId();
 		UserPropertyDto userPropertyDto = new UserPropertyDto(form);
 		userPropertyDto.setUserId(userId);
