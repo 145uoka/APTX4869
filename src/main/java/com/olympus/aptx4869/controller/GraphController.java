@@ -22,6 +22,7 @@ import com.olympus.aptx4869.dto.AmountDto;
 import com.olympus.aptx4869.dto.GraphDto;
 import com.olympus.aptx4869.dto.LoginUserDto;
 import com.olympus.aptx4869.dto.UserPropertyDto;
+import com.olympus.aptx4869.exception.NotLoginException;
 import com.olympus.aptx4869.form.GraphForm;
 import com.olympus.aptx4869.service.GraphService;
 
@@ -47,9 +48,13 @@ public class GraphController {
 	 * @param paramUserId 画面ユーザーID
 	 * @return グラフ画面
 	 * @throws JsonProcessingException jsonエラー
+	 * @throws NotLoginException
 	 */
 	@RequestMapping(value = "/graph", method = {RequestMethod.GET})
-	public String graph(GraphForm form, BindingResult bindingResult, Model model) throws JsonProcessingException{
+	public String graph(GraphForm form, BindingResult bindingResult, Model model) throws JsonProcessingException, NotLoginException{
+		if(loginUserDto.getUserId() == null){
+			throw new NotLoginException();
+		}
 
 		int userId = loginUserDto.getUserId();
 

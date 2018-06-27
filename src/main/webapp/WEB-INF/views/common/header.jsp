@@ -157,6 +157,7 @@ div.topBotomBordersOut a:hover:before, div.topBotomBordersOut a:hover:after
 					href="${pageContext.request.contextPath}/moneyReception/create/${loginUserDto.lineId}">MONEY
 						RECEPTION</a></li>
 				<li><a href="${pageContext.request.contextPath}/graph">GRAPH</a></li>
+				<li><a href="${pageContext.request.contextPath}/regularly">REGULARLY</a></li>
 			</ul>
 
 			<%-- 右側 --%>
